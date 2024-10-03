@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Markdown on Cancanneed64</title>
+        <link>https://cancanneed64.github.io/categories/markdown/</link>
+        <description>Recent content in Markdown on Cancanneed64</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Cancanneed64</copyright>
+        <lastBuildDate>Fri, 04 Oct 2024 00:12:04 +0800</lastBuildDate><atom:link href="https://cancanneed64.github.io/categories/markdown/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Markdown</title>
+        <link>https://cancanneed64.github.io/p/markdown/</link>
+        <pubDate>Fri, 04 Oct 2024 00:12:04 +0800</pubDate>
+        
+        <guid>https://cancanneed64.github.io/p/markdown/</guid>
+        <description>&lt;h1 id=&#34;simple-markdown&#34;&gt;simple markdown
+&lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://support.typoraio.cn/zh/Markdown-Reference/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Typora官方介绍&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;06/07/2022 14:12&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;目录&amp;quot;[TOC]&amp;quot;
+[TOC]&lt;/p&gt;
+&lt;h2 id=&#34;1-常用标题列表&#34;&gt;&lt;strong&gt;1. 常用标题/列表&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;&amp;ldquo;#” 每级标题
+&amp;ldquo;*&amp;ldquo;无序列表&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;无序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&amp;ldquo;1.&amp;ldquo;有序列表&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;有序&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&amp;ldquo;-[]&amp;rdquo; - &amp;ldquo;[x]&amp;ldquo;任务列表&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 1&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2插入分段&#34;&gt;&lt;strong&gt;2.插入分段&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;&amp;ldquo;```&amp;ldquo;插入代码
+&amp;ldquo;&amp;gt;&amp;ldquo;插入话题
+| First Header | Second Header | 插入表格，标题行:表示对齐
+&amp;ldquo;[^footnote]:&amp;rdquo; 脚注
+&amp;ldquo;***&amp;ldquo;或&amp;rdquo;&amp;mdash;&amp;ldquo;分段
+&amp;ldquo;&lt;a class=&#34;link&#34; href=&#34;&#34; &gt;&lt;/a&gt;&amp;ldquo;插入网址
+&amp;ldquo;[exam][id]&amp;rdquo; &amp;ldquo;[id]:&amp;rdquo; 跳转
+&amp;ldquo;&amp;lt;&amp;gt;&amp;ldquo;超链接
+&amp;ldquo;&lt;img src=&#34;https://cancanneed64.github.io/&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&amp;ldquo;插入图片
+&amp;ldquo;::&amp;ldquo;表情&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;3字体&#34;&gt;&lt;strong&gt;3.字体&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;&amp;ldquo;*&amp;ldquo;斜体
+&amp;ldquo;**&amp;ldquo;加粗
+&amp;ldquo;`&amp;ldquo;代码
+&amp;ldquo;~~&amp;ldquo;划掉
+&amp;ldquo;&lt;u&gt;&lt;/u&gt;&amp;ldquo;下划线
+&amp;ldquo;====&amp;ldquo;高亮 @&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
