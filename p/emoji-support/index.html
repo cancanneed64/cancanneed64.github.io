@@ -641,10 +641,10 @@
 
 <script>
     
-    const cssPath = "https://cancanneed64.github.io/waifu/waifu.css"
-    const tipsJsonPath = "https://cancanneed64.github.io/waifu/waifu-tips.json"
-    const tipsJsPath = "https://cancanneed64.github.io/waifu/waifu-tips.js"
-	const live2dJsPath = "https://cancanneed64.github.io/waifu/live2d.min.js"
+    const cssPath = "https://cancanneed64.github.io/waifu/waifu.css";
+    const tipsJsonPath = "https://cancanneed64.github.io/waifu/waifu-tips.json";
+    const tipsJsPath = "https://cancanneed64.github.io/waifu/waifu-tips.js";
+	const live2dJsPath = "https://cancanneed64.github.io/waifu/live2d.min.js";
 
     
     const live2d_path = "https://fastly.jsdelivr.net/gh/cancanneed64/live2d-widget@latest/";
@@ -676,9 +676,9 @@
         Promise.all([
             loadExternalResource(cssPath, "css"),
             loadExternalResource(live2d_path + "live2d.min.js", "js"),
-            loadExternalResource(live2d_path + "waifu-tips.js", "js")
-			loadExternalResource(tipsJsPath, "js")
-			loadExternalResource(live2dJsPath, "js"),
+            loadExternalResource(live2d_path + "waifu-tips.js", "js"),
+			loadExternalResource(tipsJsPath, "js"),
+			loadExternalResource(live2dJsPath, "js")
 
         ]).then(() => {
             
