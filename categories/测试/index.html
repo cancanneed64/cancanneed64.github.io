@@ -15,6 +15,9 @@
 <meta name="twitter:description" content="演示说明"><link rel="alternate" type="application/rss&#43;xml" href="https://cancanneed64.github.io/categories/%E6%B5%8B%E8%AF%95/index.xml">
     <link rel="shortcut icon" href="/favicon.svg" />
 
+  
+
+
 
 <span id="top"></span>
 
@@ -65,7 +68,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu13903143065341596908.jpg" width="300"
+                        <img src="/img/avatar_hu5f048b0037a3ebe412d4c3c4b3d8d9e8_103276_300x0_resize_q75_box.jpg" width="300"
                             height="324" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -408,7 +411,7 @@
             </footer>
         </div>
             <div class="article-image">
-                <img src="/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu4699868770670889127.jpg" 
+                <img src="/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu45a5e3ad5e058da6a00650ed8fd40bea_15530_120x120_fill_q75_box_smart1.jpg" 
                         width="120"
                         height="120" 
                         alt="Chinese Test"
@@ -486,26 +489,16 @@
 
 
 
-
-<div id="particles-js"></div>
-
-<script src=https://cancanneed64.github.io/background/particles.min.js></script>
-<script>
-  particlesJS.load('particles-js', "https://cancanneed64.github.io/background/particlesjs-config.json", function() {
-    console.log('particles.js loaded - callback');
-  });
-</script>
-
-<style>
-  #particles-js {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: -1;
+ 
+ <style>
+  body {
+    background: url(https://cancanneed64.github.io/background/sora.png) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
   }
 </style>
 
+ 
 
 <script>
     
@@ -515,8 +508,9 @@
 	const live2dJsPath = "https://cancanneed64.github.io/waifu/live2d.min.js";
 
     
-    const live2d_path = "https://fastly.jsdelivr.net/gh/cancanneed64/live2d-widget@latest/";
-
+    
+    
+	const live2d_path = "https://www.novrain.cn/pages/live2d-widget/";
 
     
     function loadExternalResource(url, type) {
@@ -552,7 +546,9 @@
             
             initWidget({
                 waifuPath: tipsJsonPath,
-                cdnPath: "https://fastly.jsdelivr.net/gh/cancanneed64/live2d_api/",
+                
+				
+				cdnPath: "https://www.novrain.cn/pages/live2d_api/",
                 tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
             });
 			initWaifuMouseEvent();

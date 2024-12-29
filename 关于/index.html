@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="This is a test page for i18n support.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="This is a test page for i18n support.">
 <title>关于</title>
 
 <link rel='canonical' href='https://cancanneed64.github.io/%E5%85%B3%E4%BA%8E/'>
 
 <link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="关于">
-<meta property='og:description' content="This is a test page for i18n support.\n">
+<meta property='og:description' content="This is a test page for i18n support.">
 <meta property='og:url' content='https://cancanneed64.github.io/%E5%85%B3%E4%BA%8E/'>
 <meta property='og:site_name' content='Cancanneed64'>
 <meta property='og:type' content='article'><meta property='article:section' content='Page' /><meta property='article:modified_time' content='2024-09-21T17:04:17&#43;08:00'/>
 <meta name="twitter:title" content="关于">
-<meta name="twitter:description" content="This is a test page for i18n support.\n">
+<meta name="twitter:description" content="This is a test page for i18n support.">
     <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
 
 
 <span id="top"></span>
@@ -67,7 +70,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu13903143065341596908.jpg" width="300"
+                        <img src="/img/avatar_hu5f048b0037a3ebe412d4c3c4b3d8d9e8_103276_300x0_resize_q75_box.jpg" width="300"
                             height="324" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -503,26 +506,16 @@
 
 
 
-
-<div id="particles-js"></div>
-
-<script src=https://cancanneed64.github.io/background/particles.min.js></script>
-<script>
-  particlesJS.load('particles-js', "https://cancanneed64.github.io/background/particlesjs-config.json", function() {
-    console.log('particles.js loaded - callback');
-  });
-</script>
-
-<style>
-  #particles-js {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: -1;
+ 
+ <style>
+  body {
+    background: url(https://cancanneed64.github.io/background/sora.png) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
   }
 </style>
 
+ 
 
 <script>
     
@@ -532,8 +525,9 @@
 	const live2dJsPath = "https://cancanneed64.github.io/waifu/live2d.min.js";
 
     
-    const live2d_path = "https://fastly.jsdelivr.net/gh/cancanneed64/live2d-widget@latest/";
-
+    
+    
+	const live2d_path = "https://www.novrain.cn/pages/live2d-widget/";
 
     
     function loadExternalResource(url, type) {
@@ -569,7 +563,9 @@
             
             initWidget({
                 waifuPath: tipsJsonPath,
-                cdnPath: "https://fastly.jsdelivr.net/gh/cancanneed64/live2d_api/",
+                
+				
+				cdnPath: "https://www.novrain.cn/pages/live2d_api/",
                 tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
             });
 			initWaifuMouseEvent();
