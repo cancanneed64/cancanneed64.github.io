@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="日常使用">
+<title>Go 语言实战</title>
+
+<link rel='canonical' href='https://cancanneed64.github.io/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/'>
+
+<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="Go 语言实战">
+<meta property='og:description' content="日常使用">
+<meta property='og:url' content='https://cancanneed64.github.io/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/'>
+<meta property='og:site_name' content='Cancanneed64'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-08T22:10:45&#43;08:00'/><meta property='article:modified_time' content='2025-01-08T14:19:37&#43;00:00'/>
+<meta name="twitter:title" content="Go 语言实战">
+<meta name="twitter:description" content="日常使用">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+
+<span id="top"></span>
+
+
+
+
+	 <link rel="stylesheet" href="/css/prism.css"/>
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu5f048b0037a3ebe412d4c3c4b3d8d9e8_103276_300x0_resize_q75_box.jpg" width="300"
+                            height="324" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌟</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Cancanneed64</a></h1>
+            <h2 class="site-description">欢迎光临 点击右导航栏黑色蝴蝶回到文章顶部</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/cancanneed64'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友情链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#1-介绍">1. 介绍</a></li>
+    <li><a href="#2-go-包执行顺序">2. Go 包执行顺序</a></li>
+    <li><a href="#3-打包和工具链">3. 打包和工具链</a></li>
+    <li><a href="#4-数组切片映射">4. 数组/切片/映射</a></li>
+    <li><a href="#5-类型">5. 类型</a></li>
+    <li><a href="#6-并发">6. 并发</a></li>
+    <li><a href="#7-并发模式">7. 并发模式</a></li>
+    <li><a href="#8-标准库">8. 标准库</a>
+      <ol>
+        <li><a href="#log-包">log 包</a></li>
+        <li><a href="#json-编码解码">json 编码解码</a></li>
+        <li><a href="#writer-和-reader">Writer 和 Reader</a></li>
+      </ol>
+    </li>
+    <li><a href="#9-测试和性能">9. 测试和性能</a>
+      <ol>
+        <li><a href="#单元测试">单元测试</a></li>
+        <li><a href="#表组测试">表组测试</a></li>
+        <li><a href="#模仿调用">模仿调用</a></li>
+        <li><a href="#基准测试">基准测试</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+
+<a href="#top" class="backtop"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a>
+
+
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/go/" >
+                Go
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/">Go 语言实战</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            日常使用
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">01月08日, 2025年</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 2 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+
+    <h1 id="go-语言实战">go 语言实战
+</h1><h2 id="1-介绍">1. 介绍
+</h2><hr>
+<h2 id="2-go-包执行顺序">2. Go 包执行顺序
+</h2><ul>
+<li>获取数据 -&gt; 一组等待搜索的数据源</li>
+<li>执行搜索 -&gt; 使用接口进行匹配-发送结果-报告任务完成</li>
+<li>跟踪结果 -&gt; 停止结果</li>
+<li>显示结果</li>
+</ul>
+<p>main
+search
+feed
+match
+RSS 匹配器</p>
+<hr>
+<h2 id="3-打包和工具链">3. 打包和工具链
+</h2><ul>
+<li>
+<p>导入包查找顺序
+<code>/usr/local/go/src/pkg</code>
+<code>/home/myproject/src</code>
+<code>/home/mylibraries/s</code></p>
+</li>
+<li>
+<p>更改包导入名
+<code>myfmt &quot;mylib/fmt&quot;</code>
+导入的包一定要被使用，否则需要用 &ldquo;_&rdquo;</p>
+</li>
+<li>
+<p>函数 init 会在开始时被调用</p>
+</li>
+<li>
+<p>go 命令</p>
+</li>
+</ul>
+<p><em>go run</em>
+运行 go 程序</p>
+<p><em>go build</em>
+构建包打包成 exe，&quot;&hellip;&ldquo;代表所有字符串</p>
+<p><em>go get</em>
+导入网络包的时候会出错，需要使用 get 来获取，如果仍失败，需要下载到本地，并且将路径名改成和包名一致，本地导入</p>
+<p><code>go get -u golang.org/x/tools/cmd/godoc</code>
+<code>import &quot;./model&quot;</code></p>
+<p><em>go clean</em>
+删除编译生成的可执行文件</p>
+<p><em>go doc</em>
+可查看本地文档，变成网页模式查看
+<code>go doc tar</code>
+<code>godoc -http=:6060</code>
+安装
+<a class="link" href="https://blog.csdn.net/sdujava2011/article/details/118926883"  target="_blank" rel="noopener"
+    >创建目录下载包</a>
+如果创建在 program 目录下没有权限执行，因此创建在 gopath 下的 src</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">cd</span> <span class="err">$</span><span class="nx">GOPATH</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">tools</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">install</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">get</span> <span class="o">-</span><span class="nx">u</span> <span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">tools</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span><span class="nx">godoc</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">install</span> <span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">tools</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span><span class="nx">godoc</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><em>go env</em>
+修改配置环境</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">env</span> <span class="o">-</span><span class="nx">w</span> <span class="nx">GO111MODULE</span><span class="p">=</span><span class="nx">on</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">env</span> <span class="o">-</span><span class="nx">w</span> <span class="nx">GOPROXY</span><span class="p">=</span><span class="nx">https</span><span class="p">:</span><span class="c1">//goproxy.cn,direct
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><em>go vet</em>
+检查常见错误</p>
+<p><em>介绍 godep/gb/vender</em></p>
+<hr>
+<h2 id="4-数组切片映射">4. 数组/切片/映射
+</h2><p>如果定义全局变量需要用 var 来声明，不能用:=</p>
+<ul>
+<li>
+<p>数组
+数组赋值的时候应该注意长度一致，否则报错
+如果数组长度不确定，可以使用 &hellip; 代替数组的长度
+<code>var balance = [...]float32{1000.0, 2.0, 3.4, 7.0, 50.0}</code>
+或
+<code>balance := [...]float32{1000.0, 2.0, 3.4, 7.0, 50.0}</code></p>
+</li>
+<li>
+<p>切片
+参数包含容量和长度
+<code>slice := make([]string, 3, 5)</code></p>
+</li>
+</ul>
+<p>创建 nil 切片
+<code>var slice []int</code></p>
+<p>声明空切片
+<code>slice := make{[int, 0]}</code>
+或
+<code>slice ：= [] int {}</code></p>
+<p>切片在赋值的时候只写长度，重新 append 时会开辟新空间，如果赋值时加上容量，append 会在原位置上修改值，影响原始数据</p>
+<ul>
+<li>映射</li>
+</ul>
+<p>创建和初始化映射
+<code>dict := make(map[string]int)</code>
+<code>dict := map[string]string{&quot;A&quot;:&quot;a&quot;}</code></p>
+<p>使用映射字面量声明空映射
+<code>dict := map[[] string] int{}</code> 报错
+创建一个映射，使用字符串切片做为值
+<code>dict := map[int][]string{}</code></p>
+<p>关于 map</p>
+<ol>
+<li>
+<p>变量名以小写开头不公开，其他包可以间接调用，一个函数可以返回一个未公开类型的值</p>
+</li>
+<li>
+<p>map 需要先用 make 构造，否则会报错，因为 map 变量默认零值 nil</p>
+</li>
+</ol>
+<hr>
+<h2 id="5-类型">5. 类型
+</h2><p>类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">user</span> <span class="kd">struct</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">bill</span> <span class="nx">user</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">u</span> <span class="nx">user</span><span class="p">)</span> <span class="nf">notify</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>传值，传指针，传地址</p>
+<p>切片/映射/通道/接口/函数</p>
+<p>方法传值与传指地址区别
+直接传是传递副本，*表示传引用，&amp;表示传地址
+方法是将参数的副本做操作，如果要改变参数值，需要将参数地址传到函数</p>
+<p><strong>数组是值传递，切片是引用传递</strong></p>
+<ol>
+<li>传值
+<blockquote>
+<p>go 语言中基本数据类型、结构体、数组都是传值</p>
+</blockquote>
+</li>
+</ol>
+<p>将变量的副本传递给形参
+传递给函数的参数是被传数据的的副本，因此对形参（也就副本）的值进行更改操作时，并不会影响原始数据
+同时，由于传值时，需要拷贝一份数据给形参，因此比较耗费资源。</p>
+<ol start="2">
+<li>
+<p>传引用
+将变量的地址复制一份传递给形参，它也可以看作传值，只不过传的是地址值的副本</p>
+</li>
+<li>
+<p>传地址</p>
+</li>
+</ol>
+<p><a class="link" href="https://blog.csdn.net/LC520730/article/details/126044974"  target="_blank" rel="noopener"
+    >传值传引用与传地址</a></p>
+<p>知识点</p>
+<ul>
+<li>多态指定义了一个接口类型后，可以定义其他方法来实现改写改类型</li>
+<li>接口是声明了一组行为并支持多态的类型</li>
+<li>struct 或者通过指定已存在的类型声明用户定义的类型</li>
+<li>类型本质
+给类型增加删除某个值，是创建新值还是改变当前值，创建新值该类型方法就是值接收者，修改当前值就是指针接收者，同时影响内部传递类型值的方式</li>
+</ul>
+<p>内置类型
+go 语言中类型的默认值。如下：</p>
+<p>数值类型(如 int8、int16、uint 等)，默认值为 0
+布尔类型，默认值为 false
+字符串类型，默认值为&rdquo;&quot;
+指针、通道、切片、字典等，默认值为 nil
+复合类型的默认值，为所包含类型的默认值</p>
+<p>引用类型
+切片/映射/通道/接口/函数，创建的变量为标头值</p>
+<ul>
+<li>嵌入关系
+值 方法接收方
+T 类型包含 (t T)
+*T 类型包含 (t T) 和 (t *T)</li>
+</ul>
+<p>方法接收方 值
+(t T) T 和*T
+(t *T) *T</p>
+<p>类型 S 包含匿名字段 T，则 S 和<em>S 方法集包含 T 方法
+类型 S 包含匿名字段</em>T，则 S 和*S 方法集包含 T + <em>T 方法
+不管嵌入的是 T 还是</em>T，*S 方法集包含 T + *T 方法</p>
+<p>当 user 定义一个用户类型，方法实现一个通过 user 类型值的指针，admin 包含 user 类型，admin 可以调用 user 内部的方法，提升到外部类型，当 admin 也实现了该方法，则不会调用 user 方法，可以通过直接访问 user 方法</p>
+<ul>
+<li>未公开标识符
+定义类型，小写开头为未公开标识符
+文件夹应该同包名相同
+当需要调用未公开标识符时，可以创建一个工厂函数 New 来返回该未公开标识符</li>
+</ul>
+<hr>
+<h2 id="6-并发">6. 并发
+</h2><h2 id="7-并发模式">7. 并发模式
+</h2><h2 id="8-标准库">8. 标准库
+</h2><h3 id="log-包">log 包
+</h3><h3 id="json-编码解码">json 编码解码
+</h3><h3 id="writer-和-reader">Writer 和 Reader
+</h3><hr>
+<h2 id="9-测试和性能">9. 测试和性能
+</h2><h3 id="单元测试">单元测试
+</h3><p>使用 go test -v(提供冗余输出)，没有加上除非失败，否则看不到测试输出
+go 语言约定，_test.go 结尾的文件是测试文件，测试函数需要用 Test 开头，函数的签名必须接收一个指向 testing.T 类型的指针并且不返回任何值，</p>
+<h3 id="表组测试">表组测试
+</h3><p>建立多个值传入测试，查看不同</p>
+<h3 id="模仿调用">模仿调用
+</h3><p>写一个 mockServer 模拟服务器返回</p>
+<h3 id="基准测试">基准测试
+</h3><p>使用 strconv 和 testing 包，文件名需要以_test.go 结尾</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">BenchmarkSprintf</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">number</span> <span class="o">:=</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span><span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="nx">number</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>go test -v -run=&ldquo;none&rdquo; -bench=&ldquo;BenchmarkSprintf&rdquo;</p>
+<p>-run 传递 none 保证运行基准测试前没有单元测试被运行
+b.ResetTimer()初始化计时器
+-benchmem 提供每次操作分配内存的次数，以及总共分配内存的字节数，allocs/op</p>
+
+</section>
+
+	
+    <footer class="article-footer">
+    
+
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 01月08日 14点19分, 2025年
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go语言入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    Waline.init({"dark":"auto","el":"#waline","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/qq","https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/bmoji"],"locale":{"admin":"博主","placeholder":"有什么新点子？🎉（上方留下邮箱可以收到通知哦）"},"pageview":true,"requiredMeta":["name","email","url"],"serverURL":"https://comment.byao394.top/","visitor":true});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 Cancanneed64
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+
+
+
+
+
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<style>
+  @font-face {
+    font-family: 'nano';
+    src: url(https://cancanneed64.github.io/font/NanoPyongHanHei-Regular.ttf) format('truetype');
+  }
+
+  :root {
+    --base-font-family: 'nano';
+    --code-font-family: 'nano';
+  }
+</style>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+<meting-js
+	server="netease"
+	type="playlist"
+	id="3050508794"
+	fixed= True>
+</meting-js>
+
+
+
+ 
+ <style>
+  body {
+    background: url(https://cancanneed64.github.io/background/sora.png) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
+ 
+
+<script>
+    
+    const cssPath = "https://cancanneed64.github.io/waifu/waifu.css";
+    const tipsJsonPath = "https://cancanneed64.github.io/waifu/waifu-tips.json";
+    const tipsJsPath = "https://cancanneed64.github.io/waifu/waifu-tips.js";
+	const live2dJsPath = "https://cancanneed64.github.io/waifu/live2d.min.js";
+
+    
+    
+    
+	const live2d_path = "https://www.novrain.cn/pages/live2d-widget/";
+
+    
+    function loadExternalResource(url, type) {
+        return new Promise((resolve, reject) => {
+            let tag;
+            if (type === "css") {
+                tag = document.createElement("link");
+                tag.rel = "stylesheet";
+                tag.href = url;
+            }
+            else if (type === "js") {
+                tag = document.createElement("script");
+                tag.src = url;
+            }
+            if (tag) {
+                tag.onload = () => resolve(url);
+                tag.onerror = () => reject(url);
+                document.head.appendChild(tag);
+            }
+        });
+    }
+
+    
+    if (screen.width >= 768) {
+        Promise.all([
+            loadExternalResource(cssPath, "css"),
+            loadExternalResource(live2d_path + "live2d.min.js", "js"),
+            loadExternalResource(live2d_path + "waifu-tips.js", "js"),
+			loadExternalResource(tipsJsPath, "js"),
+			loadExternalResource(live2dJsPath, "js")
+
+        ]).then(() => {
+            
+            initWidget({
+                waifuPath: tipsJsonPath,
+                
+				
+				cdnPath: "https://www.novrain.cn/pages/live2d_api/",
+                tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
+            });
+			initWaifuMouseEvent();
+        });
+		
+    }
+	
+	function initWaifuMouseEvent() {
+        const waifu = document.getElementById("waifu");
+        let isDown = false;
+        let waifuLeft;
+        let mouseLeft;
+        let waifuTop;
+        let mouseTop;
+        
+        waifu.onmousedown = function (e) {
+            isDown = true;
+            
+            waifuLeft = waifu.offsetLeft;
+            mouseLeft = e.clientX;
+            
+            waifuTop = waifu.offsetTop;
+            mouseTop = e.clientY;
+        }
+        
+        window.onmousemove = function (e) {
+            if (!isDown) {
+                return;
+            }
+            
+            let currentLeft = waifuLeft + (e.clientX - mouseLeft);
+            if (currentLeft < 0) {
+                currentLeft = 0;
+            } else if (currentLeft > window.innerWidth - 300) {
+                currentLeft = window.innerWidth - 300;
+            }
+            waifu.style.left = currentLeft  + "px";
+            
+            let currentTop = waifuTop + (e.clientY - mouseTop);
+            if (currentTop < 30) {
+                currentTop = 30
+            } else if (currentTop > window.innerHeight - 290) {
+                currentTop = window.innerHeight - 290
+            }
+            waifu.style.top = currentTop + "px";
+        }
+        
+        window.onmouseup = function (e) {
+            isDown = false;
+        }
+    }
+</script>
+
+
+
+			
+	<script src="/js/prism.js"></script>
+
+
+    </body>
+</html>
