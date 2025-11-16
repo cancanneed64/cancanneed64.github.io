@@ -1394,6 +1394,92 @@ b.ResetTimer()初始化计时器
 &lt;/div&gt;&lt;p&gt;&lt;strong&gt;reflect 中的 tag 标签&lt;/strong&gt;&lt;/p&gt;
 </description>
         </item>
+        <item>
+        <title>Goroutine 入门</title>
+        <link>https://cancanneed64.github.io/p/goroutine-%E5%85%A5%E9%97%A8/</link>
+        <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://cancanneed64.github.io/p/goroutine-%E5%85%A5%E9%97%A8/</guid>
+        <description>&lt;h1 id=&#34;goroutine-入门&#34;&gt;Goroutine 入门
+&lt;/h1&gt;&lt;h2 id=&#34;1-并发&#34;&gt;1. 并发
+&lt;/h2&gt;&lt;p&gt;默认给整个应用程序只分配一个逻辑处理器，用于执行所有被创建的 goroutine
+如果创建一个 goroutine 并准备运行，就会被放到调度器的全局运行队列中，之后，调度器就将这些队列中的 goroutine 分配给一个逻辑处理器，并放到这个逻辑处理器对应的本地运行队列，本地运行队列的 goroutine 会一直等到自己被分配的逻辑处理器执行&lt;/p&gt;
+&lt;h2 id=&#34;2-运行机制&#34;&gt;2. 运行机制
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;M2 线程 -&amp;gt; 逻辑处理器 -&amp;gt; goroutine
+M3 线程 -&amp;gt; 逻辑处理器 -&amp;gt; goroutine
+M2 线程 -&amp;gt; 被阻塞的 goroutine&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;当一个 goroutine 被阻塞，线程和 goroutine 会从逻辑处理器分离，线程继续阻塞，等待系统调用返回，逻辑处理器失去了用来运行的线程&lt;/li&gt;
+&lt;li&gt;调度器会创建新的线程并将其绑定到逻辑处理器上
+调度器会从本地运行队列选择另一个 goroutine 来运行&lt;/li&gt;
+&lt;li&gt;一旦被阻塞的系统调用执行完，对应的 goroutine 会放回到本地运行队列，之前的线程会保存好以便继续使用&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;网络 I/O 调用流程不同&lt;/strong&gt;
+goroutine 会和逻辑处理器分离，并移到集成了网络轮询器的运行，一旦轮询器指示某个网络读或写准备就绪，对应的 goroutine 会重新分配到逻辑处理器上来完成&lt;/p&gt;
+&lt;h2 id=&#34;3-代码格式&#34;&gt;3. 代码格式
+&lt;/h2&gt;&lt;p&gt;调用 fmt/runtime/sync
+分配一个逻辑处理器给调度器使用
+&lt;code&gt;runtime.GOMAXPROCS(1)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;wg 用来等待程序完成
+&lt;code&gt;var wg sync.WaitGroup&lt;/code&gt;
+&lt;code&gt;wg.Add(2)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;函数退出时 Done 通知 main 函数已完成
+&lt;code&gt;go func(){ defer wg.Done() }&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;等待 goroutine 结束
+&lt;code&gt;wg.Wait()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;创建两个 goroutine 打印前缀
+&lt;code&gt;go printPrime(&amp;quot;A&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;给每个可用的核心分配一个逻辑处理器
+&lt;code&gt;runtime.GOMAXPROCS(runtime.NumCPU())&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;当前 goroutine 从线程退出，并放回到队列
+&lt;code&gt;runtime.Gosched()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;竞争检测器
+&lt;code&gt;go bulid -race&lt;/code&gt;
+&lt;code&gt;./exmaple&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;go env set CGO_ENABLED=1&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Final Counter: 2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cgo: C compiler &amp;#34;gcc&amp;#34; not found: exec: &amp;#34;gcc&amp;#34;: executable file not found in %PATH%
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/urmljyc/article/details/127243709&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;安装 gcc&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;4-问题竞争状态&#34;&gt;4. 问题：竞争状态
+&lt;/h2&gt;&lt;p&gt;对一个共享资源的读写操作必须是原子化的，一个时刻只能有一个 goroutine 对共享资源进行读写操作&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;原子函数调用 sync/atomic 和 sync&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;原子函数以底层的加锁机制来同步访问整型变量和指针
+counter 是所有 goroutine 都要增加其值的变量
+&lt;code&gt;var(counter int64)&lt;/code&gt;
+在 for 中添加函数同步整型值，当 goroutine 试图调用任何原子函数时，同一时刻只能有一个 goroutine 完成加法
+&lt;code&gt;atomic.AddInt64(&amp;amp;counter, 1)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;atomic 中 LoadInt64 用来读取 shutdown 值，StoreInt64 用来修改 shutdown 值，如果哪个 dowork goroutine 试图在 main 函数调用 StoreInt64 的同时调用 LoadInt64 函数，那么原子函数会将这些调用互相同步，保证操作安全不进入竞争状态&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;互斥锁&lt;/strong&gt;
+mutex 保证同一时间只有一个 goroutine 可以执行临界区代码
+&lt;code&gt;var mutex sync.Mutex&lt;/code&gt;
+&lt;code&gt;mutex.Lock() mutex.Unlock()&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;5-通道&#34;&gt;5. 通道
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;make(chan int)&lt;/code&gt;
+&lt;code&gt;make(chan string, 10)&lt;/code&gt;
+向通道发送值或指针用&amp;lt;-
+&lt;code&gt;chan &amp;lt;- &amp;quot;str&amp;quot;&lt;/code&gt;
+从通道接收值
+&lt;code&gt;value := &amp;lt;-chan&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;无缓冲通道要求接收方和发送方的 goroutine 都准备好发送和接受，否则阻塞&lt;/p&gt;
+&lt;p&gt;有缓冲通道，只有在通道中没有要接收的值时，接收动作才会阻塞，只有在通道没有可用缓冲区容纳被发送的值时，发送动作才会阻塞
+当通道关闭后，goroutine 依旧可以接收数据，但是不能发送数据&lt;/p&gt;
+&lt;h2 id=&#34;7-总结&#34;&gt;7. 总结
+&lt;/h2&gt;&lt;p&gt;简单阐述了 go 调度器的运行机制，通过原子函数和互斥锁来强制锁住共享资源，解决资源竞争的问题
+而通道也可以发送接受共享资源，无缓冲和有缓冲通道的区别在于发送接受方式不同&lt;/p&gt;
+&lt;hr&gt;
+</description>
+        </item>
         
     </channel>
 </rss>
