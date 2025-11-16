@@ -1411,64 +1411,6 @@ b.ResetTimer()初始化计时器
 &lt;/div&gt;</description>
         </item>
         <item>
-        <title>Markdown</title>
-        <link>https://cancanneed64.github.io/p/markdown/</link>
-        <pubDate>Fri, 04 Oct 2024 00:12:04 +0800</pubDate>
-        
-        <guid>https://cancanneed64.github.io/p/markdown/</guid>
-        <description>&lt;h1 id=&#34;simple-markdown&#34;&gt;simple markdown
-&lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://support.typoraio.cn/zh/Markdown-Reference/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Typora官方介绍&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;06/07/2022 14:12&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;目录&amp;quot;[TOC]&amp;quot;
-[TOC]&lt;/p&gt;
-&lt;h2 id=&#34;1-常用标题列表&#34;&gt;&lt;strong&gt;1. 常用标题/列表&lt;/strong&gt;
-&lt;/h2&gt;&lt;p&gt;&amp;ldquo;#” 每级标题
-&amp;ldquo;*&amp;ldquo;无序列表&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;无序&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&amp;ldquo;1.&amp;ldquo;有序列表&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;有序&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&amp;ldquo;-[]&amp;rdquo; - &amp;ldquo;[x]&amp;ldquo;任务列表&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 1&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 2&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;2插入分段&#34;&gt;&lt;strong&gt;2.插入分段&lt;/strong&gt;
-&lt;/h2&gt;&lt;p&gt;&amp;ldquo;```&amp;ldquo;插入代码
-&amp;ldquo;&amp;gt;&amp;ldquo;插入话题
-| First Header | Second Header | 插入表格，标题行:表示对齐
-&amp;ldquo;[^footnote]:&amp;rdquo; 脚注
-&amp;ldquo;***&amp;ldquo;或&amp;rdquo;&amp;mdash;&amp;ldquo;分段
-&amp;ldquo;&lt;a class=&#34;link&#34; href=&#34;&#34; &gt;&lt;/a&gt;&amp;ldquo;插入网址
-&amp;ldquo;[exam][id]&amp;rdquo; &amp;ldquo;[id]:&amp;rdquo; 跳转
-&amp;ldquo;&amp;lt;&amp;gt;&amp;ldquo;超链接
-&amp;ldquo;&lt;img src=&#34;https://cancanneed64.github.io/&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-	
-&gt;&amp;ldquo;插入图片
-&amp;ldquo;::&amp;ldquo;表情&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;3字体&#34;&gt;&lt;strong&gt;3.字体&lt;/strong&gt;
-&lt;/h2&gt;&lt;p&gt;&amp;ldquo;*&amp;ldquo;斜体
-&amp;ldquo;**&amp;ldquo;加粗
-&amp;ldquo;`&amp;ldquo;代码
-&amp;ldquo;~~&amp;ldquo;划掉
-&amp;ldquo;&lt;u&gt;&lt;/u&gt;&amp;ldquo;下划线
-&amp;ldquo;====&amp;ldquo;高亮 @&lt;/p&gt;
-</description>
-        </item>
-        <item>
         <title>Git常用命令</title>
         <link>https://cancanneed64.github.io/p/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
         <pubDate>Thu, 03 Oct 2024 00:00:00 +0000</pubDate>
@@ -1871,8 +1813,8 @@ error: failed to push some refs to&lt;/strong&gt;&lt;/p&gt;
 如果创建一个 goroutine 并准备运行，就会被放到调度器的全局运行队列中，之后，调度器就将这些队列中的 goroutine 分配给一个逻辑处理器，并放到这个逻辑处理器对应的本地运行队列，本地运行队列的 goroutine 会一直等到自己被分配的逻辑处理器执行&lt;/p&gt;
 &lt;h2 id=&#34;2-运行机制&#34;&gt;2. 运行机制
 &lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;M2 线程 -&amp;gt; 逻辑处理器 -&amp;gt; goroutine
-M3 线程 -&amp;gt; 逻辑处理器 -&amp;gt; goroutine
+&lt;p&gt;M2 线程 -&amp;gt; 逻辑处理器 -&amp;gt; goroutine&lt;br&gt;
+M3 线程 -&amp;gt; 逻辑处理器 -&amp;gt; goroutine&lt;br&gt;
 M2 线程 -&amp;gt; 被阻塞的 goroutine&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ol&gt;
@@ -1881,26 +1823,26 @@ M2 线程 -&amp;gt; 被阻塞的 goroutine&lt;/p&gt;
 调度器会从本地运行队列选择另一个 goroutine 来运行&lt;/li&gt;
 &lt;li&gt;一旦被阻塞的系统调用执行完，对应的 goroutine 会放回到本地运行队列，之前的线程会保存好以便继续使用&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;网络 I/O 调用流程不同&lt;/strong&gt;
+&lt;p&gt;&lt;strong&gt;网络 I/O 调用流程不同&lt;/strong&gt;&lt;br&gt;
 goroutine 会和逻辑处理器分离，并移到集成了网络轮询器的运行，一旦轮询器指示某个网络读或写准备就绪，对应的 goroutine 会重新分配到逻辑处理器上来完成&lt;/p&gt;
 &lt;h2 id=&#34;3-代码格式&#34;&gt;3. 代码格式
 &lt;/h2&gt;&lt;p&gt;调用 fmt/runtime/sync
-分配一个逻辑处理器给调度器使用
+分配一个逻辑处理器给调度器使用&lt;br&gt;
 &lt;code&gt;runtime.GOMAXPROCS(1)&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;wg 用来等待程序完成
+&lt;p&gt;wg 用来等待程序完成&lt;br&gt;
 &lt;code&gt;var wg sync.WaitGroup&lt;/code&gt;
 &lt;code&gt;wg.Add(2)&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;函数退出时 Done 通知 main 函数已完成
+&lt;p&gt;函数退出时 Done 通知 main 函数已完成&lt;br&gt;
 &lt;code&gt;go func(){ defer wg.Done() }&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;等待 goroutine 结束
+&lt;p&gt;等待 goroutine 结束&lt;br&gt;
 &lt;code&gt;wg.Wait()&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;创建两个 goroutine 打印前缀
+&lt;p&gt;创建两个 goroutine 打印前缀&lt;br&gt;
 &lt;code&gt;go printPrime(&amp;quot;A&amp;quot;)&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;给每个可用的核心分配一个逻辑处理器
+&lt;p&gt;给每个可用的核心分配一个逻辑处理器&lt;br&gt;
 &lt;code&gt;runtime.GOMAXPROCS(runtime.NumCPU())&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;当前 goroutine 从线程退出，并放回到队列
+&lt;p&gt;当前 goroutine 从线程退出，并放回到队列&lt;br&gt;
 &lt;code&gt;runtime.Gosched()&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;竞争检测器
+&lt;p&gt;竞争检测器&lt;br&gt;
 &lt;code&gt;go bulid -race&lt;/code&gt;
 &lt;code&gt;./exmaple&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;go env set CGO_ENABLED=1&lt;/code&gt;&lt;/p&gt;
@@ -1914,35 +1856,161 @@ goroutine 会和逻辑处理器分离，并移到集成了网络轮询器的运�
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cgo: C compiler &amp;#34;gcc&amp;#34; not found: exec: &amp;#34;gcc&amp;#34;: executable file not found in %PATH%
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/urmljyc/article/details/127243709&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;安装 gcc&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;&lt;em&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/urmljyc/article/details/127243709&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;安装 gcc&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id=&#34;4-问题竞争状态&#34;&gt;4. 问题：竞争状态
 &lt;/h2&gt;&lt;p&gt;对一个共享资源的读写操作必须是原子化的，一个时刻只能有一个 goroutine 对共享资源进行读写操作&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;原子函数调用 sync/atomic 和 sync&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;原子函数以底层的加锁机制来同步访问整型变量和指针
-counter 是所有 goroutine 都要增加其值的变量
-&lt;code&gt;var(counter int64)&lt;/code&gt;
-在 for 中添加函数同步整型值，当 goroutine 试图调用任何原子函数时，同一时刻只能有一个 goroutine 完成加法
+&lt;p&gt;原子函数以底层的加锁机制来同步访问整型变量和指针&lt;br&gt;
+counter 是所有 goroutine 都要增加其值的变量&lt;br&gt;
+&lt;code&gt;var(counter int64)&lt;/code&gt;&lt;br&gt;
+在 for 中添加函数同步整型值，当 goroutine 试图调用任何原子函数时，同一时刻只能有一个 goroutine 完成加法&lt;br&gt;
 &lt;code&gt;atomic.AddInt64(&amp;amp;counter, 1)&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;atomic 中 LoadInt64 用来读取 shutdown 值，StoreInt64 用来修改 shutdown 值，如果哪个 dowork goroutine 试图在 main 函数调用 StoreInt64 的同时调用 LoadInt64 函数，那么原子函数会将这些调用互相同步，保证操作安全不进入竞争状态&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;互斥锁&lt;/strong&gt;
-mutex 保证同一时间只有一个 goroutine 可以执行临界区代码
-&lt;code&gt;var mutex sync.Mutex&lt;/code&gt;
-&lt;code&gt;mutex.Lock() mutex.Unlock()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;互斥锁&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;mutex 保证同一时间只有一个 goroutine 可以执行临界区代码&lt;br&gt;
+&lt;code&gt;var mutex sync.Mutex&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;mutex.Lock()&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;mutex.Unlock()&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;5-通道&#34;&gt;5. 通道
-&lt;/h2&gt;&lt;p&gt;&lt;code&gt;make(chan int)&lt;/code&gt;
-&lt;code&gt;make(chan string, 10)&lt;/code&gt;
-向通道发送值或指针用&amp;lt;-
-&lt;code&gt;chan &amp;lt;- &amp;quot;str&amp;quot;&lt;/code&gt;
-从通道接收值
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;make(chan int)&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;make(chan string, 10)&lt;/code&gt;&lt;br&gt;
+向通道发送值或指针用&amp;lt;-&lt;br&gt;
+&lt;code&gt;chan &amp;lt;- &amp;quot;str&amp;quot;&lt;/code&gt;&lt;br&gt;
+从通道接收值&lt;br&gt;
 &lt;code&gt;value := &amp;lt;-chan&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;无缓冲通道要求接收方和发送方的 goroutine 都准备好发送和接受，否则阻塞&lt;/p&gt;
-&lt;p&gt;有缓冲通道，只有在通道中没有要接收的值时，接收动作才会阻塞，只有在通道没有可用缓冲区容纳被发送的值时，发送动作才会阻塞
-当通道关闭后，goroutine 依旧可以接收数据，但是不能发送数据&lt;/p&gt;
-&lt;h2 id=&#34;7-总结&#34;&gt;7. 总结
-&lt;/h2&gt;&lt;p&gt;简单阐述了 go 调度器的运行机制，通过原子函数和互斥锁来强制锁住共享资源，解决资源竞争的问题
+&lt;p&gt;有缓冲通道，只有在通道中没有要接收的值时，接收动作才会阻塞，只有在通道没有可用缓冲区容纳被发送的值时，发送动作才会阻塞&lt;/p&gt;
+&lt;p&gt;当通道关闭后，goroutine 依旧可以接收数据，但是不能发送数据&lt;/p&gt;
+&lt;h2 id=&#34;6-总结&#34;&gt;6. 总结
+&lt;/h2&gt;&lt;p&gt;简单阐述了 go 调度器的运行机制，通过原子函数和互斥锁来强制锁住共享资源，解决资源竞争的问题&lt;br&gt;
 而通道也可以发送接受共享资源，无缓冲和有缓冲通道的区别在于发送接受方式不同&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Goroutine并发模式</title>
+        <link>https://cancanneed64.github.io/p/goroutine%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/</link>
+        <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://cancanneed64.github.io/p/goroutine%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/</guid>
+        <description>&lt;h1 id=&#34;goroutine-并发模式&#34;&gt;Goroutine 并发模式
+&lt;/h1&gt;&lt;h2 id=&#34;1-runner&#34;&gt;1. runner
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;简介，使用通道监视程序执行时间，当开发需要调度后台处理任务的程序的时候，这个程序可能会座位 cron 作业执行，或者基于定时任务的云环境执行&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;调度运行无人值守的面向任务程序，支持以下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;程序可以在分配的时间内完成工作，正常终止；&lt;/li&gt;
+&lt;li&gt;程序没有及时完成工作，&amp;ldquo;自杀&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;接受到操作系统发送的中断事件，程序立刻试图清理状态并停止工作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;调用 errors/ os/signal /time/ os
+声明 interrupt，complete，timeout 三个通道&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;interrupt chan os.Signal&lt;/code&gt; 从主机操作系统接收中断事件
+signal 抽象了不同操作系统上捕获和报告信号事件的具体实现&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;complete chan error&lt;/code&gt;，complete 收发 error 接口类型值，被执行任务的 goroutine 用来发送任务已完成信号，返回 error 接口类型值或 nil，声明 ErrTimeout 和 ErrInterrupt&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;timeout &amp;lt;-chan time.Time&lt;/code&gt;，管理执行任务时间，收到值后会试图清理状态并停止工作&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tasks []func(int)&lt;/code&gt;，tasks 是一个函数值切片，表示执行顺序&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;初始化过程&lt;/strong&gt;
+interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来自语言运行时的 os.Signal 值，如果 goroutine 没有准备好接受这个值就会被丢弃，ctrl+c 程序只会在这个通道的缓冲区可用时接受事件，其余所有事件被丢弃&lt;/p&gt;
+&lt;p&gt;gotInterrupt 检查是否有要从操作系统接收的事件&lt;/p&gt;
+&lt;p&gt;没有任何要接收的数据返回 false，有中断信号接收则调用 signal.Stop()之后返回 true&lt;/p&gt;
+&lt;p&gt;主流程 Start，匿名函数启动 goroutine，将 run 的 error 接口值发到 complete 通道，如果 complete 接收到 error 表示中断或完成返回，否则超时返回&lt;/p&gt;
+&lt;p&gt;主函数 main，规定 timeout，加入执行任务，执行任务处理结果，返回一个根据 id 休眠指定秒数&lt;/p&gt;
+&lt;p&gt;主要负责处理超时/报错/加入多个任务&lt;/p&gt;
+&lt;h2 id=&#34;2-pool&#34;&gt;2. pool
+&lt;/h2&gt;&lt;p&gt;1.6 后标准库自带资源池 sync.Pool&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;简介，如何使用有缓冲的通道实现资源池，管理任意数量 goroutine 之间共享及独立使用的资源
+作用:共享数据库连接或者内存缓冲区，申请与归还资源到池中&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;调用 errors/log/io/sync&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;m sync.Mutex&lt;/code&gt;，保证多个 goroutine 访问资源池时值安全&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;resources chan io.Closer&lt;/code&gt;，有缓冲通道保存共享资源，池可以管理任意实现了 io.Closer 接口的资源类型&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;factory func() (io.Closer, error)&lt;/code&gt;，任何一个没有输入参数且返回一个 io.Closer 和 error 接口值的函数，当池需要一个新资源时可以用这个函数创建&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;closed bool&lt;/code&gt;，表示池是否被关闭，ErrPoolClosed&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;New 工厂函数对接口进行初始化，fn 声明为一个函数类型不接受任何参数，返回一个 io.Closer 和一个 error 接口值，resources 创建一个有缓冲的管道，return 可以构造并初始化任何值&lt;/p&gt;
+&lt;p&gt;Acquire 方法在还有可用资源时从资源池返回一个资源，否则为该调用创建并返回一个新的资源，select/case 检查通道是否还有资源，有则返回资源，无则 default 工厂函数创建并返回新资源，如果不需要已经获得的资源要释放回资源池里&lt;/p&gt;
+&lt;p&gt;close 会让资源池停止工作，并关闭所有现有资源，将进程池上锁，检查进程池关闭，在清空通道资源前先关闭，否则发生死锁，关闭资源&lt;/p&gt;
+&lt;p&gt;Release 传入进程池，返回资源和 io.Closer，加锁保证本操作和 Close 操作的安全，如果池被关闭则关闭资源，select/case 尝试把资源放进队列，队列满则关闭资源&lt;/p&gt;
+&lt;p&gt;初始化过程，maxGoroutines 定义要使用的 goroutine 数量，pooledResources 定义池中资源数量，idCounter 分配连接 id，&lt;/p&gt;
+&lt;p&gt;主函数 main，创建管理连接的池，使用池里的连接来完成查询，查询值是副本，不然所有的查询会共享同一个查询变量，等待 goroutine 结束关闭池&lt;/p&gt;
+&lt;p&gt;管理池里的资源，负责获得/查询/关闭/连接资源&lt;/p&gt;
+&lt;h2 id=&#34;3-work&#34;&gt;3. work
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;简介，使用无缓冲通道来创建一个 goroutine 池，保证两个 goroutine 间数据交换，不会卡住丢失&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Pool 包含 Worker 接口和声明 sync wg
+New 使用固定数量的 goroutine 来新建一个工作池，创建一个 Pool 并用无缓冲通道初始化 work，创建同数 goroutine，只接收 worker 接口值并调用 Task 方法
+循环先阻塞，直到将 worker 传到 work 通道中再执行 Task 方法
+Run 方法向池里提交工作，调用者必须等待工作池某个 goroutine 收到这个值才会返回
+最后再 shutdown 关闭 work 通道，调用 wg.wait&lt;/p&gt;
+&lt;p&gt;name 声明了名字切片，并声明 namePrinter 类，实现 Task 接口打印名字并等待一秒
+调用 work 包的 New 函数创建工作池，包含两个执行任务的 goroutine，name 切片每个名字会创建 100 个 goroutine 提交任务
+每次内部循环都会创建 namePrinter 类型值并提供一个打印名字，声明了一个匿名函数创建一个 goroutine 执行，这个 goroutine 调用 run 将值提交到池，run 方法再返回，wg 计数减少，最终 shutdown&lt;/p&gt;
+&lt;p&gt;&lt;details&gt;
+  &lt;summary&gt;&lt;/summary&gt;
+  Collapsed text
+&lt;/details&gt;点我展开代码&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Markdown</title>
+        <link>https://cancanneed64.github.io/p/markdown/</link>
+        <pubDate>Tue, 07 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://cancanneed64.github.io/p/markdown/</guid>
+        <description>&lt;h1 id=&#34;simple-markdown&#34;&gt;simple markdown
+&lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://support.typoraio.cn/zh/Markdown-Reference/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Typora 官方介绍&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;目录&amp;quot;[TOC]&amp;quot;
+[TOC]&lt;/p&gt;
+&lt;h2 id=&#34;1-常用标题列表&#34;&gt;&lt;strong&gt;1. 常用标题/列表&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;&amp;ldquo;#” 每级标题
+&amp;ldquo;*&amp;ldquo;无序列表&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;无序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&amp;ldquo;1.&amp;ldquo;有序列表&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;有序&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&amp;ldquo;-[]&amp;rdquo; - &amp;ldquo;[x]&amp;ldquo;任务列表&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 1&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 2&lt;/li&gt;
+&lt;/ul&gt;
 &lt;hr&gt;
+&lt;h2 id=&#34;2插入分段&#34;&gt;&lt;strong&gt;2.插入分段&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;&amp;ldquo;```&amp;ldquo;插入代码&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;&amp;gt;&amp;ldquo;插入话题&lt;/p&gt;
+&lt;p&gt;| First Header | Second Header | 插入表格，标题行:表示对齐&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;[^footnote]:&amp;rdquo; 脚注&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;***&amp;ldquo;或&amp;rdquo;&amp;mdash;&amp;ldquo;分段&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;&lt;a class=&#34;link&#34; href=&#34;&#34; &gt;&lt;/a&gt;&amp;ldquo;插入网址&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;[exam][id]&amp;rdquo; &amp;ldquo;[id]:&amp;rdquo; 跳转&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;&amp;lt;&amp;gt;&amp;ldquo;超链接&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;&lt;img src=&#34;https://cancanneed64.github.io/&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&amp;ldquo;插入图片&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;::&amp;ldquo;表情&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;3字体&#34;&gt;&lt;strong&gt;3.字体&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;&amp;ldquo;*&amp;ldquo;斜体&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;**&amp;ldquo;加粗&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;`&amp;ldquo;代码&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;~~&amp;ldquo;划掉&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;&lt;u&gt;&lt;/u&gt;&amp;ldquo;下划线&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;====&amp;ldquo;高亮 @&lt;/p&gt;
 </description>
         </item>
         <item>

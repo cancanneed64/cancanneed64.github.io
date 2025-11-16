@@ -2,16 +2,16 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="日常使用">
-<title>Goroutine 入门</title>
+<title>Goroutine并发模式</title>
 
-<link rel='canonical' href='https://cancanneed64.github.io/p/goroutine-%E5%85%A5%E9%97%A8/'>
+<link rel='canonical' href='https://cancanneed64.github.io/p/goroutine%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/'>
 
-<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="Goroutine 入门">
+<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="Goroutine并发模式">
 <meta property='og:description' content="日常使用">
-<meta property='og:url' content='https://cancanneed64.github.io/p/goroutine-%E5%85%A5%E9%97%A8/'>
+<meta property='og:url' content='https://cancanneed64.github.io/p/goroutine%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/'>
 <meta property='og:site_name' content='Cancanneed64'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-16T15:03:13&#43;00:00'/>
-<meta name="twitter:title" content="Goroutine 入门">
+<meta name="twitter:title" content="Goroutine并发模式">
 <meta name="twitter:description" content="日常使用">
     <link rel="shortcut icon" href="/favicon.svg" />
 
@@ -279,12 +279,9 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#1-并发">1. 并发</a></li>
-    <li><a href="#2-运行机制">2. 运行机制</a></li>
-    <li><a href="#3-代码格式">3. 代码格式</a></li>
-    <li><a href="#4-问题竞争状态">4. 问题：竞争状态</a></li>
-    <li><a href="#5-通道">5. 通道</a></li>
-    <li><a href="#6-总结">6. 总结</a></li>
+    <li><a href="#1-runner">1. runner</a></li>
+    <li><a href="#2-pool">2. pool</a></li>
+    <li><a href="#3-work">3. work</a></li>
   </ol>
 </nav>
         </div>
@@ -317,7 +314,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/goroutine-%E5%85%A5%E9%97%A8/">Goroutine 入门</a>
+            <a href="/p/goroutine%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/">Goroutine并发模式</a>
         </h2>
     
         
@@ -358,7 +355,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -374,84 +371,69 @@
     
     
 
-    <h1 id="goroutine-入门">Goroutine 入门
-</h1><h2 id="1-并发">1. 并发
-</h2><p>默认给整个应用程序只分配一个逻辑处理器，用于执行所有被创建的 goroutine
-如果创建一个 goroutine 并准备运行，就会被放到调度器的全局运行队列中，之后，调度器就将这些队列中的 goroutine 分配给一个逻辑处理器，并放到这个逻辑处理器对应的本地运行队列，本地运行队列的 goroutine 会一直等到自己被分配的逻辑处理器执行</p>
-<h2 id="2-运行机制">2. 运行机制
+    <h1 id="goroutine-并发模式">Goroutine 并发模式
+</h1><h2 id="1-runner">1. runner
 </h2><blockquote>
-<p>M2 线程 -&gt; 逻辑处理器 -&gt; goroutine<br>
-M3 线程 -&gt; 逻辑处理器 -&gt; goroutine<br>
-M2 线程 -&gt; 被阻塞的 goroutine</p>
+<p>简介，使用通道监视程序执行时间，当开发需要调度后台处理任务的程序的时候，这个程序可能会座位 cron 作业执行，或者基于定时任务的云环境执行</p>
 </blockquote>
+<p>调度运行无人值守的面向任务程序，支持以下：</p>
+<ul>
+<li>程序可以在分配的时间内完成工作，正常终止；</li>
+<li>程序没有及时完成工作，&ldquo;自杀&rdquo;</li>
+<li>接受到操作系统发送的中断事件，程序立刻试图清理状态并停止工作</li>
+</ul>
+<p>调用 errors/ os/signal /time/ os
+声明 interrupt，complete，timeout 三个通道</p>
 <ol>
-<li>当一个 goroutine 被阻塞，线程和 goroutine 会从逻辑处理器分离，线程继续阻塞，等待系统调用返回，逻辑处理器失去了用来运行的线程</li>
-<li>调度器会创建新的线程并将其绑定到逻辑处理器上
-调度器会从本地运行队列选择另一个 goroutine 来运行</li>
-<li>一旦被阻塞的系统调用执行完，对应的 goroutine 会放回到本地运行队列，之前的线程会保存好以便继续使用</li>
+<li><code>interrupt chan os.Signal</code> 从主机操作系统接收中断事件
+signal 抽象了不同操作系统上捕获和报告信号事件的具体实现</li>
+<li><code>complete chan error</code>，complete 收发 error 接口类型值，被执行任务的 goroutine 用来发送任务已完成信号，返回 error 接口类型值或 nil，声明 ErrTimeout 和 ErrInterrupt</li>
+<li><code>timeout &lt;-chan time.Time</code>，管理执行任务时间，收到值后会试图清理状态并停止工作</li>
+<li><code>tasks []func(int)</code>，tasks 是一个函数值切片，表示执行顺序</li>
 </ol>
-<p><strong>网络 I/O 调用流程不同</strong><br>
-goroutine 会和逻辑处理器分离，并移到集成了网络轮询器的运行，一旦轮询器指示某个网络读或写准备就绪，对应的 goroutine 会重新分配到逻辑处理器上来完成</p>
-<h2 id="3-代码格式">3. 代码格式
-</h2><p>调用 fmt/runtime/sync
-分配一个逻辑处理器给调度器使用<br>
-<code>runtime.GOMAXPROCS(1)</code></p>
-<p>wg 用来等待程序完成<br>
-<code>var wg sync.WaitGroup</code>
-<code>wg.Add(2)</code></p>
-<p>函数退出时 Done 通知 main 函数已完成<br>
-<code>go func(){ defer wg.Done() }</code></p>
-<p>等待 goroutine 结束<br>
-<code>wg.Wait()</code></p>
-<p>创建两个 goroutine 打印前缀<br>
-<code>go printPrime(&quot;A&quot;)</code></p>
-<p>给每个可用的核心分配一个逻辑处理器<br>
-<code>runtime.GOMAXPROCS(runtime.NumCPU())</code></p>
-<p>当前 goroutine 从线程退出，并放回到队列<br>
-<code>runtime.Gosched()</code></p>
-<p>竞争检测器<br>
-<code>go bulid -race</code>
-<code>./exmaple</code></p>
-<p><code>go env set CGO_ENABLED=1</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Final Counter: 2
-</span></span><span class="line"><span class="cl">cgo: C compiler &#34;gcc&#34; not found: exec: &#34;gcc&#34;: executable file not found in %PATH%
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><em><a class="link" href="https://blog.csdn.net/urmljyc/article/details/127243709"  target="_blank" rel="noopener"
-    >安装 gcc</a></em></p>
-<h2 id="4-问题竞争状态">4. 问题：竞争状态
-</h2><p>对一个共享资源的读写操作必须是原子化的，一个时刻只能有一个 goroutine 对共享资源进行读写操作</p>
-<p><strong>原子函数调用 sync/atomic 和 sync</strong></p>
-<p>原子函数以底层的加锁机制来同步访问整型变量和指针<br>
-counter 是所有 goroutine 都要增加其值的变量<br>
-<code>var(counter int64)</code><br>
-在 for 中添加函数同步整型值，当 goroutine 试图调用任何原子函数时，同一时刻只能有一个 goroutine 完成加法<br>
-<code>atomic.AddInt64(&amp;counter, 1)</code></p>
-<p>atomic 中 LoadInt64 用来读取 shutdown 值，StoreInt64 用来修改 shutdown 值，如果哪个 dowork goroutine 试图在 main 函数调用 StoreInt64 的同时调用 LoadInt64 函数，那么原子函数会将这些调用互相同步，保证操作安全不进入竞争状态</p>
-<p><strong>互斥锁</strong></p>
-<p>mutex 保证同一时间只有一个 goroutine 可以执行临界区代码<br>
-<code>var mutex sync.Mutex</code><br>
-<code>mutex.Lock()</code><br>
-<code>mutex.Unlock()</code></p>
-<h2 id="5-通道">5. 通道
-</h2><p><code>make(chan int)</code><br>
-<code>make(chan string, 10)</code><br>
-向通道发送值或指针用&lt;-<br>
-<code>chan &lt;- &quot;str&quot;</code><br>
-从通道接收值<br>
-<code>value := &lt;-chan</code></p>
-<p>无缓冲通道要求接收方和发送方的 goroutine 都准备好发送和接受，否则阻塞</p>
-<p>有缓冲通道，只有在通道中没有要接收的值时，接收动作才会阻塞，只有在通道没有可用缓冲区容纳被发送的值时，发送动作才会阻塞</p>
-<p>当通道关闭后，goroutine 依旧可以接收数据，但是不能发送数据</p>
-<h2 id="6-总结">6. 总结
-</h2><p>简单阐述了 go 调度器的运行机制，通过原子函数和互斥锁来强制锁住共享资源，解决资源竞争的问题<br>
-而通道也可以发送接受共享资源，无缓冲和有缓冲通道的区别在于发送接受方式不同</p>
+<p><strong>初始化过程</strong>
+interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来自语言运行时的 os.Signal 值，如果 goroutine 没有准备好接受这个值就会被丢弃，ctrl+c 程序只会在这个通道的缓冲区可用时接受事件，其余所有事件被丢弃</p>
+<p>gotInterrupt 检查是否有要从操作系统接收的事件</p>
+<p>没有任何要接收的数据返回 false，有中断信号接收则调用 signal.Stop()之后返回 true</p>
+<p>主流程 Start，匿名函数启动 goroutine，将 run 的 error 接口值发到 complete 通道，如果 complete 接收到 error 表示中断或完成返回，否则超时返回</p>
+<p>主函数 main，规定 timeout，加入执行任务，执行任务处理结果，返回一个根据 id 休眠指定秒数</p>
+<p>主要负责处理超时/报错/加入多个任务</p>
+<h2 id="2-pool">2. pool
+</h2><p>1.6 后标准库自带资源池 sync.Pool</p>
+<blockquote>
+<p>简介，如何使用有缓冲的通道实现资源池，管理任意数量 goroutine 之间共享及独立使用的资源
+作用:共享数据库连接或者内存缓冲区，申请与归还资源到池中</p>
+</blockquote>
+<p>调用 errors/log/io/sync</p>
+<ol>
+<li><code>m sync.Mutex</code>，保证多个 goroutine 访问资源池时值安全</li>
+<li><code>resources chan io.Closer</code>，有缓冲通道保存共享资源，池可以管理任意实现了 io.Closer 接口的资源类型</li>
+<li><code>factory func() (io.Closer, error)</code>，任何一个没有输入参数且返回一个 io.Closer 和 error 接口值的函数，当池需要一个新资源时可以用这个函数创建</li>
+<li><code>closed bool</code>，表示池是否被关闭，ErrPoolClosed</li>
+</ol>
+<p>New 工厂函数对接口进行初始化，fn 声明为一个函数类型不接受任何参数，返回一个 io.Closer 和一个 error 接口值，resources 创建一个有缓冲的管道，return 可以构造并初始化任何值</p>
+<p>Acquire 方法在还有可用资源时从资源池返回一个资源，否则为该调用创建并返回一个新的资源，select/case 检查通道是否还有资源，有则返回资源，无则 default 工厂函数创建并返回新资源，如果不需要已经获得的资源要释放回资源池里</p>
+<p>close 会让资源池停止工作，并关闭所有现有资源，将进程池上锁，检查进程池关闭，在清空通道资源前先关闭，否则发生死锁，关闭资源</p>
+<p>Release 传入进程池，返回资源和 io.Closer，加锁保证本操作和 Close 操作的安全，如果池被关闭则关闭资源，select/case 尝试把资源放进队列，队列满则关闭资源</p>
+<p>初始化过程，maxGoroutines 定义要使用的 goroutine 数量，pooledResources 定义池中资源数量，idCounter 分配连接 id，</p>
+<p>主函数 main，创建管理连接的池，使用池里的连接来完成查询，查询值是副本，不然所有的查询会共享同一个查询变量，等待 goroutine 结束关闭池</p>
+<p>管理池里的资源，负责获得/查询/关闭/连接资源</p>
+<h2 id="3-work">3. work
+</h2><blockquote>
+<p>简介，使用无缓冲通道来创建一个 goroutine 池，保证两个 goroutine 间数据交换，不会卡住丢失</p>
+</blockquote>
+<p>Pool 包含 Worker 接口和声明 sync wg
+New 使用固定数量的 goroutine 来新建一个工作池，创建一个 Pool 并用无缓冲通道初始化 work，创建同数 goroutine，只接收 worker 接口值并调用 Task 方法
+循环先阻塞，直到将 worker 传到 work 通道中再执行 Task 方法
+Run 方法向池里提交工作，调用者必须等待工作池某个 goroutine 收到这个值才会返回
+最后再 shutdown 关闭 work 通道，调用 wg.wait</p>
+<p>name 声明了名字切片，并声明 namePrinter 类，实现 Task 接口打印名字并等待一秒
+调用 work 包的 New 函数创建工作池，包含两个执行任务的 goroutine，name 切片每个名字会创建 100 个 goroutine 提交任务
+每次内部循环都会创建 namePrinter 类型值并提供一个打印名字，声明了一个匿名函数创建一个 goroutine 执行，这个 goroutine 调用 run 将值提交到池，run 方法再返回，wg 计数减少，最终 shutdown</p>
+<p><details>
+  <summary></summary>
+  Collapsed text
+</details>点我展开代码</p>
 
 </section>
 
@@ -514,12 +496,12 @@ counter 是所有 goroutine 都要增加其值的变量<br>
             
                 
 <article class="">
-    <a href="/p/goroutine%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/">
+    <a href="/p/goroutine-%E5%85%A5%E9%97%A8/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Goroutine并发模式</h2>
+            <h2 class="article-title">Goroutine 入门</h2>
         </div>
     </a>
 </article>
