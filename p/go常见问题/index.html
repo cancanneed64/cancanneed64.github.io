@@ -2,16 +2,16 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="日常使用">
-<title>Go 语言实战</title>
+<title>Go常见问题</title>
 
-<link rel='canonical' href='https://cancanneed64.github.io/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/'>
+<link rel='canonical' href='https://cancanneed64.github.io/p/go%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/'>
 
-<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="Go 语言实战">
+<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="Go常见问题">
 <meta property='og:description' content="日常使用">
-<meta property='og:url' content='https://cancanneed64.github.io/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/'>
+<meta property='og:url' content='https://cancanneed64.github.io/p/go%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/'>
 <meta property='og:site_name' content='Cancanneed64'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-08T22:10:45&#43;08:00'/><meta property='article:modified_time' content='2025-11-17T12:56:40&#43;00:00'/>
-<meta name="twitter:title" content="Go 语言实战">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-17T12:56:40&#43;00:00'/>
+<meta name="twitter:title" content="Go常见问题">
 <meta name="twitter:description" content="日常使用">
     <link rel="shortcut icon" href="/favicon.svg" />
 
@@ -279,28 +279,18 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#1-介绍">1. 介绍</a></li>
-    <li><a href="#2-go-包执行顺序">2. Go 包执行顺序</a></li>
-    <li><a href="#3-打包和工具链">3. 打包和工具链</a></li>
-    <li><a href="#4-数组切片映射">4. 数组/切片/映射</a></li>
-    <li><a href="#5-类型">5. 类型</a></li>
-    <li><a href="#6-并发">6. 并发</a></li>
-    <li><a href="#7-并发模式">7. 并发模式</a></li>
-    <li><a href="#8-标准库">8. 标准库</a>
+    <li><a href="#module-设置">module 设置</a></li>
+    <li><a href="#包引用">包引用</a>
       <ol>
-        <li><a href="#log-包">log 包</a></li>
-        <li><a href="#json-编码解码">json 编码解码</a></li>
-        <li><a href="#writer-和-reader">Writer 和 Reader</a></li>
+        <li><a href="#创建模块与调用">创建模块与调用</a></li>
+        <li><a href="#方法一">方法一</a></li>
+        <li><a href="#方法二">方法二</a></li>
+        <li><a href="#方法三">方法三</a></li>
       </ol>
     </li>
-    <li><a href="#9-测试和性能">9. 测试和性能</a>
-      <ol>
-        <li><a href="#单元测试">单元测试</a></li>
-        <li><a href="#表组测试">表组测试</a></li>
-        <li><a href="#模仿调用">模仿调用</a></li>
-        <li><a href="#基准测试">基准测试</a></li>
-      </ol>
-    </li>
+    <li><a href="#godoc">godoc</a></li>
+    <li><a href="#创建工作区-workspaces">创建工作区 workspaces</a></li>
+    <li><a href="#编译与安装应用程序">编译与安装应用程序</a></li>
   </ol>
 </nav>
         </div>
@@ -333,7 +323,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/">Go 语言实战</a>
+            <a href="/p/go%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">Go常见问题</a>
         </h2>
     
         
@@ -359,7 +349,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">01月08日, 2025年</time>
+                <time class="article-time--published">05月07日, 2023年</time>
             </div>
         
 
@@ -390,58 +380,36 @@
     
     
 
-    <h1 id="go-语言实战">go 语言实战
-</h1><h2 id="1-介绍">1. 介绍
-</h2><hr>
-<h2 id="2-go-包执行顺序">2. Go 包执行顺序
-</h2><ul>
-<li>获取数据 -&gt; 一组等待搜索的数据源</li>
-<li>执行搜索 -&gt; 使用接口进行匹配-发送结果-报告任务完成</li>
-<li>跟踪结果 -&gt; 停止结果</li>
-<li>显示结果</li>
-</ul>
-<p>main
-search
-feed
-match
-RSS 匹配器</p>
-<hr>
-<h2 id="3-打包和工具链">3. 打包和工具链
-</h2><ul>
-<li>
-<p>导入包查找顺序
-<code>/usr/local/go/src/pkg</code>
-<code>/home/myproject/src</code>
-<code>/home/mylibraries/s</code></p>
-</li>
-<li>
-<p>更改包导入名
-<code>myfmt &quot;mylib/fmt&quot;</code>
-导入的包一定要被使用，否则需要用 &ldquo;_&rdquo;</p>
-</li>
-<li>
-<p>函数 init 会在开始时被调用</p>
-</li>
-<li>
-<p>go 命令</p>
-</li>
-</ul>
-<p><em>go run</em>
-运行 go 程序</p>
-<p><em>go build</em>
-构建包打包成 exe，&quot;&hellip;&ldquo;代表所有字符串</p>
-<p><em>go get</em>
-导入网络包的时候会出错，需要使用 get 来获取，如果仍失败，需要下载到本地，并且将路径名改成和包名一致，本地导入</p>
-<p><code>go get -u golang.org/x/tools/cmd/godoc</code>
-<code>import &quot;./model&quot;</code></p>
-<p><em>go clean</em>
-删除编译生成的可执行文件</p>
-<p><em>go doc</em>
-可查看本地文档，变成网页模式查看
-<code>go doc tar</code>
-<code>godoc -http=:6060</code>
-安装
-<a class="link" href="https://blog.csdn.net/sdujava2011/article/details/118926883"  target="_blank" rel="noopener"
+    <h1 id="go-常见问题">Go 常见问题
+</h1><h2 id="module-设置">module 设置
+</h2><p>修改代理 GOPROXY<br>
+<code>go env -w GOPROXY=https://goproxy.cn,direct</code></p>
+<p>修改模式 GO111MODULE<br>
+<code>go env -w GO111MODULE=on</code></p>
+<h2 id="包引用">包引用
+</h2><h3 id="创建模块与调用">创建模块与调用
+</h3><p>创建 2 个同级文件夹，go mod init 两个文件
+将 Go 工具从其模块路径重定向到本地目录
+同步模块的依赖项，添加代码所需的依赖项，但尚未在模块中跟踪的依赖项
+<code>go mod edit -replace example.com/greetings=../greetings</code>
+<code>go mod tidy</code>
+<code>go run .</code></p>
+<p><a class="link" href="https://go.p2hp.com/go.dev/doc/tutorial/call-module-code"  target="_blank" rel="noopener"
+    >官网说明</a></p>
+<h3 id="方法一">方法一
+</h3><p>go mod edit 修改路径导入本地包 失败
+go mod tidy</p>
+<h3 id="方法二">方法二
+</h3><p>放入路径
+hello.go:6:2: package greetings is not in GOROOT (C:\ProgramFiles\Go\src\greetings)
+需要管理员权限</p>
+<h3 id="方法三">方法三
+</h3><p>放入路径
+%home%/src
+cd 进入并运行 go 文件</p>
+<p>go get -u 才会拉取下载</p>
+<h2 id="godoc">godoc
+</h2><p><a class="link" href="https://blog.csdn.net/sdujava2011/article/details/118926883"  target="_blank" rel="noopener"
     >创建目录下载包</a>
 如果创建在 program 目录下没有权限执行，因此创建在 gopath 下的 src</p>
 <div class="highlight"><div class="chroma">
@@ -452,89 +420,20 @@ RSS 匹配器</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">cd</span> <span class="err">$</span><span class="nx">GOPATH</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">tools</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span>
-</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">install</span> <span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">get</span> <span class="o">-</span><span class="nx">u</span> <span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">tools</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span><span class="nx">godoc</span>
-</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">install</span> <span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">tools</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span><span class="nx">godoc</span>
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">cd</span> <span class="o">$</span><span class="n">GOPATH</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">golang</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">cmd</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="n">go</span> <span class="n">install</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">go</span> <span class="n">get</span> <span class="o">-</span><span class="n">u</span> <span class="n">golang</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">cmd</span><span class="o">/</span><span class="n">godoc</span>
+</span></span><span class="line"><span class="cl"><span class="n">go</span> <span class="n">install</span> <span class="n">golang</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">cmd</span><span class="o">/</span><span class="n">godoc</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><em>go env</em>
-修改配置环境</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">env</span> <span class="o">-</span><span class="nx">w</span> <span class="nx">GO111MODULE</span><span class="p">=</span><span class="nx">on</span>
-</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">env</span> <span class="o">-</span><span class="nx">w</span> <span class="nx">GOPROXY</span><span class="p">=</span><span class="nx">https</span><span class="p">:</span><span class="c1">//goproxy.cn,direct
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><em>go vet</em>
-检查常见错误</p>
-<p><em>介绍 godep/gb/vender</em></p>
-<hr>
-<h2 id="4-数组切片映射">4. 数组/切片/映射
-</h2><p>如果定义全局变量需要用 var 来声明，不能用:=</p>
-<ul>
-<li>
-<p>数组
-数组赋值的时候应该注意长度一致，否则报错
-如果数组长度不确定，可以使用 &hellip; 代替数组的长度
-<code>var balance = [...]float32{1000.0, 2.0, 3.4, 7.0, 50.0}</code>
-或
-<code>balance := [...]float32{1000.0, 2.0, 3.4, 7.0, 50.0}</code></p>
-</li>
-<li>
-<p>切片
-参数包含容量和长度
-<code>slice := make([]string, 3, 5)</code></p>
-</li>
-</ul>
-<p>创建 nil 切片
-<code>var slice []int</code></p>
-<p>声明空切片
-<code>slice := make{[int, 0]}</code>
-或
-<code>slice ：= [] int {}</code></p>
-<p>切片在赋值的时候只写长度，重新 append 时会开辟新空间，如果赋值时加上容量，append 会在原位置上修改值，影响原始数据</p>
-<ul>
-<li>映射</li>
-</ul>
-<p>创建和初始化映射
-<code>dict := make(map[string]int)</code>
-<code>dict := map[string]string{&quot;A&quot;:&quot;a&quot;}</code></p>
-<p>使用映射字面量声明空映射
-<code>dict := map[[] string] int{}</code> 报错
-创建一个映射，使用字符串切片做为值
-<code>dict := map[int][]string{}</code></p>
-<p>关于 map</p>
-<ol>
-<li>
-<p>变量名以小写开头不公开，其他包可以间接调用，一个函数可以返回一个未公开类型的值</p>
-</li>
-<li>
-<p>map 需要先用 make 构造，否则会报错，因为 map 变量默认零值 nil</p>
-</li>
-</ol>
-<hr>
-<h2 id="5-类型">5. 类型
-</h2><p>类</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">user</span> <span class="kd">struct</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">bill</span> <span class="nx">user</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>方法</p>
+</div><p><a class="link" href="https://blog.csdn.net/raoxiaoya/article/details/127527287"  target="_blank" rel="noopener"
+    >get/install</a></p>
+<p><a class="link" href="https://stackoverflow.com/questions/61520388/cant-import-gorilla-mux-github-com-gorilla-muxv1-7-4-is-explicitly-required/64474980"  target="_blank" rel="noopener"
+    >go get/go mod vendor</a></p>
+<h2 id="创建工作区-workspaces">创建工作区 workspaces
+</h2><p>初始化
+<code>go work init path</code></p>
+<p>生成 go.work</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -542,92 +441,17 @@ RSS 匹配器</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">u</span> <span class="nx">user</span><span class="p">)</span> <span class="nf">notify</span><span class="p">(){</span>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">go 1.18
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">use ./hello
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>传值，传指针，传地址</p>
-<p>切片/映射/通道/接口/函数</p>
-<p>方法传值与传指地址区别
-直接传是传递副本，*表示传引用，&amp;表示传地址
-方法是将参数的副本做操作，如果要改变参数值，需要将参数地址传到函数</p>
-<p><strong>数组是值传递，切片是引用传递</strong></p>
-<ol>
-<li>传值
-<blockquote>
-<p>go 语言中基本数据类型、结构体、数组都是传值</p>
-</blockquote>
-</li>
-</ol>
-<p>将变量的副本传递给形参
-传递给函数的参数是被传数据的的副本，因此对形参（也就副本）的值进行更改操作时，并不会影响原始数据
-同时，由于传值时，需要拷贝一份数据给形参，因此比较耗费资源。</p>
-<ol start="2">
-<li>
-<p>传引用
-将变量的地址复制一份传递给形参，它也可以看作传值，只不过传的是地址值的副本</p>
-</li>
-<li>
-<p>传地址</p>
-</li>
-</ol>
-<p><a class="link" href="https://blog.csdn.net/LC520730/article/details/126044974"  target="_blank" rel="noopener"
-    >传值传引用与传地址</a></p>
-<p>知识点</p>
-<ul>
-<li>多态指定义了一个接口类型后，可以定义其他方法来实现改写改类型</li>
-<li>接口是声明了一组行为并支持多态的类型</li>
-<li>struct 或者通过指定已存在的类型声明用户定义的类型</li>
-<li>类型本质
-给类型增加删除某个值，是创建新值还是改变当前值，创建新值该类型方法就是值接收者，修改当前值就是指针接收者，同时影响内部传递类型值的方式</li>
-</ul>
-<p>内置类型
-go 语言中类型的默认值。如下：</p>
-<p>数值类型(如 int8、int16、uint 等)，默认值为 0
-布尔类型，默认值为 false
-字符串类型，默认值为&rdquo;&quot;
-指针、通道、切片、字典等，默认值为 nil
-复合类型的默认值，为所包含类型的默认值</p>
-<p>引用类型
-切片/映射/通道/接口/函数，创建的变量为标头值</p>
-<ul>
-<li>嵌入关系
-值 方法接收方
-T 类型包含 (t T)
-*T 类型包含 (t T) 和 (t *T)</li>
-</ul>
-<p>方法接收方 值
-(t T) T 和*T
-(t *T) *T</p>
-<p>类型 S 包含匿名字段 T，则 S 和<em>S 方法集包含 T 方法
-类型 S 包含匿名字段</em>T，则 S 和*S 方法集包含 T + <em>T 方法
-不管嵌入的是 T 还是</em>T，*S 方法集包含 T + *T 方法</p>
-<p>当 user 定义一个用户类型，方法实现一个通过 user 类型值的指针，admin 包含 user 类型，admin 可以调用 user 内部的方法，提升到外部类型，当 admin 也实现了该方法，则不会调用 user 方法，可以通过直接访问 user 方法</p>
-<ul>
-<li>未公开标识符
-定义类型，小写开头为未公开标识符
-文件夹应该同包名相同
-当需要调用未公开标识符时，可以创建一个工厂函数 New 来返回该未公开标识符</li>
-</ul>
-<hr>
-<h2 id="6-并发">6. 并发
-</h2><h2 id="7-并发模式">7. 并发模式
-</h2><h2 id="8-标准库">8. 标准库
-</h2><h3 id="log-包">log 包
-</h3><h3 id="json-编码解码">json 编码解码
-</h3><h3 id="writer-和-reader">Writer 和 Reader
-</h3><hr>
-<h2 id="9-测试和性能">9. 测试和性能
-</h2><h3 id="单元测试">单元测试
-</h3><p>使用 go test -v(提供冗余输出)，没有加上除非失败，否则看不到测试输出
-go 语言约定，_test.go 结尾的文件是测试文件，测试函数需要用 Test 开头，函数的签名必须接收一个指向 testing.T 类型的指针并且不返回任何值，</p>
-<h3 id="表组测试">表组测试
-</h3><p>建立多个值传入测试，查看不同</p>
-<h3 id="模仿调用">模仿调用
-</h3><p>写一个 mockServer 模拟服务器返回</p>
-<h3 id="基准测试">基准测试
-</h3><p>使用 strconv 和 testing 包，文件名需要以_test.go 结尾</p>
+</div><p>在 workspace 的任何子目录中，模块都会被激活</p>
+<p><code>go run example.com/hello</code></p>
+<p>需外网下载
+<code>git clone https://go.googlesource.com/example</code></p>
+<p>将模块添加到工作区
+<code>go work use ./example</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -636,23 +460,83 @@ go 语言约定，_test.go 结尾的文件是测试文件，测试函数需要�
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
-</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">BenchmarkSprintf</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">number</span> <span class="o">:=</span> <span class="mi">10</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span><span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="nx">number</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">go 1.18
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">use (
+</span></span><span class="line"><span class="cl">    ./hello
+</span></span><span class="line"><span class="cl">    ./example
+</span></span><span class="line"><span class="cl">)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>go test -v -run=&ldquo;none&rdquo; -bench=&ldquo;BenchmarkSprintf&rdquo;</p>
-<p>-run 传递 none 保证运行基准测试前没有单元测试被运行
-b.ResetTimer()初始化计时器
--benchmem 提供每次操作分配内存的次数，以及总共分配内存的字节数，allocs/op</p>
-
+</div><p>这将允许我们使用将在 stringutil 模块副本中编写的新代码，而不是使用 go get 命令下载的模块缓存中的模块版本.</p>
+<p>workspace/example/stringutil 目录中创建一个名为 toupper.go 的新文件运行测试</p>
+<p>发布模块
+<code>go get golang.org/x/example@v0.1.0</code></p>
+<p>删除不存在 use 目录，递归添加目录
+<code>go work use [-r] [dir]</code>
+<code>go work use -drop ./old-module</code></p>
+<p>编辑 work 文件
+<code>go work edit</code></p>
+<p>将列表中依赖同步到每个工作区
+<code>go work sync</code></p>
+<h2 id="编译与安装应用程序">编译与安装应用程序
+</h2><p>在目录中运行, 并允许可执行文件测试
+<code>go build</code>
+查询路径
+<code>go list -f 'package'</code></p>
+<p>添加 go 安装目录到系统路径中，这样就可以允许可执行文件无需指定路径
+win
+<code>set PATH=%PATH%;C:\path\to\your\install\directory</code></p>
+<p>或者，如果您的 shell 路径中已经有一个目录（如 $HOME/bin），并且您希望在那里安装 Go 程序，则可以通过使用 go env 命令设置 GOBIN 变量来更改安装目标：
+<code>go env -w GOBIN=C:\path\to\your\bin</code></p>
+<p>更新 shell 路径后，运行 go install 命令来编译和安装包，然后可直接允许 exe
+<code>go install</code></p>
+<p>更换环境进行编译</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">查看之前的golang编译环境</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">env</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">设置成linux对应的</span>
+</span></span><span class="line"><span class="cl"><span class="nx">set</span> <span class="nx">GOARCH</span><span class="p">=</span><span class="nx">amd64</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">env</span> <span class="o">-</span><span class="nx">w</span> <span class="nx">GOARCH</span><span class="p">=</span><span class="nx">amd64</span>
+</span></span><span class="line"><span class="cl"><span class="nx">set</span> <span class="nx">GOOS</span><span class="p">=</span><span class="nx">linux</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">env</span> <span class="o">-</span><span class="nx">w</span> <span class="nx">GOOS</span><span class="p">=</span><span class="nx">linux</span>
+</span></span><span class="line"><span class="cl"><span class="err">​</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">build</span> <span class="o">-</span><span class="nx">o</span> <span class="p">[</span><span class="nx">目标可执行程序</span><span class="p">]</span> <span class="p">[</span><span class="nx">源程序</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">例子</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">build</span> <span class="o">-</span><span class="nx">tags</span> <span class="nx">dev</span> <span class="o">-</span><span class="nx">o</span> <span class="nx">path</span> <span class="nx">main</span><span class="p">.</span><span class="k">go</span>
+</span></span><span class="line"><span class="cl"><span class="err">​</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">还原之前的编译环境</span>
+</span></span><span class="line"><span class="cl"><span class="err">​</span>
+</span></span><span class="line"><span class="cl"><span class="nx">set</span> <span class="nx">GOARCH</span><span class="p">=</span><span class="nx">amd64</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">env</span> <span class="o">-</span><span class="nx">w</span> <span class="nx">GOARCH</span><span class="p">=</span><span class="nx">amd64</span>
+</span></span><span class="line"><span class="cl"><span class="nx">set</span> <span class="nx">GOOS</span><span class="p">=</span><span class="nx">windows</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">env</span> <span class="o">-</span><span class="nx">w</span> <span class="nx">GOOS</span><span class="p">=</span><span class="nx">windows</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 	
@@ -685,6 +569,19 @@ b.ResetTimer()初始化计时器
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go 语言实战</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="">
@@ -733,19 +630,6 @@ b.ResetTimer()初始化计时器
 
         <div class="article-details">
             <h2 class="article-title">Goweb入门</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/go%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Go常见问题</h2>
         </div>
     </a>
 </article>
