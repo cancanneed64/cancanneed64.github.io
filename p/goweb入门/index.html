@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="日常使用">
+<title>Goweb入门</title>
+
+<link rel='canonical' href='https://cancanneed64.github.io/p/goweb%E5%85%A5%E9%97%A8/'>
+
+<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="Goweb入门">
+<meta property='og:description' content="日常使用">
+<meta property='og:url' content='https://cancanneed64.github.io/p/goweb%E5%85%A5%E9%97%A8/'>
+<meta property='og:site_name' content='Cancanneed64'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-17T08:59:26&#43;00:00'/>
+<meta name="twitter:title" content="Goweb入门">
+<meta name="twitter:description" content="日常使用">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+
+<span id="top"></span>
+
+
+
+
+	 <link rel="stylesheet" href="/css/prism.css"/>
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu5f048b0037a3ebe412d4c3c4b3d8d9e8_103276_300x0_resize_q75_box.jpg" width="300"
+                            height="324" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌟</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Cancanneed64</a></h1>
+            <h2 class="site-description">欢迎光临 点击右导航栏黑色蝴蝶回到文章顶部</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/cancanneed64'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友情链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#工具">工具</a>
+      <ol>
+        <li><a href="#nc-命令">nc 命令</a></li>
+        <li><a href="#调试热加载">调试热加载</a></li>
+        <li><a href="#处理请求">处理请求</a></li>
+      </ol>
+    </li>
+    <li><a href="#restful-api">RESTful API</a></li>
+    <li><a href="#通讯问题">通讯问题</a></li>
+    <li><a href="#基础">基础</a>
+      <ol>
+        <li><a href="#数据模型">数据模型</a></li>
+        <li><a href="#安装-postgresql">安装 PostgreSQL</a></li>
+        <li><a href="#ssl">SSL</a></li>
+        <li><a href="#处理器与处理器函数">处理器与处理器函数</a></li>
+        <li><a href="#表单-enctype-属性">表单 enctype 属性</a></li>
+        <li><a href="#分析字段">分析字段</a></li>
+      </ol>
+    </li>
+    <li><a href="#5-模板引擎">5. 模板引擎</a>
+      <ol>
+        <li><a href="#构建运行">构建运行</a></li>
+        <li><a href="#存储数据">存储数据</a>
+          <ol>
+            <li><a href="#csv-处理">CSV 处理</a></li>
+            <li><a href="#gob-包">gob 包</a></li>
+            <li><a href="#postgres-crud">Postgres CRUD</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#7go-web">7.go web</a>
+      <ol>
+        <li><a href="#xml">XML</a></li>
+        <li><a href="#json">JSON</a></li>
+      </ol>
+    </li>
+    <li><a href="#并发与并行">并发与并行</a>
+      <ol>
+        <li><a href="#打印数字和英文">打印数字和英文</a></li>
+        <li><a href="#等待执行完毕">等待执行完毕</a></li>
+        <li><a href="#通道">通道</a></li>
+        <li><a href="#马赛克算法">马赛克算法</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+
+<a href="#top" class="backtop"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a>
+
+
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/go/" >
+                Go
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/goweb%E5%85%A5%E9%97%A8/">Goweb入门</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            日常使用
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">05月07日, 2023年</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 9 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+
+    <h1 id="goweb-入门">goweb 入门
+</h1><h2 id="工具">工具
+</h2><h3 id="nc-命令">nc 命令
+</h3><p><a class="link" href="https://www.cnblogs.com/nmap/p/6148306.html"  target="_blank" rel="noopener"
+    >nc 用法</a></p>
+<h3 id="调试热加载">调试热加载
+</h3><p><a class="link" href="https://www.cnblogs.com/xingxia/p/golang_fresh.html"  target="_blank" rel="noopener"
+    >热加载</a></p>
+<p>fresh
+<code>go get -v -u github.com/pilu/fresh</code>
+<code>go install</code></p>
+<p>air
+<code>go get -u github.com/cosmtrek/air</code></p>
+<h3 id="处理请求">处理请求
+</h3><p><a class="link" href="https://blog.csdn.net/hadues/article/details/101788327"  target="_blank" rel="noopener"
+    >curl 使用说明</a></p>
+<p>powershell 中需要使用 curl.exe</p>
+<h2 id="restful-api">RESTful API
+</h2><p>通过调用&quot;net/http&quot;和&quot;github.com/gin-gonic/gin&quot;</p>
+<p>定义 album 类，实例化</p>
+<p>用 router:=gin.Default(),去调用 get/post 和定义的其他方法</p>
+<h2 id="通讯问题">通讯问题
+</h2><ol>
+<li>字符显示问题</li>
+</ol>
+<p><code>chcp 65001</code></p>
+<p>打开 cmd 运行可解决部分错误</p>
+<ol start="2">
+<li>输入秒发送</li>
+</ol>
+<p>逻辑</p>
+<ul>
+<li>server 监听端口</li>
+<li>go 监听消息，将信息发给 usermap</li>
+<li>接受 socket，处理信息</li>
+</ul>
+<ol start="3">
+<li>
+<p>新版客户端
+没有存在字符问题
+但 rename 和 who 有问题
+存疑
+client 中的模式处理
+user 中的 who 处理</p>
+</li>
+<li>
+<p>44 集踢出问题
+在 handle 函数中时间超过后打印被踢信息，并且关闭资源连接，返回 start 函数
+但是在 start 函数中一直在 for 循环监听 listener，因此会占用资源
+通过排错，发现 server 问题</p>
+</li>
+</ol>
+<p>打印错误</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">this</span><span class="p">.</span><span class="nx">conn</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">msg</span> <span class="o">+</span> <span class="s">&#34;\n&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>panic 用法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">test</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nb">recover</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recover:%v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;an error occurred&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>for-range channel 用法
+当 channel 关闭时，for 循环会自动退出，无需主动检测 channel 是否关闭，防止读取已关闭的 channel，造成读取到数据为通道所存储的数据类型的零值</p>
+<h2 id="基础">基础
+</h2><h3 id="数据模型">数据模型
+</h3><p>User，session，thread，post 和数据库交互，处理器返回数据给模板引擎，再传给模板</p>
+<p>通过 URL 进行接受请求</p>
+<p>多路复用器
+<code>mux := http.NewServeMux()</code>
+net/http，将收到的请求重定向到处理器</p>
+<p>将发送至根 URL 的请求重定向到处理器
+<code>mux.HandleFunc(&quot;/&quot;, index)</code>
+所有处理器都接受一个 ResponseWriter 和一个指向 Request 结构的指针作为参数，并且所有请求参数通过访问 Requset 结构得到，所以程序不需要向处理器显式地传入任何请求参数</p>
+<p>服务静态文件
+<code>file := http.FileServer(http.Dir(&quot;/public&quot;))</code>
+<code>mux.Handle(&quot;/static/&quot;, http.StripPrefix(&quot;/static/&quot;, files))</code>
+删除/static/字符串在 public 目录里查找被请求的文件</p>
+<p>处理器函数，接受 ResponseWriter 和 Request 指针作为参数的函数</p>
+<p>cookie 服务器在响应首部写入 cookie，客户端接受 cookie 后把它存储到浏览器里，route_auth.go 的 authenticate 处理器函数</p>
+<p>session 记录各项信息存储到数据库，决定访问 public 或 private 页面
+utility 包
+判断 cookie 存在，data.Session 的 check 方法访问数据库校对唯一 ID 存在，index 函数获取 err 变量判断用户是否已经登录</p>
+<p>使用模板生成 HTML 响应
+用{{define &ldquo;&rdquo;}}标识动作
+ParseFiles 函数对模板进行语法分析并创建出相应模板，Must 函数包围 ParseFiles 函数，返回错误报告</p>
+<p>(.)代表了传递给被引用模板的数据
+{{.Topic}}访问的是 Thread 结构的 Topic 字段，在访问字段时必须在字段名的前面加上点号，并且字段名的首字母必须大写</p>
+<h3 id="安装-postgresql">安装 PostgreSQL
+</h3><p><a class="link" href="https://m.runoob.com/postgresql/postgresql-create-database.html"  target="_blank" rel="noopener"
+    >数据库创建</a></p>
+<p>查看数据库 \l</p>
+<p><a class="link" href="https://blog.csdn.net/weixin_44493195/article/details/106162814"  target="_blank" rel="noopener"
+    >表格创建</a></p>
+<blockquote>
+<p>pq 包虽然用_忽略，但实际上连接数据库还是会调用</p>
+</blockquote>
+<p>psql -f setup.sql -d chitchat 无法生效
+手动创建数据库</p>
+<p>在 chitchat 目录下运行 go build，报 data 包错误，直接将 data 丢入 src 路径，go mod tidy 解决</p>
+<p><a class="link" href="https://blog.csdn.net/weixin_39493668/article/details/127071322"  target="_blank" rel="noopener"
+    >添加项目</a></p>
+<h3 id="ssl">SSL
+</h3><h3 id="处理器与处理器函数">处理器与处理器函数
+</h3><p>任何实现了 ServeHTTP 的类型都可以作为 HTTP 请求的处理器</p>
+<p>处理器拥有 ServeHTTP 方法接口，ServeHTTP 需要接受两个参数，ResponseWriter 和 Request 指针</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Handler</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 自定义类型实现 Handler 接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">MyHandler</span> <span class="kd">struct</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">h</span> <span class="o">*</span><span class="nx">MyHandler</span><span class="p">)</span> <span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">w</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;Hello from Handler!&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 注册处理器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">http</span><span class="p">.</span><span class="nf">Handle</span><span class="p">(</span><span class="s">&#34;/path&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">MyHandler</span><span class="p">{})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>允许普通函数直接作为处理器使用，无需定义新类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">HandlerFunc</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 实现 ServeHTTP 方法（将函数转为 Handler）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="nx">HandlerFunc</span><span class="p">)</span> <span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span> <span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">f</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span> <span class="c1">// 直接调用自身
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 普通函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">helloHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">w</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;Hello from HandlerFunc!&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 将函数转换为 HandlerFunc 类型，再注册为处理器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">http</span><span class="p">.</span><span class="nf">Handle</span><span class="p">(</span><span class="s">&#34;/hello&#34;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="nx">helloHandler</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 更简洁的写法（直接使用 HandleFunc）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">http</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/hello&#34;</span><span class="p">,</span> <span class="nx">helloHandler</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>处理器函数与处理器有相同行为，与 ServeHTTP 方法拥有相同签名
+<code>func hello(w http.ResponseWriter, r *http.Requset)</code>
+<code>http.HandleFunc(&quot;/hello&quot;, hello)</code></p>
+<p>HandleFunc 可以把一个带有正确签名的函数 f 转换成一个带有方法 f 的 Handler，并与 DefaultServeMux 进行绑定</p>
+<p>处理器函数不能替代处理器，代码包含了某个接口或者某种类型，需要为它们添加 ServeHTTP 方法转变为处理器</p>
+<p>串联处理器和处理器函数</p>
+<p>ServeMux 请求多路复用器，DefaultServeMux 是 ServeMux 一个实例，用户没有指定处理器则会使用</p>
+<p>HTTP2
+<code>http2.ConfigureServer(&amp;server, &amp;http2.Server{})</code>
+<code>curl -I --http2 --insecure https://localhost:8080/</code></p>
+<p>实际应用在中间件中
+通过 HandlerFunc 链式调用实现中间件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">loggingMiddleware</span><span class="p">(</span><span class="nx">next</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span><span class="p">)</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">http</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Request received:&#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">next</span><span class="p">.</span><span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span> <span class="c1">// 调用下一个处理器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 使用中间件包装处理器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">http</span><span class="p">.</span><span class="nf">Handle</span><span class="p">(</span><span class="s">&#34;/secure&#34;</span><span class="p">,</span> <span class="nf">loggingMiddleware</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">AuthHandler</span><span class="p">{}))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 Gin 中，处理器函数通常是 gin.HandlerFunc 类型，与标准库思想类似</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">ginHandler</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">&#34;Hello Gin!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">router</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nx">router</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/gin&#34;</span><span class="p">,</span> <span class="nx">ginHandler</span><span class="p">)</span> <span class="c1">// 直接使用函数
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="表单-enctype-属性">表单 enctype 属性
+</h3><p>简单使用
+application/x-www-form-urlencoded
+不同得键值对将使用&amp;符号分隔，键和值用=分隔
+<code>first_name=sau%20sheong&amp;last_name=chang</code></p>
+<p>上传文件使用
+mutipart/form-data
+表单中得键值对带有各自的内容类型和配置
+<code>----WebKit.... Content-Disposition:form-data;name=&quot;firstname&quot; sau sheong</code></p>
+<h3 id="分析字段">分析字段
+</h3><blockquote>
+<p>以下三者围绕着返回值和表单属性进行区分
+requset 将 url/主体等提取到 form/postform/multipartform 字段中，调用 parseform 方法或者 parsemultipartform 方法进行解析</p>
+</blockquote>
+<p>Form 字段
+r.ParseForm()
+fmt.Fprintln(w, r.Form)
+将获得一个切片，包含键的表单值或者 URL 值
+<code>map[thread:[123] hello:[sau sheong world] post:[456]]</code></p>
+<p>PostForm 字段
+r.PostForm()
+将获得一个键的表单值不包含 URL 值
+只支持 urlencoded 编码</p>
+<p>application/x-www-form-urlencoded 下 PostForm，获得表单值
+<code>map[post:[456] hello:[sau sheong]]</code></p>
+<p>修改成 multipart/form-data 下使用回 r.Form，获得 url 值
+<code>map[hello:[world] thread:[123]]</code></p>
+<p>MutipartForm 字段
+只包含表单不包含 URL 键值对，包含两个映射，一个为字符串组成切片，一个为空，为上传文件</p>
+<p>r.ParseMultipartForm(1024)
+fmt.Fprintln(w, r.MultipartForm)</p>
+<p><code>&amp;{map[hello:[sau sheong] post:[456]] map[]}</code></p>
+<p>FormValue 字段
+允许直接访问与给定键相关联的值
+FormValue 自动调用 ParseForm 或 ParseMultipartForm 方法，但指挥从 Form 结构取出给定键的第一个值，要获取全部需要直接访问 Form 结构</p>
+<p>PostFormValue 字段
+PostFormValue 同理，只会返回表单不会返回 url，两者都只支持 application/x-www-form-urlencoded，在 multipart/form-data 中不会得到任何结果
+multipart/form-data 时，数据被存储到 MultipartForm 字段中而不是 Form 字段和 PostForm 字段</p>
+<p>上传文件
+前端
+<code>enctype=&quot;multipart/form-data&quot;</code>
+<code>&lt;input type=&quot;file&quot; name=&quot;uploaded&quot;&gt;</code></p>
+<p>后端</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">ParseMultipartForm</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">fileHeader</span> <span class="p">:</span><span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">MultipartForm</span><span class="o">.</span><span class="n">File</span><span class="p">[</span><span class="s2">&#34;uploaded][0]</span>
+</span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">fileHeader</span><span class="o">.</span><span class="n">Open</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行 ParseMultipartForm 方法，从 MultipartForm 的 File 取出 fileHeader，然后通过调用文件头的 Open 方法打开文件，服务器会将文件的内容读取到一个字节数组中，并将这个字节数组的内容打印出来，纯文本文件会把这个文件内容打印在浏览器上
+FormFile 可以返回给定键的第一个值，返回文件和文件头</p>
+<p>ParseForm 方法无法从 Angular 客户端发送 POST 请求中获取 JSON 数据，使用的是 application/json，ParseForm 方法只对表单数据进行分析</p>
+<p>ResponseWriter
+实际上 ResponseWriter 就是 response 这个非导出结构的接口，传递的也是指向 response 结构的指针，包含 Write/WriteHeader/Header 三个方法
+Write 可以将 HTML 字符串写入 HTTP 响应主题中
+WriteHeader 接受一个代表 HTTP 响应状态码的整数作为参数，并将这个整数用作 HTTP 响应的返回状态码，用户可以继续对 ResponseWriter 进行写入但是不能对响应的首部做任何写入
+Header 取得一个由首部组成的映射，修改映射可以修改首部，修改后的首部将被包含在 HTTP 响应里面，并随着响应一同发送至客户端</p>
+<p>重定向方法
+<code>w.Header().Set(&quot;Location&quot;, &quot;http://www.baidu.com&quot;)</code>
+<code>w.WriteHeader(302)</code>
+给响应首部添加一个 Location，并设置为重定向目的地，WriteHeader 执行后不再允许写入</p>
+<p>Cookie
+除了 Expires 字段，还有 MaxAge 字段</p>
+<p>设置 cookie</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">w.Header().Set(&#34;Set-Cookie&#34;, c1.String())
+</span></span><span class="line"><span class="cl">w.Header().Add(&#34;Set-Cookie&#34;, c2.String())
+</span></span><span class="line"><span class="cl">http.SetCook(w, &amp;c1) //传递指向Cookie结构的指针
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>cookie 实现闪现消息
+c := http.Cookie{
+Name: &ldquo;flash&rdquo;,
+Value:base64.URLEncoding.EncodeToString(msg)
+}</p>
+<p>rc := http.Cookie{
+Name: &ldquo;flash&rdquo;
+MaxAge: -1
+Expires: time.Unix(1, 0)
+}
+val, _ := base64.URLEncoding.DecodeString(c.Value)</p>
+<p>通过完全移除 cookie，程序对旧 cookie 解码并返回</p>
+<h2 id="5-模板引擎">5. 模板引擎
+</h2><p>无逻辑模板引擎，将模板中指定的占位符替换成相应的动态数据，完全分离程序的表现和逻辑，计算交给处理器完成</p>
+<p>嵌入逻辑的模板引擎，将编程语言嵌入模板并在模板引擎渲染模板时，由代码进行相应的字符串替换</p>
+<p>模板中默认动作使用{{}}包围，而点(.)是一个动作，模板引擎执行模板时，使用一个值去替换动作本身
+步骤：
+(1) 对文本格式模板源进行语法分析，创建一个经过语法分析的模板结构，模板源既可以是一个字符串，也可以是模板文件中包含的内容；
+(2) 执行经过语法分析的模板，将 ResponseWriter 和模板所需的动态数据传递给模板引擎，被调用的模板引擎会把经过语法分析的模板和传入的数据结合起来，生成出最终的 HTML，并将这些 HTML 传递给 ResponseWriter</p>
+<p><code>t, _ := template.ParseFiles(&quot;tmpl.html&quot;)</code>
+<code>t.Execute(w, &quot;Hello World!&quot;)</code>
+等同于
+<code>t := template.New(&quot;tmpl.html&quot;)</code>
+<code>t, _ := t.ParseFiles(&quot;tmpl.html')</code></p>
+<p>ParseFiles 可以接受多个文件名作为参数，变成集合，但只返回第一个文件的已分析模板
+ParseGlob 会对匹配给定模式的所有文件进行语法分析
+<code>t, _ := template.ParseGlob(&quot;*.html&quot;)</code></p>
+<p>处理分析模板时出现的错误
+<code>t := template.Must(template.ParseFiles(&quot;tmpl.html&quot;))</code>
+Must 函数可以包裹起一个函数，返回一个指向模板的指针和一个错误，如果不是 nil 则产生 panic
+panic 会终止正常流程，如果 panic 是内部函数产生那会返回给调用者，一直向调用栈的上方传递，直到 main 函数</p>
+<p>如果想执行别的模板需要
+<code>t.ExecuteTemplate(w, &quot;t2.html&quot;, &quot;Hello World&quot;)</code></p>
+<p>动作
+条件动作/迭代动作/设置动作/包含动作</p>
+<p>t.Execute(w, )负责传入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{if .}} action
+</span></span><span class="line"><span class="cl">{{else}} action
+</span></span><span class="line"><span class="cl">{{end}}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{range .}}
+</span></span><span class="line"><span class="cl">&lt;li&gt;{{.}}&lt;/li&gt;
+</span></span><span class="line"><span class="cl">{{else}} action
+</span></span><span class="line"><span class="cl">{{end}}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{with arg}}
+</span></span><span class="line"><span class="cl">到end之间.会变成arg的内容
+</span></span><span class="line"><span class="cl">{{else}} action
+</span></span><span class="line"><span class="cl">如果arg为空，则会替换成else
+</span></span><span class="line"><span class="cl">{{end}}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>包含另一个模板
+{{template &ldquo;name&rdquo;}}</p>
+<p>ParseFiles 第一个参数有特殊作用，传递给第二个模板需要用{{template &ldquo;t2.html&rdquo; .}}，可以把 t1.html 的{{.}}传递给 t2.html</p>
+<p>变量$variable := value
+管道可以传递给下一个参数</p>
+<p>自定义模板函数
+(1)创建一个名为 FuncMap 映射并将映射的键设置为函数名字，而映射的值则设置为实际定义函数
+(2)将 FuncMap 与模板进行绑定
+用户常常需要将时间对象或日期转换为 ISO8601 格式的时间字符串或者日期字符串</p>
+<p>定义函数返回 t.Format(layout),处理器中创建一个变量名为 funcMap，使用结构将名字 fdate 映射至 formatDate 函数，template.New 函数创建一个名为 tmpl.html 的模板，funcMap 传递给 template.New 返回被创建模板进行绑定，对 tmpl.html 进行语法分析，将 ResponseWriter 以及当前时间传递给模板</p>
+<p><code>funcMap := template.FuncMap{&quot;fdate&quot;: formatDate}</code>
+<code>t := template.New(&quot;tmpl.html&quot;).Funcs(funcMap)</code>
+<code>t, _ = t.ParseFiles(&quot;tmpl.html&quot;)</code>
+<code>t.Execute(w, time.Now())</code></p>
+<p>上下文感知，对 HTML/JS 等进行转义
+<code>w.Header().Set(&quot;X-XSS-Protection&quot;, &quot;0&quot;)</code></p>
+<p>介于标签之间的内容就是 layout 模板
+{{define &ldquo;layout&rdquo;}}
+{{end}}</p>
+<p><code>t.ExecuteTemplate(w, &quot;layout&quot;, &quot;&quot;)</code></p>
+<p>块动作定义默认模板，可以将 content 放置到 layout 中
+{{block arg}}
+{{end}}</p>
+<h3 id="构建运行">构建运行
+</h3><p>1.将文件夹复制到&quot;C:\Program Files\Go\src&quot;中 2.管理员权限开 cmd 运行 go install 目录名 3.可以在 bin 目录里找到 exe，运行</p>
+<p>常见问题：
+端口被占用无法运行
+netstat -ano | findstr 查看端口
+taskkill /PID pid /f 关闭端口</p>
+<p>curl -i 返回请求头
+-d 提交 Post</p>
+<h3 id="存储数据">存储数据
+</h3><p>gob 一种能存储在文件里面的二进制格式，可以快速高效地将内存中的数据序列化到一个或多个文件里面</p>
+<p>io/ioutill 库
+用 WriteFile 和 ReadFile 对文件进行写入读取</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ioutill.WriteFile(&#34;data1&#34;, data, 0644)
+</span></span><span class="line"><span class="cl">read1, _ := ioutil.ReadFile(&#34;data1&#34;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>写入程序会将文件的名字/数据以及权限传入
+读取将文件名做参，返回一个由字节组成的切片</p>
+<p>os 库
+通过 File 结构对文件进行写入读取</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">file1, _ := os.Create(&#34;data2&#34;)
+</span></span><span class="line"><span class="cl">defer file1.Close()
+</span></span><span class="line"><span class="cl">bytes, _ := file1.Write(data)
+</span></span><span class="line"><span class="cl">file2, _ := os.Open(&#34;data2&#34;)
+</span></span><span class="line"><span class="cl">defer file2.Close()
+</span></span><span class="line"><span class="cl">read2 := make([]byte, len(data))
+</span></span><span class="line"><span class="cl">bytes, _ = file2.Read(read2)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Create 出 file 文件后进行写入，Open 文件后进行 read</p>
+<h4 id="csv-处理">CSV 处理
+</h4><p>创建写入器，把数据创建为一个由字符串组成的切片，Flush 方法保证缓冲区数据写入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">writer := csv.NewWriter(csvFile)
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">writer.Flush()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>打开 csv 文件，将 FieldsPerRecord 字段设为-1，即使读取时缺少字段也不会中断，为正数时，字段数量少于值会报错，为 0 时，读取第一条记录的字段数量未作值，在使用 readall 一次性读取所有记录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">file, err := os.Open(&#34;csv&#34;)
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">defer file.Close()
+</span></span><span class="line"><span class="cl">reader := csv.NewReader(file)
+</span></span><span class="line"><span class="cl">reader.FiledsPerRecord = -1
+</span></span><span class="line"><span class="cl">record, err := reader.ReadAll()
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="gob-包">gob 包
+</h4><p>通过二进制读取存储数据
+存储数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="n">store</span><span class="p">(</span><span class="n">data</span> <span class="n">interface</span><span class="p">{},</span> <span class="n">filename</span> <span class="n">string</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">buffer</span> <span class="p">:</span><span class="o">=</span> <span class="n">new</span><span class="p">(</span><span class="n">bytes</span><span class="o">.</span><span class="n">Buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">encoder</span> <span class="p">:</span><span class="o">=</span> <span class="n">gob</span><span class="o">.</span><span class="n">NewEncoder</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>载入数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="nb">load</span><span class="p">(</span><span class="n">data</span> <span class="n">interface</span><span class="p">{},</span> <span class="n">filename</span> <span class="n">string</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">raw</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">ioutil</span><span class="o">.</span><span class="n">ReadFile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">buffer</span> <span class="p">:</span><span class="o">=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dec</span> <span class="p">:</span><span class="o">=</span> <span class="n">dec</span><span class="o">.</span><span class="n">Decode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="postgres-crud">Postgres CRUD
+</h4><p>导入驱动，调用库
+<code>_ &quot;github.com/lib/pq&quot;</code>
+<code>&quot;database/sql&quot;</code>
+隐形调用 sql.Register(&ldquo;postgres&rdquo;, &amp;drv{})</p>
+<p>创建用户，-P 密码，-d 权限
+<code>createuser -P -d gwp</code></p>
+<p>创建数据库
+<code>createdb gwp</code></p>
+<p>创建表格
+<code>psql -U gwp -f setup.sql -d gwp</code></p>
+<p>连接数据库
+<code>Db, err = sql.Open(exe, user dbname password sslmode)</code></p>
+<blockquote>
+<p>如果密码不对，则会产生权限问题，无法对数据库进行操作
+defer Db.Close()放在 main 函数中否则占用资源
+惰性连接</p>
+</blockquote>
+<p><a class="link" href="https://developer.aliyun.com/article/178898#slide-6"  target="_blank" rel="noopener"
+    >详细说明</a>
+有了 sql.DB 实例之后就可以开始执行查询语句了。</p>
+<p>Go 将数据库操作分为两类：Query 与 Exec。两者的区别在于前者会返回结果，而后者不会。</p>
+<ul>
+<li>Query 表示查询，它会从数据库获取查询结果（一系列行，可能为空）。</li>
+<li>Exec 表示执行语句，它不会返回行。</li>
+</ul>
+<p>此外还有两种常见的数据库操作模式：</p>
+<ul>
+<li>QueryRow 表示只返回一行的查询，作为 Query 的一个常见特例。</li>
+<li>Prepare 表示准备一个需要多次使用的语句，供后续执行用</li>
+</ul>
+<p>Scan 方法把行中的值复制到程序为其提供的参数里面，一般与 QueryRow 搭配使用</p>
+<p>查询数据，传入 limit 限制行数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="n">Posts</span><span class="p">(</span><span class="n">limit</span> <span class="ne">int</span><span class="p">)</span> <span class="p">(</span><span class="n">posts</span> <span class="p">[]</span><span class="n">Post</span><span class="p">,</span> <span class="n">err</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">rows</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">Db</span><span class="o">.</span><span class="n">Query</span><span class="p">(</span><span class="s2">&#34;select id, content, author from posts limit $1&#34;</span><span class="p">,</span> <span class="n">limit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">rows</span><span class="o">.</span><span class="n">Next</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">post</span> <span class="p">:</span><span class="o">=</span> <span class="n">Post</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">		<span class="n">err</span> <span class="o">=</span> <span class="n">rows</span><span class="o">.</span><span class="n">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Content</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Author</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="n">posts</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">posts</span><span class="p">,</span> <span class="n">post</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">rows</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>单一查询</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="n">GetPost</span><span class="p">(</span><span class="n">id</span> <span class="ne">int</span><span class="p">)</span> <span class="p">(</span><span class="n">post</span> <span class="n">Post</span><span class="p">,</span> <span class="n">err</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">post</span> <span class="o">=</span> <span class="n">Post</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">err</span> <span class="o">=</span> <span class="n">Db</span><span class="o">.</span><span class="n">QueryRow</span><span class="p">(</span><span class="s2">&#34;select id, content, author from posts where id = $1&#34;</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Content</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Author</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>增加</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="p">(</span><span class="n">post</span> <span class="o">*</span><span class="n">Post</span><span class="p">)</span> <span class="n">Create</span><span class="p">()</span> <span class="p">(</span><span class="n">err</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">statement</span> <span class="p">:</span><span class="o">=</span> <span class="s2">&#34;insert into posts (content, author) values ($1, $2) returning id&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">stmt</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">Db</span><span class="o">.</span><span class="n">Prepare</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">defer</span> <span class="n">stmt</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="n">err</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="n">QueryRow</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">Content</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">Author</span><span class="p">)</span><span class="o">.</span><span class="n">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>删除</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="p">(</span><span class="n">post</span> <span class="o">*</span><span class="n">Post</span><span class="p">)</span> <span class="n">Delete</span><span class="p">()</span> <span class="p">(</span><span class="n">err</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">Db</span><span class="o">.</span><span class="n">Exec</span><span class="p">(</span><span class="s2">&#34;delete from posts where id = $1&#34;</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>改变</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="p">(</span><span class="n">post</span> <span class="o">*</span><span class="n">Post</span><span class="p">)</span> <span class="n">Update</span><span class="p">()</span> <span class="p">(</span><span class="n">err</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">Db</span><span class="o">.</span><span class="n">Exec</span><span class="p">(</span><span class="s2">&#34;update posts set content = $2, author = $3 where id = $1&#34;</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">Content</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">Author</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>尝试将其他搜索条件传入，返回 id 值</p>
+<h2 id="7go-web">7.go web
+</h2><p>SOAP
+响应报文由 WSDL 生成的 SOAP 服务器负责，每次修改服务器，即使是修改返回值类型客户端也需要重新生成</p>
+<p>REST
+对象模型表示事物，函数称为方法，以资源的形式把模型暴露出来，人们通过少数几个称为动词的动作来操纵资源
+HTTP 实现 REST 服务时，URL 用于表示资源，HTTP 方法则操纵资源动词</p>
+<p>PUT 再使用时需要知道哪项资源会被替换，POST 则只会创建出一项新资源以及一个新 URL
+PUT 是幂等的，无论调用多少次服务器的状态都不会改变，PUT 会重复修改一项资源</p>
+<p>REST 对资源执行动作方法
+把过程具体化，把动作转为名词然后用作资源
+把动作用作资源的属性
+优点是可以添加额外属性，再用 PATCH 对资源进行部分更新</p>
+<h3 id="xml">XML
+</h3><p>创建用于存储 XML 数据的结构
+使用 unmarshal 将 xml 数据解封</p>
+<p>在结构中使用`作为标签，名字必须以大写英文字母开头，创建一个与 XML 元素标签同名的字段存储，可以将元素&quot;&lt;/name/&gt;&ldquo;属性存到字段，也可以使用 a&gt;b&gt;c 形式</p>
+<p>解码
+处理体积小的 XML 文件,unmarshal</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">	<span class="n">xmlFile</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&#34;post.xml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="n">defer</span> <span class="n">xmlFile</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="n">xmlData</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">ioutil</span><span class="o">.</span><span class="n">ReadAll</span><span class="p">(</span><span class="n">xmlFile</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="k">var</span> <span class="n">post</span> <span class="n">Post</span>
+</span></span><span class="line"><span class="cl">	<span class="n">xml</span><span class="o">.</span><span class="n">Unmarshal</span><span class="p">(</span><span class="n">xmlData</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">post</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以流的方式传输 XML 文件以及体积较大的文件
+decoder</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">	xmlFile, err := os.Create(&#34;post.xml&#34;)
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">	encoder := xml.NewEncoder(xmlFile)
+</span></span><span class="line"><span class="cl">	encoder.Indent(&#34;&#34;, &#34;\t&#34;)
+</span></span><span class="line"><span class="cl">	err = encoder.Encode(&amp;post)
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建 XML
+marshal</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">output, err := xml.Marshal(&amp;post) //无格式
+</span></span><span class="line"><span class="cl">output, err := xml.MarshalIndent(&amp;post, &#34;&#34;, &#34;\t\t&#34;) //有格式
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加 XML 声明
+<code>err = ioutil.WriteFile(&quot;post.xml&quot;, []byte(xml.Header + string(output)), 0644)</code></p>
+<p>encode</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">	xmlFile, err := os.Create(&#34;post.xml&#34;)
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">	encoder := xml.NewEncoder(xmlFile)
+</span></span><span class="line"><span class="cl">	encoder.Indent(&#34;&#34;, &#34;\t&#34;)
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="json">JSON
+</h3><p>创建存储结构-把 json 数据解封到结构
+创建存储结构-创建用于解码的解码器-遍历整个 JSON 文件并将数据解码至结构</p>
+<p>创建存储结构并填充-把结构封装为 JSON 数据
+创建存储结构并填充-创建出用于存储 JSON 数据的 JSON 文件-创建用于编码 JSON 数据的编码器-通过编码器把结构编码至 JSON 文件</p>
+<p>解码
+marshal</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">	<span class="n">jsonFile</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&#34;post.json&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="n">defer</span> <span class="n">jsonFile</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="n">jsonData</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">ioutil</span><span class="o">.</span><span class="n">ReadAll</span><span class="p">(</span><span class="n">jsonFile</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="k">var</span> <span class="n">post</span> <span class="n">Post</span>
+</span></span><span class="line"><span class="cl">	<span class="n">json</span><span class="o">.</span><span class="n">Unmarshal</span><span class="p">(</span><span class="n">jsonData</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">post</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>encode</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">	<span class="n">jsonFile</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&#34;post.json&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="n">defer</span> <span class="n">jsonFile</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">decoder</span> <span class="p">:</span><span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">NewDecoder</span><span class="p">(</span><span class="n">jsonFile</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">var</span> <span class="n">post</span> <span class="n">Post</span>
+</span></span><span class="line"><span class="cl">		<span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="n">post</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建 json
+marshal</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">	output, err := json.MarshalIndent(&amp;post, &#34;&#34;, &#34;\t\t&#34;)
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">	err = ioutil.WriteFile(&#34;post.json&#34;, output, 0644)
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>encode</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">	jsonFile, err := os.Create(&#34;post.json&#34;)
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">	jsonWriter := io.Writer(jsonFile)
+</span></span><span class="line"><span class="cl">	encoder := json.NewEncoder(jsonWriter)
+</span></span><span class="line"><span class="cl">	err = encoder.Encode(&amp;post)
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="并发与并行">并发与并行
+</h2><p>并发，多个任务在同一时间段内启动互动，任务通过通信分享数据并协调执行时间，共享一个资源</p>
+<p>并行，把大任务分割成小任务，需要独立资源，不会重叠处理</p>
+<p>GOMAXPROCS 让并行可以同时运行多个任务</p>
+<h3 id="打印数字和英文">打印数字和英文
+</h3><p>创建 go routine 程序
+在 TestGoPrint1 中，如果规定 CPU 最大数量不为 1，每次打印的结果不相同，可以通过定义数量来固定结果
+<code>go test -run x -bench . -cpu 1</code>
+<code>go test -v</code>
+需要通过延迟来显示结果
+<code>time.Sleep(1 * time.Millisecond)</code></p>
+<p>增加 CPU 的数量并不一定能带来性能提升</p>
+<h3 id="等待执行完毕">等待执行完毕
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="p">(</span><span class="n">wg</span> <span class="o">*</span><span class="n">sync</span><span class="o">.</span><span class="n">WaitGroup</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">wg</span><span class="o">.</span><span class="n">Done</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">fuc</span> <span class="n">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">	<span class="k">var</span> <span class="n">wg</span> <span class="n">sync</span><span class="o">.</span><span class="n">WaitGroup</span>
+</span></span><span class="line"><span class="cl">	<span class="n">wg</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">go</span> <span class="n">printNumbers2</span><span class="p">(</span><span class="o">&amp;</span><span class="n">wg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">go</span> <span class="n">printLetters2</span><span class="p">(</span><span class="o">&amp;</span><span class="n">wg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">wg</span><span class="o">.</span><span class="n">Wait</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果没有对计数器进行减数操作会引发 panic</p>
+<h3 id="通道">通道
+</h3><p>只能执行发送操作的字符串管道
+<code>ch := make(chan &lt;- string)</code></p>
+<p>只能执行接收操作的字符串管道
+<code>ch := make(&lt;-chan string)</code></p>
+<p>阻塞主程序，直到 w &lt;- true 被触发
+<code>&lt;-w1</code>
+main 函数尝试移除 w1 的值，但没有包含任何值因此阻塞</p>
+<p>无缓冲通道会轮番打印，但由于 print 抢先执行，会出现先取后入的情况</p>
+<p>有缓冲通道会一直运行直到通道满</p>
+<p>select 语句允许从多个通道选择一个来操作，但不加上 default 会出现死锁
+当 select 没有发现可用通道，会执行 default，如果不加延时，只会看见默认分支输出，通道 a 和 b 还没来得及接受值，select 就跳过执行</p>
+<p>close 关闭通道并不是必须的，用于通知接收者该通道不会在收到任何值</p>
+<p>程序从通道取值是多值方式，值和通道的状态
+<code>case value, ok1 = &lt;-a</code></p>
+<h3 id="马赛克算法">马赛克算法
+</h3><ol>
+<li>键：图片的文件名，值：图片平均颜色，
+通过计算图片每个像素红/绿/蓝 3 种颜色的总和，并将它们除以像素总数量，得到一个三元组，三元组计算图片的平均颜色</li>
+<li>根据瓷砖图片大小切割目标图片</li>
+<li>对目标图片的子图片计算位于左上方的第一个像素定义为平均颜色</li>
+<li>根据子图片平均颜色，在瓷砖图片找出一张最为接近的然后替代。程序需要将子图片平均颜色与瓷砖图片平均颜色转化为三维空间的一个点并计算欧几里得距离</li>
+<li>选中瓷砖图片后从数据库移除</li>
+</ol>
+
+</section>
+
+	
+    <footer class="article-footer">
+    
+
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 11月17日 08点59分, 2025年
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go 语言实战</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go语言入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/goroutine-%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Goroutine 入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/goroutine%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Goroutine并发模式</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/go%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go常见问题</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    Waline.init({"dark":"auto","el":"#waline","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/qq","https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/bmoji"],"locale":{"admin":"博主","placeholder":"有什么新点子？🎉（上方留下邮箱可以收到通知哦）"},"pageview":true,"requiredMeta":["name","email","url"],"serverURL":"https://comment.byao394.top/","visitor":true});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 Cancanneed64
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+
+
+
+
+
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<style>
+  @font-face {
+    font-family: 'nano';
+    src: url(https://cancanneed64.github.io/font/NanoPyongHanHei-Regular.ttf) format('truetype');
+  }
+
+  :root {
+    --base-font-family: 'nano';
+    --code-font-family: 'nano';
+  }
+</style>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+<meting-js
+	server="netease"
+	type="playlist"
+	id="3050508794"
+	fixed= True>
+</meting-js>
+
+
+
+ 
+ <style>
+  body {
+    background: url(https://cancanneed64.github.io/background/sora.png) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
+ 
+
+<script>
+    
+    const cssPath = "https://cancanneed64.github.io/waifu/waifu.css";
+    const tipsJsonPath = "https://cancanneed64.github.io/waifu/waifu-tips.json";
+    const tipsJsPath = "https://cancanneed64.github.io/waifu/waifu-tips.js";
+	const live2dJsPath = "https://cancanneed64.github.io/waifu/live2d.min.js";
+
+    
+    
+    
+	const live2d_path = "https://www.novrain.cn/pages/live2d-widget/";
+
+    
+    function loadExternalResource(url, type) {
+        return new Promise((resolve, reject) => {
+            let tag;
+            if (type === "css") {
+                tag = document.createElement("link");
+                tag.rel = "stylesheet";
+                tag.href = url;
+            }
+            else if (type === "js") {
+                tag = document.createElement("script");
+                tag.src = url;
+            }
+            if (tag) {
+                tag.onload = () => resolve(url);
+                tag.onerror = () => reject(url);
+                document.head.appendChild(tag);
+            }
+        });
+    }
+
+    
+    if (screen.width >= 768) {
+        Promise.all([
+            loadExternalResource(cssPath, "css"),
+            loadExternalResource(live2d_path + "live2d.min.js", "js"),
+            loadExternalResource(live2d_path + "waifu-tips.js", "js"),
+			loadExternalResource(tipsJsPath, "js"),
+			loadExternalResource(live2dJsPath, "js")
+
+        ]).then(() => {
+            
+            initWidget({
+                waifuPath: tipsJsonPath,
+                
+				
+				cdnPath: "https://www.novrain.cn/pages/live2d_api/",
+                tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
+            });
+			initWaifuMouseEvent();
+        });
+		
+    }
+	
+	function initWaifuMouseEvent() {
+        const waifu = document.getElementById("waifu");
+        let isDown = false;
+        let waifuLeft;
+        let mouseLeft;
+        let waifuTop;
+        let mouseTop;
+        
+        waifu.onmousedown = function (e) {
+            isDown = true;
+            
+            waifuLeft = waifu.offsetLeft;
+            mouseLeft = e.clientX;
+            
+            waifuTop = waifu.offsetTop;
+            mouseTop = e.clientY;
+        }
+        
+        window.onmousemove = function (e) {
+            if (!isDown) {
+                return;
+            }
+            
+            let currentLeft = waifuLeft + (e.clientX - mouseLeft);
+            if (currentLeft < 0) {
+                currentLeft = 0;
+            } else if (currentLeft > window.innerWidth - 300) {
+                currentLeft = window.innerWidth - 300;
+            }
+            waifu.style.left = currentLeft  + "px";
+            
+            let currentTop = waifuTop + (e.clientY - mouseTop);
+            if (currentTop < 30) {
+                currentTop = 30
+            } else if (currentTop > window.innerHeight - 290) {
+                currentTop = window.innerHeight - 290
+            }
+            waifu.style.top = currentTop + "px";
+        }
+        
+        window.onmouseup = function (e) {
+            isDown = false;
+        }
+    }
+</script>
+
+
+
+			
+	<script src="/js/prism.js"></script>
+
+
+    </body>
+</html>
