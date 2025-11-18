@@ -2,16 +2,16 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="日常使用">
-<title>Goroutine 入门</title>
+<title>7days gee记录</title>
 
-<link rel='canonical' href='https://cancanneed64.github.io/p/goroutine-%E5%85%A5%E9%97%A8/'>
+<link rel='canonical' href='https://cancanneed64.github.io/p/7days-gee%E8%AE%B0%E5%BD%95/'>
 
-<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="Goroutine 入门">
+<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="7days gee记录">
 <meta property='og:description' content="日常使用">
-<meta property='og:url' content='https://cancanneed64.github.io/p/goroutine-%E5%85%A5%E9%97%A8/'>
+<meta property='og:url' content='https://cancanneed64.github.io/p/7days-gee%E8%AE%B0%E5%BD%95/'>
 <meta property='og:site_name' content='Cancanneed64'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-18T08:19:50&#43;00:00'/>
-<meta name="twitter:title" content="Goroutine 入门">
+<meta name="twitter:title" content="7days gee记录">
 <meta name="twitter:description" content="日常使用">
     <link rel="shortcut icon" href="/favicon.svg" />
 
@@ -279,12 +279,15 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#1-并发">1. 并发</a></li>
-    <li><a href="#2-运行机制">2. 运行机制</a></li>
-    <li><a href="#3-代码格式">3. 代码格式</a></li>
-    <li><a href="#4-问题竞争状态">4. 问题：竞争状态</a></li>
-    <li><a href="#5-通道">5. 通道</a></li>
-    <li><a href="#6-总结">6. 总结</a></li>
+    <li><a href="#gee-框架">gee 框架</a>
+      <ol>
+        <li><a href="#http-基础">HTTP 基础</a></li>
+        <li><a href="#上下文">上下文</a></li>
+        <li><a href="#前缀树路由">前缀树路由</a></li>
+        <li><a href="#分组">分组</a></li>
+        <li><a href="#中间件">中间件</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -317,7 +320,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/goroutine-%E5%85%A5%E9%97%A8/">Goroutine 入门</a>
+            <a href="/p/7days-gee%E8%AE%B0%E5%BD%95/">7days gee记录</a>
         </h2>
     
         
@@ -358,7 +361,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -374,84 +377,248 @@
     
     
 
-    <h1 id="goroutine-入门">Goroutine 入门
-</h1><h2 id="1-并发">1. 并发
-</h2><p>默认给整个应用程序只分配一个逻辑处理器，用于执行所有被创建的 goroutine
-如果创建一个 goroutine 并准备运行，就会被放到调度器的全局运行队列中，之后，调度器就将这些队列中的 goroutine 分配给一个逻辑处理器，并放到这个逻辑处理器对应的本地运行队列，本地运行队列的 goroutine 会一直等到自己被分配的逻辑处理器执行</p>
-<h2 id="2-运行机制">2. 运行机制
-</h2><blockquote>
-<p>M2 线程 -&gt; 逻辑处理器 -&gt; goroutine<br>
-M3 线程 -&gt; 逻辑处理器 -&gt; goroutine<br>
-M2 线程 -&gt; 被阻塞的 goroutine</p>
-</blockquote>
-<ol>
-<li>当一个 goroutine 被阻塞，线程和 goroutine 会从逻辑处理器分离，线程继续阻塞，等待系统调用返回，逻辑处理器失去了用来运行的线程</li>
-<li>调度器会创建新的线程并将其绑定到逻辑处理器上
-调度器会从本地运行队列选择另一个 goroutine 来运行</li>
-<li>一旦被阻塞的系统调用执行完，对应的 goroutine 会放回到本地运行队列，之前的线程会保存好以便继续使用</li>
-</ol>
-<p><strong>网络 I/O 调用流程不同</strong><br>
-goroutine 会和逻辑处理器分离，并移到集成了网络轮询器的运行，一旦轮询器指示某个网络读或写准备就绪，对应的 goroutine 会重新分配到逻辑处理器上来完成</p>
-<h2 id="3-代码格式">3. 代码格式
-</h2><p>调用 fmt/runtime/sync
-分配一个逻辑处理器给调度器使用<br>
-<code>runtime.GOMAXPROCS(1)</code></p>
-<p>wg 用来等待程序完成<br>
-<code>var wg sync.WaitGroup</code>
-<code>wg.Add(2)</code></p>
-<p>函数退出时 Done 通知 main 函数已完成<br>
-<code>go func(){ defer wg.Done() }</code></p>
-<p>等待 goroutine 结束<br>
-<code>wg.Wait()</code></p>
-<p>创建两个 goroutine 打印前缀<br>
-<code>go printPrime(&quot;A&quot;)</code></p>
-<p>给每个可用的核心分配一个逻辑处理器<br>
-<code>runtime.GOMAXPROCS(runtime.NumCPU())</code></p>
-<p>当前 goroutine 从线程退出，并放回到队列<br>
-<code>runtime.Gosched()</code></p>
-<p>竞争检测器<br>
-<code>go bulid -race</code>
-<code>./exmaple</code></p>
-<p><code>go env set CGO_ENABLED=1</code></p>
+    <h1 id="geektutu">geektutu
+</h1><h2 id="gee-框架">gee 框架
+</h2><h3 id="http-基础">HTTP 基础
+</h3><p><strong>核心</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Final Counter: 2
-</span></span><span class="line"><span class="cl">cgo: C compiler &#34;gcc&#34; not found: exec: &#34;gcc&#34;: executable file not found in %PATH%
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">http.HandleFunc(&#34;/&#34;, indexHandler)
+</span></span><span class="line"><span class="cl">http.HandleFunc(&#34;/hello&#34;, helloHandler)
+</span></span><span class="line"><span class="cl">log.Fatal(http.ListenAndServe(&#34;:9999&#34;, nil))
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><em><a class="link" href="https://blog.csdn.net/urmljyc/article/details/127243709"  target="_blank" rel="noopener"
-    >安装 gcc</a></em></p>
-<h2 id="4-问题竞争状态">4. 问题：竞争状态
-</h2><p>对一个共享资源的读写操作必须是原子化的，一个时刻只能有一个 goroutine 对共享资源进行读写操作</p>
-<p><strong>原子函数调用 sync/atomic 和 sync</strong></p>
-<p>原子函数以底层的加锁机制来同步访问整型变量和指针<br>
-counter 是所有 goroutine 都要增加其值的变量<br>
-<code>var(counter int64)</code><br>
-在 for 中添加函数同步整型值，当 goroutine 试图调用任何原子函数时，同一时刻只能有一个 goroutine 完成加法<br>
-<code>atomic.AddInt64(&amp;counter, 1)</code></p>
-<p>atomic 中 LoadInt64 用来读取 shutdown 值，StoreInt64 用来修改 shutdown 值，如果哪个 dowork goroutine 试图在 main 函数调用 StoreInt64 的同时调用 LoadInt64 函数，那么原子函数会将这些调用互相同步，保证操作安全不进入竞争状态</p>
-<p><strong>互斥锁</strong></p>
-<p>mutex 保证同一时间只有一个 goroutine 可以执行临界区代码<br>
-<code>var mutex sync.Mutex</code><br>
-<code>mutex.Lock()</code><br>
-<code>mutex.Unlock()</code></p>
-<h2 id="5-通道">5. 通道
-</h2><p><code>make(chan int)</code><br>
-<code>make(chan string, 10)</code><br>
-向通道发送值或指针用&lt;-<br>
-<code>chan &lt;- &quot;str&quot;</code><br>
-从通道接收值<br>
-<code>value := &lt;-chan</code></p>
-<p>无缓冲通道要求接收方和发送方的 goroutine 都准备好发送和接受，否则阻塞</p>
-<p>有缓冲通道，只有在通道中没有要接收的值时，接收动作才会阻塞，只有在通道没有可用缓冲区容纳被发送的值时，发送动作才会阻塞</p>
-<p>当通道关闭后，goroutine 依旧可以接收数据，但是不能发送数据</p>
-<h2 id="6-总结">6. 总结
-</h2><p>简单阐述了 go 调度器的运行机制，通过原子函数和互斥锁来强制锁住共享资源，解决资源竞争的问题<br>
-而通道也可以发送接受共享资源，无缓冲和有缓冲通道的区别在于发送接受方式不同</p>
+</div><p>通过捆绑路径和 url
+类型为 w http.ResponseWriter, req *http.Request</p>
+<p><strong>实现方法 ServeHTTP</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">type</span> <span class="n">Engine</span> <span class="n">struct</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="k">func</span> <span class="p">(</span><span class="n">engine</span> <span class="o">*</span><span class="n">Engine</span><span class="p">)</span> <span class="n">ServeHTTP</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">req</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">switch</span> <span class="n">req</span><span class="o">.</span><span class="n">URL</span><span class="o">.</span><span class="n">Path</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="s2">&#34;/&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s2">&#34;URL.Path = %q</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">URL</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="s2">&#34;/hello&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="p">:</span><span class="o">=</span> <span class="nb">range</span> <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s2">&#34;Header[%q] = %q</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s2">&#34;404 NOT FOUND: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">URL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">engine</span> <span class="p">:</span><span class="o">=</span> <span class="n">new</span><span class="p">(</span><span class="n">Engine</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s2">&#34;:9999&#34;</span><span class="p">,</span> <span class="n">engine</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过定义 Engine 结构体实现 ServeHTTP 再传入 http.ListenAndServe 第二个参数，ServeHTTP 封装了两个路径</p>
+<p><strong>封装 gee 包</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// HandlerFunc defines the request handler used by gee
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">HandlerFunc</span> <span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Engine implement the interface of ServeHTTP
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Engine</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">router</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">HandlerFunc</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// New is the constructor of gee.Engine
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">New</span><span class="p">()</span> <span class="o">*</span><span class="nx">Engine</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">Engine</span><span class="p">{</span><span class="nx">router</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">HandlerFunc</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">engine</span> <span class="o">*</span><span class="nx">Engine</span><span class="p">)</span> <span class="nf">addRoute</span><span class="p">(</span><span class="nx">method</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pattern</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">HandlerFunc</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">key</span> <span class="o">:=</span> <span class="nx">method</span> <span class="o">+</span> <span class="s">&#34;-&#34;</span> <span class="o">+</span> <span class="nx">pattern</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">engine</span><span class="p">.</span><span class="nx">router</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="p">=</span> <span class="nx">handler</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// GET defines the method to add GET request
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">engine</span> <span class="o">*</span><span class="nx">Engine</span><span class="p">)</span> <span class="nf">GET</span><span class="p">(</span><span class="nx">pattern</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">HandlerFunc</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">engine</span><span class="p">.</span><span class="nf">addRoute</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="nx">pattern</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// POST defines the method to add POST request
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">engine</span> <span class="o">*</span><span class="nx">Engine</span><span class="p">)</span> <span class="nf">POST</span><span class="p">(</span><span class="nx">pattern</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">HandlerFunc</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">engine</span><span class="p">.</span><span class="nf">addRoute</span><span class="p">(</span><span class="s">&#34;POST&#34;</span><span class="p">,</span> <span class="nx">pattern</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Run defines the method to start a http server
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">engine</span> <span class="o">*</span><span class="nx">Engine</span><span class="p">)</span> <span class="nf">Run</span><span class="p">(</span><span class="nx">addr</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="nx">engine</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">engine</span> <span class="o">*</span><span class="nx">Engine</span><span class="p">)</span> <span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">key</span> <span class="o">:=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">Method</span> <span class="o">+</span> <span class="s">&#34;-&#34;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">handler</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">engine</span><span class="p">.</span><span class="nx">router</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">handler</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&#34;404 NOT FOUND: %s\n&#34;</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">URL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>定义结构体时创建一个 router 的 map 将原先 func(w http.ResponseWriter, req *http.Request)放入 HandlerFunc 中
+addRoute 将 method + &ldquo;-&rdquo; + pattern 构造成 router 的 key，value 为 handler
+方法只需要传入 engine.addRoute(&ldquo;GET&rdquo;, pattern, handler)
+通过 Run 来监听 http.ListenAndServe(addr, engine)
+ServeHTTP 构造 key := req.Method + &ldquo;-&rdquo; + req.URL.Path，判断是否在 router 中</p>
+<h3 id="上下文">上下文
+</h3><p><strong>context</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">r := gee.New()
+</span></span><span class="line"><span class="cl">r.GET(&#34;/&#34;, func(c *gee.Context) {
+</span></span><span class="line"><span class="cl">		c.HTML(http.StatusOK, &#34;&lt;h1&gt;Hello Gee&lt;/h1&gt;&#34;)
+</span></span><span class="line"><span class="cl">	})
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将 context 作为匿名函数放进 Handler</p>
+<p>map[string]interface{}起了一个别名 gee.H，构建 JSON 数据时,可以直接封装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">c.JSON(http.StatusOK, gee.H{
+</span></span><span class="line"><span class="cl">    &#34;username&#34;: c.PostForm(&#34;username&#34;),
+</span></span><span class="line"><span class="cl">    &#34;password&#34;: c.PostForm(&#34;password&#34;),
+</span></span><span class="line"><span class="cl">})
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>router</strong>
+将 addrouter 拿出修改为支持动态路由，handle 参数变为 context</p>
+<p><strong>gee</strong>
+ServeHTTP 通过 router 的 handle 接管 context</p>
+<h3 id="前缀树路由">前缀树路由
+</h3><p>定义节点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">type node struct {
+</span></span><span class="line"><span class="cl">	pattern  string // 待匹配路由，例如 /p/:lang
+</span></span><span class="line"><span class="cl">	part     string // 路由中的一部分，例如 :lang
+</span></span><span class="line"><span class="cl">	children []*node // 子节点，例如 [doc, tutorial, intro]
+</span></span><span class="line"><span class="cl">	isWild   bool // 是否精确匹配，part 含有 : 或 * 时为true
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>trie</strong>
+重点匹配*和:符号进行动态匹配，第一个匹配成功的节点用于插入，递归每一层如果没有 part 新建一个，匹配到末节点才会成功，所有匹配成功的点用于查找</p>
+<p><strong>router</strong>
+handlers 存储每种请求方式，getroute 解析*和:，返回一个 map</p>
+<p><strong>context</strong>
+通过 c.Param(&ldquo;lang&rdquo;)获取值</p>
+<h3 id="分组">分组
+</h3><p>将路径划分为组，需要知道父亲节点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">r := gee.New()
+</span></span><span class="line"><span class="cl">v1 := r.Group(&#34;/v1&#34;)
+</span></span><span class="line"><span class="cl">v1.GET(&#34;/&#34;, func(c *gee.Context) {
+</span></span><span class="line"><span class="cl">	c.HTML(http.StatusOK, &#34;&lt;h1&gt;Hello Gee&lt;/h1&gt;&#34;)
+</span></span><span class="line"><span class="cl">})
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>gee</strong>
+将 Engine 作为最顶层的分组，也就是说 Engine 拥有 RouterGroup 所有的能力</p>
+<h3 id="中间件">中间件
+</h3><p>通过调用(*Context).Next()函数，中间件可等待用户自己定义的 Handler 处理结束后，再做一些额外的操作，例如计算本次处理所用时间等
+需要注意 next 的执行顺序，按照 handler 为准</p>
+<p><strong>gee</strong>
+定义 Use 函数到 group
+可以给全局用也可以单独定义一个 group</p>
 
 </section>
 
@@ -514,12 +681,12 @@ counter 是所有 goroutine 都要增加其值的变量<br>
             
                 
 <article class="">
-    <a href="/p/7days-gee%E8%AE%B0%E5%BD%95/">
+    <a href="/p/goroutine-%E5%85%A5%E9%97%A8/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">7days gee记录</h2>
+            <h2 class="article-title">Goroutine 入门</h2>
         </div>
     </a>
 </article>
