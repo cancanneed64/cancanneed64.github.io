@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="日常使用">
+<title>excel强制xls保存解决方法</title>
+
+<link rel='canonical' href='https://cancanneed64.github.io/p/excel%E5%BC%BA%E5%88%B6xls%E4%BF%9D%E5%AD%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/'>
+
+<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="excel强制xls保存解决方法">
+<meta property='og:description' content="日常使用">
+<meta property='og:url' content='https://cancanneed64.github.io/p/excel%E5%BC%BA%E5%88%B6xls%E4%BF%9D%E5%AD%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/'>
+<meta property='og:site_name' content='Cancanneed64'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-04-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-05T07:14:48&#43;00:00'/>
+<meta name="twitter:title" content="excel强制xls保存解决方法">
+<meta name="twitter:description" content="日常使用">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+
+<span id="top"></span>
+
+
+
+
+	 <link rel="stylesheet" href="/css/prism.css"/>
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu5f048b0037a3ebe412d4c3c4b3d8d9e8_103276_300x0_resize_q75_box.jpg" width="300"
+                            height="324" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌟</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Cancanneed64</a></h1>
+            <h2 class="site-description">欢迎光临 点击右导航栏黑色蝴蝶回到文章顶部</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/cancanneed64'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友情链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#原因">原因</a></li>
+    <li><a href="#一般解决流程">一般解决流程</a></li>
+    <li><a href="#python-制作便捷小工具">Python 制作便捷小工具</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+
+<a href="#top" class="backtop"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a>
+
+
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/go/" >
+                Go
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/excel%E5%BC%BA%E5%88%B6xls%E4%BF%9D%E5%AD%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">excel强制xls保存解决方法</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            日常使用
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">04月25日, 2023年</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+
+    <h1 id="excel-强制-xls-保存解决方法">excel 强制 xls 保存解决方法
+</h1><h2 id="原因">原因
+</h2><p>一些 excel 文件带着名为 Kangatang.bas 的恶意模块，用户只要同时打开其他 excel 文件便会&quot;传染&quot;上，同时在<code>C:\Users\id\AppData\Roaming\Microsoft\Excel</code>路径 xlstart 留下一个 mypersonnel 文件，并且用户会发现再也无法保存文件为 xlsx，只能保存为 xls 格式</p>
+<details>
+  <summary>Kangatang.bas 展开代码</summary>
+  <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vb" data-lang="vb"><span class="line"><span class="cl"><span class="n">Attribute</span> <span class="n">VB_Name</span> <span class="o">=</span> <span class="s">&#34;Kangatang&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">Sub</span> <span class="nf">Auto_Open</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c">&#39;If ThisWorkbook.Path &lt;&gt; Application.Path &amp; &#34;\XLSTART&#34; Then ThisWorkbook.SaveAs Filename:=Application.Path &amp; &#34;\XLSTART\mypersonel.xls&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="n">Application</span><span class="p">.</span><span class="n">DisplayAlerts</span> <span class="o">=</span> <span class="k">False</span>
+</span></span><span class="line"><span class="cl"><span class="k">On</span> <span class="k">Error</span> <span class="k">Resume</span> <span class="k">Next</span>
+</span></span><span class="line"><span class="cl"><span class="k">If</span> <span class="n">ThisWorkbook</span><span class="p">.</span><span class="n">Path</span> <span class="o">&lt;&gt;</span> <span class="n">Application</span><span class="p">.</span><span class="n">StartupPath</span> <span class="k">Then</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Application</span><span class="p">.</span><span class="n">ScreenUpdating</span> <span class="o">=</span> <span class="k">False</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Windows</span><span class="p">(</span><span class="n">1</span><span class="p">).</span><span class="n">Visible</span> <span class="o">=</span> <span class="k">False</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ThisWorkbook</span><span class="p">.</span><span class="n">SaveCopyAs</span> <span class="n">Filename</span><span class="p">:</span><span class="o">=</span><span class="n">Application</span><span class="p">.</span><span class="n">StartupPath</span> <span class="o">&amp;</span> <span class="s">&#34;\mypersonnel.xls&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Windows</span><span class="p">(</span><span class="n">1</span><span class="p">).</span><span class="n">Visible</span> <span class="o">=</span> <span class="k">True</span>
+</span></span><span class="line"><span class="cl"><span class="k">End</span> <span class="k">If</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Application</span><span class="p">.</span><span class="n">OnSheetActivate</span> <span class="o">=</span> <span class="s">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Application</span><span class="p">.</span><span class="n">ScreenUpdating</span> <span class="o">=</span> <span class="k">True</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Application</span><span class="p">.</span><span class="n">OnSheetActivate</span> <span class="o">=</span> <span class="s">&#34;mypersonnel.xls!allocated&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">End</span> <span class="k">Sub</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">Sub</span> <span class="nf">Auto_Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">On</span> <span class="k">Error</span> <span class="k">Resume</span> <span class="k">Next</span>
+</span></span><span class="line"><span class="cl"><span class="n">Application</span><span class="p">.</span><span class="n">DisplayAlerts</span> <span class="o">=</span> <span class="k">False</span>
+</span></span><span class="line"><span class="cl"><span class="k">If</span> <span class="n">Right</span><span class="p">(</span><span class="n">ThisWorkbook</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">4</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="s">&#34;xlsx&#34;</span> <span class="ow">Or</span> <span class="n">Application</span><span class="p">.</span><span class="n">Version</span> <span class="o">&lt;=</span> <span class="n">11</span> <span class="k">Then</span> <span class="k">Exit</span> <span class="k">Sub</span>
+</span></span><span class="line"><span class="cl"><span class="nf">ThisWorkbook</span><span class="p">.</span><span class="n">SaveAs</span> <span class="n">Filename</span><span class="p">:</span><span class="o">=</span><span class="n">ThisWorkbook</span><span class="p">.</span><span class="n">Path</span> <span class="o">&amp;</span> <span class="s">&#34;\&#34;</span> <span class="o">&amp;</span> <span class="n">Replace</span><span class="p">(</span><span class="n">ThisWorkbook</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="s">&#34;.xlsx&#34;</span><span class="p">,</span> <span class="s">&#34;.xls&#34;</span><span class="p">),</span> _
+</span></span><span class="line"><span class="cl"><span class="n">FileFormat</span><span class="p">:</span><span class="o">=</span><span class="n">xlExcel8</span><span class="p">,</span> <span class="n">Password</span><span class="p">:</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="n">WriteResPassword</span><span class="p">:</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">,</span> _
+</span></span><span class="line"><span class="cl"><span class="n">ReadOnlyRecommended</span><span class="p">:</span><span class="o">=</span><span class="k">False</span><span class="p">,</span> <span class="n">CreateBackup</span><span class="p">:</span><span class="o">=</span><span class="k">False</span>
+</span></span><span class="line"><span class="cl"><span class="n">Kill</span> <span class="n">ThisWorkbook</span><span class="p">.</span><span class="n">Path</span> <span class="o">&amp;</span> <span class="s">&#34;\&#34;</span> <span class="o">&amp;</span> <span class="n">Replace</span><span class="p">(</span><span class="n">ThisWorkbook</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="s">&#34;.xls&#34;</span><span class="p">,</span> <span class="s">&#34;.xlsx&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">End</span> <span class="k">Sub</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">Sub</span> <span class="nf">allocated</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="k">On</span> <span class="k">Error</span> <span class="k">Resume</span> <span class="k">Next</span>
+</span></span><span class="line"><span class="cl">  <span class="k">If</span> <span class="n">ActiveWorkbook</span><span class="p">.</span><span class="n">Sheets</span><span class="p">(</span><span class="n">1</span><span class="p">).</span><span class="n">Name</span> <span class="o">&lt;&gt;</span> <span class="s">&#34;Kangatang&#34;</span> <span class="k">Then</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Application</span><span class="p">.</span><span class="n">ScreenUpdating</span> <span class="o">=</span> <span class="k">False</span>
+</span></span><span class="line"><span class="cl">    <span class="n">currentsh</span> <span class="o">=</span> <span class="n">ActiveSheet</span><span class="p">.</span><span class="n">Name</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ThisWorkbook</span><span class="p">.</span><span class="n">Sheets</span><span class="p">(</span><span class="s">&#34;Kangatang&#34;</span><span class="p">).</span><span class="n">Copy</span> <span class="n">before</span><span class="p">:</span><span class="o">=</span><span class="n">ActiveWorkbook</span><span class="p">.</span><span class="n">Sheets</span><span class="p">(</span><span class="n">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ActiveWorkbook</span><span class="p">.</span><span class="n">Sheets</span><span class="p">(</span><span class="n">currentsh</span><span class="p">).</span><span class="n">Select</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Application</span><span class="p">.</span><span class="n">ScreenUpdating</span> <span class="o">=</span> <span class="k">True</span>
+</span></span><span class="line"><span class="cl"> <span class="k">End</span> <span class="k">If</span>
+</span></span><span class="line"><span class="cl"><span class="k">End</span> <span class="k">Sub</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</details>
+<h2 id="一般解决流程">一般解决流程
+</h2><ol>
+<li>
+<p>开启 excel 宏功能（已开启可以跳过到 2）</p>
+<p>文件 – 选项 – Excel 选项 – 自定义功能区 – 勾选开发工具</p>
+</li>
+<li>
+<p>删除 excel 模块并保存关闭（记得先删除保存后关闭，否则会占用 3 中的文件）</p>
+<p>打开有问题的 excel，点击开发工具，查看代码，单选模块，右键移除，选择不导出，保存关闭文件</p>
+</li>
+<li>
+<p>删除个人账户 AppData 文件（如果没有删除 2 中的模块重新打开文件，会再次生成 mypersonnel）</p>
+<p>之后再下面的目录
+<code>C:\Users\id\AppData\Roaming\Microsoft\Excel</code>
+目录下把 xlstart 的 mypersonnel 删除</p>
+</li>
+</ol>
+<h2 id="python-制作便捷小工具">Python 制作便捷小工具
+</h2><p><a class="link" href="https://github.com/cancanneed64/delete-excel-xls-module"  target="_blank" rel="noopener"
+    >Github 下载地址</a></p>
+<p><em>使用说明</em></p>
+<ol>
+<li>先创建一个新的文件夹</li>
+<li>将“程序”与问题 excel 单个文件一同放到新的文件夹中</li>
+<li>运行“程序”</li>
+<li>“程序”将会单独删除 excel 中的问题模块保存关闭</li>
+</ol>
+<p><strong>注意需要创建新的文件夹，一次只能删除一个 excel 文件的模块，避免目录下文件数量过多，否则会运行失败</strong></p>
+<details>
+  <summary>展开代码</summary>
+  <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">win32com.client</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">win32api</span><span class="o">,</span> <span class="nn">win32con</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">find_file</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#print(path)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Files</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">Files</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;xlsx&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">Files</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;xls&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">Files</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;xlsm&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">Files</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">l</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">delete_module</span><span class="p">(</span><span class="n">xlwb</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xlwb</span><span class="o">.</span><span class="n">VBProject</span><span class="o">.</span><span class="n">VBComponents</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">xlmodule</span> <span class="o">=</span> <span class="n">xlwb</span><span class="o">.</span><span class="n">VBProject</span><span class="o">.</span><span class="n">VBComponents</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">xlmodule</span><span class="o">.</span><span class="n">Type</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">Name</span> <span class="o">==</span> <span class="s1">&#39;Kangatang&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">xlwb</span><span class="o">.</span><span class="n">VBProject</span><span class="o">.</span><span class="n">VBComponents</span><span class="o">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">xlmodule</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">#print(&#34;remove xlmodule&#34;)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">exist_file</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">exist_file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">#print(&#34;remove excelfile&#34;)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">exist_file</span> <span class="o">=</span> <span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">Users</span><span class="se">\\</span><span class="si">{0}</span><span class="se">\\</span><span class="s1">AppData</span><span class="se">\\</span><span class="s1">Roaming</span><span class="se">\\</span><span class="s1">Microsoft</span><span class="se">\\</span><span class="s1">Excel</span><span class="se">\\</span><span class="s1">XLSTART</span><span class="se">\\</span><span class="s1">mypersonnel.xls&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getlogin</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="n">pathlis</span> <span class="o">=</span> <span class="n">find_file</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">global</span> <span class="n">n</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">xlApp</span> <span class="o">=</span> <span class="n">win32com</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Dispatch</span><span class="p">(</span><span class="s2">&#34;Excel.Application&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">xlwb</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#创建路径下文件名</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#遍历path列表，1空列表提示，2excel文件加到列表</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#print(path)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ITERATE THROUGH EACH VB COMPONENT (CLASS MODULE, STANDARD MODULE, USER FORMS)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">pathlis</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">pathlis</span> <span class="o">==</span> <span class="p">[]:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">win32api</span><span class="o">.</span><span class="n">MessageBox</span><span class="p">(</span><span class="mi">0</span> <span class="p">,</span><span class="s2">&#34;请将文件放到有excel的目录里&#34;</span><span class="p">,</span><span class="s2">&#34;消息框&#34;</span><span class="p">,</span><span class="n">win32con</span><span class="o">.</span><span class="n">MB_OK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># OPEN EXCEL APP AND WORKBOOK</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">#win32api.MessageBox(0 ,&#34;当前路径为&#34;+path,&#34;消息框&#34;,win32con.MB_OK)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pathlis</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">xlwb</span> <span class="o">=</span> <span class="n">xlApp</span><span class="o">.</span><span class="n">Workbooks</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="n">pathlis</span><span class="p">[</span><span class="n">path</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="n">delete_module</span><span class="p">(</span><span class="n">xlwb</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">xlwb</span><span class="o">.</span><span class="n">Close</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">win32api</span><span class="o">.</span><span class="n">MessageBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s2">&#34;共删除模块</span><span class="si">{0}</span><span class="s2">次&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="s2">&#34;消息框&#34;</span><span class="p">,</span> <span class="n">win32con</span><span class="o">.</span><span class="n">MB_OK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">win32api</span><span class="o">.</span><span class="n">MessageBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s2">&#34;没有发现问题文件&#34;</span><span class="p">,</span><span class="s2">&#34;消息框&#34;</span><span class="p">,</span> <span class="n">win32con</span><span class="o">.</span><span class="n">MB_OK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#win32api.MessageBox(0, e ,&#34;消息框&#34;, win32con.MB_OK)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">finally</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># CLOSE AND SAVE AND UNINITIALIZE APP</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xlApp</span><span class="o">.</span><span class="n">Quit</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xlApp</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</details>
+
+</section>
+
+	
+    <footer class="article-footer">
+    
+
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 12月05日 07点14分, 2025年
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go 语言实战</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go语言入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/7days-gee%E8%AE%B0%E5%BD%95/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">7days gee记录</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/goroutine-%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Goroutine 入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/goroutine%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Goroutine并发模式</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    Waline.init({"dark":"auto","el":"#waline","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/qq","https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/bmoji"],"locale":{"admin":"博主","placeholder":"有什么新点子？🎉（上方留下邮箱可以收到通知哦）"},"pageview":true,"requiredMeta":["name","email","url"],"serverURL":"https://comment.byao394.top/","visitor":true});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 Cancanneed64
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+
+
+
+
+
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<style>
+  @font-face {
+    font-family: 'nano';
+    src: url(https://cancanneed64.github.io/font/NanoPyongHanHei-Regular.ttf) format('truetype');
+  }
+
+  :root {
+    --base-font-family: 'nano';
+    --code-font-family: 'nano';
+  }
+</style>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+<meting-js
+	server="netease"
+	type="playlist"
+	id="3050508794"
+	fixed= True>
+</meting-js>
+
+
+
+ 
+ <style>
+  body {
+    background: url(https://cancanneed64.github.io/background/sora.png) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
+ 
+
+<script>
+    
+    const cssPath = "https://cancanneed64.github.io/waifu/waifu.css";
+    const tipsJsonPath = "https://cancanneed64.github.io/waifu/waifu-tips.json";
+    const tipsJsPath = "https://cancanneed64.github.io/waifu/waifu-tips.js";
+	const live2dJsPath = "https://cancanneed64.github.io/waifu/live2d.min.js";
+
+    
+    
+    
+	const live2d_path = "https://www.novrain.cn/pages/live2d-widget/";
+
+    
+    function loadExternalResource(url, type) {
+        return new Promise((resolve, reject) => {
+            let tag;
+            if (type === "css") {
+                tag = document.createElement("link");
+                tag.rel = "stylesheet";
+                tag.href = url;
+            }
+            else if (type === "js") {
+                tag = document.createElement("script");
+                tag.src = url;
+            }
+            if (tag) {
+                tag.onload = () => resolve(url);
+                tag.onerror = () => reject(url);
+                document.head.appendChild(tag);
+            }
+        });
+    }
+
+    
+    if (screen.width >= 768) {
+        Promise.all([
+            loadExternalResource(cssPath, "css"),
+            loadExternalResource(live2d_path + "live2d.min.js", "js"),
+            loadExternalResource(live2d_path + "waifu-tips.js", "js"),
+			loadExternalResource(tipsJsPath, "js"),
+			loadExternalResource(live2dJsPath, "js")
+
+        ]).then(() => {
+            
+            initWidget({
+                waifuPath: tipsJsonPath,
+                
+				
+				cdnPath: "https://www.novrain.cn/pages/live2d_api/",
+                tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
+            });
+			initWaifuMouseEvent();
+        });
+		
+    }
+	
+	function initWaifuMouseEvent() {
+        const waifu = document.getElementById("waifu");
+        let isDown = false;
+        let waifuLeft;
+        let mouseLeft;
+        let waifuTop;
+        let mouseTop;
+        
+        waifu.onmousedown = function (e) {
+            isDown = true;
+            
+            waifuLeft = waifu.offsetLeft;
+            mouseLeft = e.clientX;
+            
+            waifuTop = waifu.offsetTop;
+            mouseTop = e.clientY;
+        }
+        
+        window.onmousemove = function (e) {
+            if (!isDown) {
+                return;
+            }
+            
+            let currentLeft = waifuLeft + (e.clientX - mouseLeft);
+            if (currentLeft < 0) {
+                currentLeft = 0;
+            } else if (currentLeft > window.innerWidth - 300) {
+                currentLeft = window.innerWidth - 300;
+            }
+            waifu.style.left = currentLeft  + "px";
+            
+            let currentTop = waifuTop + (e.clientY - mouseTop);
+            if (currentTop < 30) {
+                currentTop = 30
+            } else if (currentTop > window.innerHeight - 290) {
+                currentTop = window.innerHeight - 290
+            }
+            waifu.style.top = currentTop + "px";
+        }
+        
+        window.onmouseup = function (e) {
+            isDown = false;
+        }
+    }
+</script>
+
+
+
+			
+	<script src="/js/prism.js"></script>
+
+
+    </body>
+</html>
