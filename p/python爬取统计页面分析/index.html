@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="Python爬取统计页面分析">
 <meta property='og:description' content="爬虫">
 <meta property='og:url' content='https://cancanneed64.github.io/p/python%E7%88%AC%E5%8F%96%E7%BB%9F%E8%AE%A1%E9%A1%B5%E9%9D%A2%E5%88%86%E6%9E%90/'>
-<meta property='og:site_name' content='Cancanneed64'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-02-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-08T07:44:25&#43;00:00'/>
+<meta property='og:site_name' content='江清映明月'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-06-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-05-19T07:31:03&#43;00:00'/>
 <meta name="twitter:title" content="Python爬取统计页面分析">
 <meta name="twitter:description" content="爬虫">
     <link rel="shortcut icon" href="/favicon.svg" />
@@ -83,7 +83,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">Cancanneed64</a></h1>
+            <h1 class="site-name"><a href="/">江清映明月</a></h1>
             <h2 class="site-description">欢迎光临 点击右导航栏黑色蝴蝶回到文章顶部</h2>
         </div>
     </header><ol class="menu-social">
@@ -279,9 +279,9 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#通过-selenium-登陆后返回-session">通过 selenium 登陆后返回 session</a></li>
-    <li><a href="#处理返回数据">处理返回数据</a></li>
-    <li><a href="#请求下载视频">请求下载视频</a></li>
+    <li><a href="#尝试手动登录并返回页面数据">尝试手动登录并返回页面数据</a></li>
+    <li><a href="#将获取返回数据进行清洗">将获取返回数据进行清洗</a></li>
+    <li><a href="#序列化并提取词汇">序列化并提取词汇</a></li>
   </ol>
 </nav>
         </div>
@@ -372,24 +372,14 @@
     
 
     <h1 id="python-爬取统计页面分析">Python 爬取统计页面分析
-</h1><p>需求: 实现 selenium 登录爬取页面数据，找到音频下载请求</p>
+</h1><p>需求: 实现 selenium 登录爬取页面数据，提取整合需要的内容</p>
 <p>分析:
-实现登录-保持请求状态-保存返回内容-找到请求列表-找到视频链接-下载
-通过 selenium 登陆后返回 session，将其保存供发送请求使用，不需要重复登录，进而找到返回音频列表的 url，最后找到视频下载 url</p>
-<p>首先去到页面找到目标的 ID<br>
-提交请求返回 segments-id 列表<br>
-<code>/search/#/search?searchStr=kayla%20chen&amp;page=1&amp;sort=1startTime22&amp;range=1,1706693634219,1,1</code></p>
-<p>分析请求目标<br>
-<code>/search-service/v1/segments/query</code></p>
-<p>根据 segments-id 构造连接<br>
-<code>media-playback/v1/segments/</code></p>
-<p><code>d007e14b-186c-4d42-86bf-99be8635aae8?</code></p>
-<p><code>media-type=all&amp;exclude-waveforms=false&amp;exclude-qm-categories=false</code></p>
-<p>根据连接获取视频连接加上 token 返回下载<br>
-<code>/output_b15485ca-f140-4c19-b6ad-ab9813e386ac_.mp4? X-Amz-Security-Token= X-Amz-Algorithm=AWS4-HMAC-SHA256&amp; X-Amz-Date=20240131T095335Z&amp; X-Amz-SignedHeaders=host&amp; X-Amz-Expires=2700&amp; X-Amz-Credential=ASIA5L57TNZ4EBUW3QAZ%2F20240131%2Fus-west-2%2Fs3%2Faws4_request&amp; X-Amz-Signature=c497fdefecb75d658377e34f2a1f6f7e190d54f6d3bf86d840e8768b92443d44</code></p>
-<p>下载视频需要向 amazonaws.com 请求生成一串 AWS4-HMAC-SHA256 处理过的 token，而时效大概为半小时</p>
-<h2 id="通过-selenium-登陆后返回-session">通过 selenium 登陆后返回 session
-</h2><p>首次登陆请求 session
+在手动实现登录页面后，通过 Network 查看返回数据，找到有可能获取的数据连接，发起构造 url 请求
+原本链接为<code>nav_to.do?uri=/home.do?</code>，而筛选后发现 url 变化<code>sysparm_query%3Dactive%253Dtrue%255Eassignment_group%253Djavascript:getMyGroups()%255Estate%2521%253D6%255EEQ</code>
+可依次根据关键字进行构造，从而添加上日期和页面数修改为
+<code>/nav_to.do?uri=%2Fincident_list.do%3Fsysparm_query%3Dassignment_group%253Djavascript:getMyGroups()%255Esys_created_on%253E%253Djavascript:gs.dateGenerate(%25272022-01-01%2527%252C%252700:00:00%2527)%26sysparm_first_row%3D101%26sysparm_view%3D_stack%3Dtrue%26sysparm_userpref_module%3D70782f04db8ab20099f47bedae961972%26sysparm_query%3Dactive%253Dtrue%255Eassignment_group%253Djavascript:getMyGroups()%255Estate%2521%253D6%255EEQ</code></p>
+<h2 id="尝试手动登录并返回页面数据">尝试手动登录并返回页面数据
+</h2><p>用 selenium 登录网页，在创建一个 session 保持登陆的 cookie，构造 header 进行 request 请求</p>
 <details>
   <summary>展开代码</summary>
   <div class="highlight"><div class="chroma">
@@ -467,23 +457,16 @@
 </span><span class="lnt">71
 </span><span class="lnt">72
 </span><span class="lnt">73
+</span><span class="lnt">74
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># coding:utf-8</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 用webdriver登录并获取cookies，并用requests发送请求，以豆瓣为例</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">yaml</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">selenium.webdriver.common.desired_capabilities</span> <span class="kn">import</span> <span class="n">DesiredCapabilities</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">selenium.webdriver.remote.webdriver</span> <span class="kn">import</span> <span class="n">WebDriver</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">read_service</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;session.yaml&#39;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">session</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">session</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -493,51 +476,60 @@
 </span></span><span class="line"><span class="cl">    <span class="n">password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># 登录页面URL</span>
-</span></span><span class="line"><span class="cl">    <span class="n">login_url</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">login_url</span> <span class="o">=</span> <span class="s1">&#39;/nav_to.do?uri=</span><span class="si">%2F</span><span class="s1">incident_list.do</span><span class="si">%3F</span><span class="s1">sysparm_query%3Dassignment_group%253Djavascript:getMyGroups()</span><span class="si">%255E</span><span class="s1">sys_created_on</span><span class="si">%253E</span><span class="s1">%253Djavascript:gs.dateGenerate(%25272022-01-01</span><span class="si">%2527%</span><span class="s1">252C%252700:00:00%2527)</span><span class="si">%26s</span><span class="s1">ysparm_first_row%3D1</span><span class="si">%26s</span><span class="s1">ysparm_view%3D_stack%3Dtrue</span><span class="si">%26s</span><span class="s1">ysparm_userpref_module%3D70782f04db8ab20099f47bedae961972</span><span class="si">%26s</span><span class="s1">ysparm_query%3Dactive%253Dtrue</span><span class="si">%255E</span><span class="s1">assignment_group%253Djavascript:getMyGroups()</span><span class="si">%255E</span><span class="s1">state</span><span class="si">%2521%</span><span class="s1">253D6</span><span class="si">%255E</span><span class="s1">EQ&#39;</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># 获取chrome的配置</span>
 </span></span><span class="line"><span class="cl">    <span class="n">opt</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">ChromeOptions</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># 在运行的时候不弹出浏览器窗口</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># opt.set_headless()</span>
-</span></span><span class="line"><span class="cl">    <span class="n">opt</span><span class="o">.</span><span class="n">add_experimental_option</span><span class="p">(</span><span class="s1">&#39;detach&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># 获取driver对象</span>
-</span></span><span class="line"><span class="cl">    <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span><span class="n">chrome_options</span> <span class="o">=</span> <span class="n">opt</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># 打开登录页面</span>
 </span></span><span class="line"><span class="cl">    <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">login_url</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;opened login page...&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># 向浏览器发送用户名、密码，并点击登录按钮</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#driver.find_element_by_css_selector(&#39;&#39;).click()</span>
 </span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s1">&#39;#username&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">user_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s1">&#39;#password&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#time.sleep(6)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#driver.find_element_by_css_selector(&#39;#login &gt; button&#39;).click()</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># 多次登录需要输入验证码，这里给一个手工输入验证码的时间</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;submited...&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># 等待2秒钟</span>
 </span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">#--------------</span>
-</span></span><span class="line"><span class="cl">    <span class="n">remote_executor</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">command_executor</span><span class="o">.</span><span class="n">_url</span>
-</span></span><span class="line"><span class="cl">    <span class="n">session_id</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">session_id</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">remote_executor</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">service</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">remote_executor</span><span class="p">,</span><span class="n">session_id</span><span class="p">)])</span>
-</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;session.yaml&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">yaml</span><span class="o">.</span><span class="n">safe_dump</span><span class="p">(</span><span class="n">service</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">cookies</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">get_cookies</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">cookies</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">#--------------</span>
-</span></span><span class="line"><span class="cl">    <span class="n">page_url</span> <span class="o">=</span> <span class="s2">&#34;/search-service/v1/segments/query&#34;</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># 创建一个requests session对象</span>
 </span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># 从driver中获取cookie列表（是一个列表，列表的每个元素都是一个字典）</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">#cookies = driver.get_cookies()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cookies</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">get_cookies</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># 把cookies设置到session中</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">cookie</span> <span class="ow">in</span> <span class="n">cookies</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="n">s</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cookie</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span><span class="n">cookie</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&#34;User-Agent&#34;</span><span class="p">:</span><span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36&#39;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">resp</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">page_url</span><span class="p">,</span><span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">resp</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;status_code = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;User-Agent&#34;</span><span class="p">:</span><span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36&#39;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">page</span> <span class="o">=</span>  <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 需要登录才能看到的页面URL</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">912</span><span class="p">,</span><span class="mi">100</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">page_url</span> <span class="o">=</span> <span class="s1">&#39;/incident_list.do?sysparm_query=assignment_group%3Djavascript:getMyGroups()</span><span class="si">%5E</span><span class="s1">sys_created_on</span><span class="si">%3E</span><span class="s1">%3Djavascript:gs.dateGenerate(%272022-01-01</span><span class="si">%27%</span><span class="s1">2C%2700:00:00%27)&amp;sysparm_first_row=</span><span class="si">{}</span><span class="s1">&amp;sysparm_view=&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 获取该页面的HTML</span>
+</span></span><span class="line"><span class="cl">        <span class="n">resp</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">page_url</span><span class="p">,</span><span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">resp</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;status_code = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 将网页内容存入文件</span>
+</span></span><span class="line"><span class="cl">        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">page.txt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="s1">&#39;w+&#39;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span>  <span class="n">fout</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;现在已经进行到第</span><span class="si">{}</span><span class="s1">页&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">page</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">page</span> <span class="o">=</span> <span class="n">page</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
@@ -545,8 +537,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div>
-</details></p>
-<p>使用保存下来的 session 进行 request 请求
+</details>
+<h2 id="将获取返回数据进行清洗">将获取返回数据进行清洗
+</h2><p>用 xpath 对返回的请求进行元素匹配，再用正则提取需要的格式，最终存到 csv 中
 <details>
   <summary>展开代码</summary>
   <div class="highlight"><div class="chroma">
@@ -582,36 +575,60 @@
 </span><span class="lnt">29
 </span><span class="lnt">30
 </span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># coding:utf-8</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">yaml</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#读取txt数据,转化成lxml模式并打印</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">linc</span><span class="p">,</span><span class="n">lopenby</span><span class="p">,</span><span class="n">ldate</span><span class="p">,</span><span class="n">lstate</span><span class="p">,</span><span class="n">lassignto</span><span class="p">,</span><span class="n">lmar</span><span class="p">,</span><span class="n">lshortdes</span><span class="p">,</span><span class="n">ldes</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lis</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;1page.txt&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">st</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">html</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">item</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//*[@id=&#34;incident_table&#34;]/tbody&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">page_url</span> <span class="o">=</span> <span class="s2">&#34;/search-service/v1/segments/query&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 从driver中获取cookie列表（是一个列表，列表的每个元素都是一个字典）</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">#cookies = driver.get_cookies()</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">#print(cookies)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 把cookies设置到session中</span>
-</span></span><span class="line"><span class="cl">    <span class="n">cookies</span> <span class="o">=</span> <span class="p">[{}]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">inc</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr/td[3]/a/text()&#39;</span><span class="p">)</span>    <span class="c1">#第二列</span>
+</span></span><span class="line"><span class="cl">    <span class="n">openby</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr/td[5]/a/text()&#39;</span><span class="p">)</span>    <span class="c1">#第四列</span>
+</span></span><span class="line"><span class="cl">    <span class="n">date</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr/td[6]/div[1]/text()&#39;</span><span class="p">)</span> <span class="c1">#第五列</span>
+</span></span><span class="line"><span class="cl">    <span class="n">state</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr/td[7]/text()&#39;</span><span class="p">)</span>   <span class="c1">#第六列</span>
+</span></span><span class="line"><span class="cl">    <span class="n">assignto</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr/td[9]/a/text()&#39;</span><span class="p">)</span>  <span class="c1">#第八列</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mar</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr/td[11]/text()&#39;</span><span class="p">)</span>   <span class="c1">#第十列</span>
+</span></span><span class="line"><span class="cl">    <span class="n">shortdes</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr/td[14]/text()&#39;</span><span class="p">)</span>   <span class="c1">#第十三列</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#des = item[0].xpath(&#39;.//tr/td[15]/@title&#39;)   #第十四列</span>
+</span></span><span class="line"><span class="cl">    <span class="n">des</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr/td[15]/text()&#39;</span><span class="p">)</span>   <span class="c1">#第十四列</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inc</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">des</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;desscan.txt&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">des</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">cookie</span> <span class="ow">in</span> <span class="n">cookies</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">s</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cookie</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span><span class="n">cookie</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">headers</span> <span class="o">=</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">resp</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">page_url</span><span class="p">,</span><span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">#resp = s.post(page_url)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">resp</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;status_code = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##    print(len(inc),len(openby),len(date),len(state),len(assignto),len(mar),len(shortdes),len(des))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##    for i in range(len(inc)-1):</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##        temp = inc[i] + openby[i] + date[i] + state[i] + assignto[i] + mar[i] + shortdes[i] + des[i]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##        #lis.append(inc[i],openby[i],date[i],state[i],assignto[i],mar[i],shortdes[i],des[i])</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##        lis.append(temp)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##        print(i)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##    print(lis[0])</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
@@ -619,12 +636,7 @@
 </div>
 </div>
 </details></p>
-<h2 id="处理返回数据">处理返回数据
-</h2><p>这里为方便观察操作，将 网页中 Network 的 query 文件右键保存为 HAR 文件, 手动用 VSCODE 插件将 HAR 转为 JSON 文件，并读取文件提取 segmentId 和 acdContactId，再将这两个元素保存为 csv 格式进行读取
-格式为<code>477516744479，b37e8b9d-a040-4c82-b9e9-02b9904d3925</code>
-最后根据 acdContactId 可以找到视频下载链接</p>
-<h2 id="请求下载视频">请求下载视频
-</h2><details>
+<details>
   <summary>展开代码</summary>
   <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -690,70 +702,166 @@
 </span><span class="lnt">60
 </span><span class="lnt">61
 </span><span class="lnt">62
+</span><span class="lnt">63
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">csv</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">re</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">titlelis</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;inc&#39;</span><span class="p">,</span><span class="s1">&#39;openby&#39;</span><span class="p">,</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;state&#39;</span><span class="p">,</span><span class="s1">&#39;assignto&#39;</span><span class="p">,</span><span class="s1">&#39;mar&#39;</span><span class="p">,</span><span class="s1">&#39;shortdes&#39;</span><span class="p">,</span><span class="s1">&#39;des&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lis</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">01page.txt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num</span><span class="p">),</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">st</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;open </span><span class="si">{}</span><span class="s1">01page.txt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">html</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">##result = etree.tostring(html).decode()    #验证</span>
+</span></span><span class="line"><span class="cl">        <span class="n">item</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//*[@id=&#34;incident_table&#34;]/tbody&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#page = re.findall(r&#39;http://gd.zgsydw.com/ziliao/shizheng/(.*?).html&#39;,url)  #预留</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#with open(&#39;lis.txt&#39;,&#39;a+&#39;,encoding=&#39;utf-8&#39;) as f:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">101</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">inc</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr[</span><span class="si">{}</span><span class="s1">]/td[3]/a/text()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>    <span class="c1">#第二列</span>
+</span></span><span class="line"><span class="cl">            <span class="n">openby</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr[</span><span class="si">{}</span><span class="s1">]/td[5]/a/text()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>    <span class="c1">#第四列</span>
+</span></span><span class="line"><span class="cl">            <span class="n">date</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr[</span><span class="si">{}</span><span class="s1">]/td[6]/div[1]/text()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="c1">#第五列</span>
+</span></span><span class="line"><span class="cl">            <span class="n">state</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr[</span><span class="si">{}</span><span class="s1">]/td[7]/text()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>   <span class="c1">#第六列</span>
+</span></span><span class="line"><span class="cl">            <span class="n">assignto</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr[</span><span class="si">{}</span><span class="s1">]/td[9]/a/text()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>  <span class="c1">#第八列</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mar</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr[</span><span class="si">{}</span><span class="s1">]/td[11]/text()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>   <span class="c1">#第十列</span>
+</span></span><span class="line"><span class="cl">            <span class="n">shortdes</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr[</span><span class="si">{}</span><span class="s1">]/td[14]/text()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>   <span class="c1">#第十三列</span>
+</span></span><span class="line"><span class="cl">            <span class="n">des</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr[</span><span class="si">{}</span><span class="s1">]/td[15]/@title&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>   <span class="c1">#第十四列</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">des</span> <span class="o">==</span> <span class="p">[]:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">des</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//tr[</span><span class="si">{}</span><span class="s1">]/td[15]/text()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>   <span class="c1">#第十四列</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">lis</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">inc</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lis</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">openby</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lis</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">date</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lis</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lis</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">assignto</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lis</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mar</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lis</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">shortdes</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lis</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">des</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">lis</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#lis不断累加前次结果</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#inc,openby,date,state,assignto,mar,shortdes,des #预留</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="c1">#将全部写入txt</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">#f.write(&#34;&#34;.join(lis[i-1][j][j])+&#39;\n&#39;)</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">#f.write(&#39;\n&#39;)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">indexlis</span> <span class="o">=</span> <span class="p">[</span><span class="n">num</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">101</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">#print(lis)</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">lis</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lis</span><span class="p">))))]</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">#print(lis)</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">#indexlis = [num * 100 + i for i in range(1,len(lis))]</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">#print(len(lis),len(indexlis),indexlis)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">lis</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">titlelis</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">indexlis</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">a</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;panlis.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8-sig&#39;</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a+&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;
-</span></span></span><span class="line"><span class="cl"><span class="s1">b37e8b9d-a040-4c82-b9e9-02b9904d3925
-</span></span></span><span class="line"><span class="cl"><span class="s1">7dc24219-6fb8-4adf-b510-3e346b7d6255
-</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</details>
+<h2 id="序列化并提取词汇">序列化并提取词汇
+</h2><p>转化为 pandas 格式，尝试用 nltk 将高频词汇提取出来用 jieba 制作词云，但当时免费库还不够成熟，效果不理想</p>
+<details>
+  <summary>展开代码</summary>
+  <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">nltk</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">nltk.stem.porter</span> <span class="kn">import</span> <span class="n">PorterStemmer</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">nltk.stem.lancaster</span> <span class="kn">import</span> <span class="n">LancasterStemmer</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">SnowballStemmer</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">data_list</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">writeCsv</span><span class="p">(</span><span class="n">File</span><span class="p">,</span><span class="n">species</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">File</span><span class="p">,</span><span class="n">species</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="n">out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;save3.csv&#34;</span><span class="p">,</span> <span class="s2">&#34;a&#34;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">csv_writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">dialect</span><span class="o">=</span><span class="s2">&#34;excel&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;panlis.csv&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">df2</span> <span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;des&#39;</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">#print(df2)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lis</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">text</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lis</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#print(text)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">words</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#lancaster</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lancaster_stemmer</span> <span class="o">=</span> <span class="n">LancasterStemmer</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">lancaster_stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;maximum&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">lancaster_stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;multiply&#39;</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl"><span class="c1">##    with open(filename) as csvfile:</span>
-</span></span><span class="line"><span class="cl"><span class="c1">##        reader = csv.DictReader(csvfile)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">##        print(reader)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">##        content = [print(a) for a in reader]</span>
-</span></span><span class="line"><span class="cl"><span class="c1">##        column = [row[&#34;b37e8b9d-a040-4c82-b9e9-02b9904d3925&#34;] for row in reader]   # weight 同列的数据</span>
-</span></span><span class="line"><span class="cl"><span class="c1">##        #print(column)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="n">link_o</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">link_o</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">name</span><span class="p">,</span><span class="n">link_o</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#porter</span>
+</span></span><span class="line"><span class="cl">    <span class="n">porter_stemmer</span> <span class="o">=</span> <span class="n">PorterStemmer</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">porter_stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;maximum&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">porter_stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;multiply&#39;</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">.mp4&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="s2">&#34;wb&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mp4</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">url</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">                <span class="n">mp4</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#snowball</span>
+</span></span><span class="line"><span class="cl">    <span class="n">snowball_stemmer</span> <span class="o">=</span> <span class="n">SnowballStemmer</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">snowball_stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;maximum&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">snowball_stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;multiply&#39;</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">hd</span> <span class="o">=</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Host&#39;</span><span class="p">:</span><span class="s1">&#39;production-mcrplaybackmanager-fzgrfhdt0tfl.s3.us-west-2.amazonaws.com&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Origin&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Referer&#39;</span><span class="p">:</span><span class="s1">&#39;/&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Sec-Ch-Ua&#39;</span><span class="p">:</span><span class="s1">&#39;&#34;Not A(Brand&#34;;v=&#34;99&#34;, &#34;Google Chrome&#34;;v=&#34;121&#34;, &#34;Chromium&#34;;v=&#34;121&#34;&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Sec-Fetch-Dest&#39;</span><span class="p">:</span><span class="s1">&#39;video&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Sec-Fetch-Mode&#39;</span><span class="p">:</span><span class="s1">&#39;cors&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Sec-Fetch-Site&#39;</span><span class="p">:</span><span class="s1">&#39;cross-site&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span><span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">text2</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">text2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">pos_tag</span><span class="p">(</span><span class="n">text2</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">name</span><span class="p">,</span><span class="n">link_list</span> <span class="o">=</span> <span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;save3.csv&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">link_list</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">hd</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;status_code = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">        <span class="n">download</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span><span class="n">name</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div>
@@ -775,7 +883,7 @@
 
 
         <span>
-            最后更新于 12月08日 07点44分, 2025年
+            最后更新于 05月19日 07点31分, 2026年
         </span>
     </section></footer>
 
@@ -820,12 +928,12 @@
             
                 
 <article class="">
-    <a href="/p/excel%E5%BC%BA%E5%88%B6xls%E4%BF%9D%E5%AD%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
+    <a href="/p/python%E7%88%AC%E5%8F%96%E7%BB%9F%E8%AE%A1%E9%A1%B5%E9%9D%A2%E5%88%86%E6%9E%90/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">excel强制xls保存解决方法</h2>
+            <h2 class="article-title">Python爬取统计页面分析</h2>
         </div>
     </a>
 </article>
@@ -833,12 +941,12 @@
             
                 
 <article class="">
-    <a href="/p/python%E7%88%AC%E5%8F%96%E7%BB%9F%E8%AE%A1%E9%A1%B5%E9%9D%A2%E5%88%86%E6%9E%90/">
+    <a href="/p/excel%E5%BC%BA%E5%88%B6xls%E4%BF%9D%E5%AD%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Python爬取统计页面分析</h2>
+            <h2 class="article-title">excel强制xls保存解决方法</h2>
         </div>
     </a>
 </article>
@@ -886,23 +994,39 @@
     
 
     <footer class="site-footer">
-    <section class="copyright">
-        &copy; 
-        
-            2024 - 
-        
-        2025 Cancanneed64
-    </section>
-    
-    <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
-    </section>
+  <section class="copyright">
+    &copy;  2024 -  2026 Cancanneed64
+  </section>
 
+  <section class="copyright">
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener"
+      ><strong>粤ICP备2022142391号</strong></a
+    >
+  </section>
 
-
-
-
+  <section class="powerby">
+    使用 <a
+      href="https://gohugo.io/"
+      target="_blank"
+      rel="noopener"
+      >Hugo</a
+    > 构建
+    <br />
+    主题 <b
+      ><a
+        href="https://github.com/CaiJimmy/hugo-theme-stack"
+        target="_blank"
+        rel="noopener"
+        data-version="3.26.0"
+        >Stack</a
+      ></b
+    > 由 <a
+      href="https://jimmycai.com"
+      target="_blank"
+      rel="noopener"
+      >Jimmy</a
+    > 设计
+  </section>
 </footer>
 
 
