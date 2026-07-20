@@ -7,7 +7,23 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Cancanneed64</copyright>
-        <lastBuildDate>Tue, 14 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://cancanneed64.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 23 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://cancanneed64.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>CMD</title>
+        <link>https://cancanneed64.github.io/categories/cmd/</link>
+        <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://cancanneed64.github.io/categories/cmd/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Powershell</title>
+        <link>https://cancanneed64.github.io/categories/powershell/</link>
+        <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://cancanneed64.github.io/categories/powershell/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Python</title>
         <link>https://cancanneed64.github.io/categories/python/</link>
         <pubDate>Tue, 14 Jan 2025 00:00:00 +0000</pubDate>
@@ -21,14 +37,6 @@
         <pubDate>Wed, 08 Jan 2025 22:10:45 +0800</pubDate>
         
         <guid>https://cancanneed64.github.io/categories/go/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Powershell</title>
-        <link>https://cancanneed64.github.io/categories/powershell/</link>
-        <pubDate>Tue, 19 Nov 2024 00:00:00 +0000</pubDate>
-        
-        <guid>https://cancanneed64.github.io/categories/powershell/</guid>
         <description></description>
         </item>
         <item>
@@ -85,14 +93,6 @@
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/categories/themes/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>CMD</title>
-        <link>https://cancanneed64.github.io/categories/cmd/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://cancanneed64.github.io/categories/cmd/</guid>
         <description></description>
         </item>
         <item>
