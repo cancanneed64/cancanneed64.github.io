@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="日常">
+<title>运维问题归档</title>
+
+<link rel='canonical' href='https://cancanneed64.github.io/p/%E8%BF%90%E7%BB%B4%E9%97%AE%E9%A2%98%E5%BD%92%E6%A1%A3/'>
+
+<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="运维问题归档">
+<meta property='og:description' content="日常">
+<meta property='og:url' content='https://cancanneed64.github.io/p/%E8%BF%90%E7%BB%B4%E9%97%AE%E9%A2%98%E5%BD%92%E6%A1%A3/'>
+<meta property='og:site_name' content='江清映明月'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:modified_time' content='2026-07-20T09:41:46&#43;00:00'/>
+<meta name="twitter:title" content="运维问题归档">
+<meta name="twitter:description" content="日常">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+
+<span id="top"></span>
+
+
+
+
+	 <link rel="stylesheet" href="/css/prism.css"/>
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu5f048b0037a3ebe412d4c3c4b3d8d9e8_103276_300x0_resize_q75_box.jpg" width="300"
+                            height="324" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌟</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">江清映明月</a></h1>
+            <h2 class="site-description">欢迎光临 点击右导航栏黑色蝴蝶回到文章顶部</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/cancanneed64'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友情链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#日常使用">日常使用</a>
+      <ol>
+        <li><a href="#清除谷歌浏览器记录">清除谷歌浏览器记录</a></li>
+        <li><a href="#管理员账号创建">管理员账号创建</a></li>
+      </ol>
+    </li>
+    <li><a href="#安装">安装</a>
+      <ol>
+        <li><a href="#安装-adobe-中文字体">安装 adobe 中文字体</a></li>
+        <li><a href="#kms-激活快捷方式复制">kms 激活/快捷方式/复制</a></li>
+        <li><a href="#ntp确认方法">NTP确认方法</a></li>
+        <li><a href="#管理员密码更改">管理员密码更改</a></li>
+        <li><a href="#查看事件">查看事件</a></li>
+        <li><a href="#记录激活码到csv中">记录激活码到csv中</a></li>
+        <li><a href="#安装工具">安装工具</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+
+<a href="#top" class="backtop"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a>
+
+
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/cmd/" >
+                CMD
+            </a>
+        
+            <a href="/categories/powershell/" >
+                Powershell
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E8%BF%90%E7%BB%B4%E9%97%AE%E9%A2%98%E5%BD%92%E6%A1%A3/">运维问题归档</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            日常
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+
+    <h1 id="运维问题归档">运维问题归档
+</h1><h2 id="日常使用">日常使用
+</h2><h3 id="清除谷歌浏览器记录">清除谷歌浏览器记录
+</h3><p>流程: 直接删除目录下的缓存文件</p>
+<p>直接清理 Cache 文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">@</span><span class="k">echo</span> off
+</span></span><span class="line"><span class="cl"><span class="k">rd</span> /s /q <span class="s2">&#34;</span><span class="nv">%localappdata%</span><span class="s2">\Google\Chrome\User Data\Default\Cache&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">pause</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>过去参照</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">@</span><span class="k">echo</span> off
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> Clear Temporary Internet Files:
+</span></span><span class="line"><span class="cl">RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 8
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> Clear Cookies:
+</span></span><span class="line"><span class="cl">RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> Clear History:
+</span></span><span class="line"><span class="cl">RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> on
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>目前更新改版</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">@</span><span class="k">echo</span> off
+</span></span><span class="line"><span class="cl"><span class="c1">rem    检查 Chrome 是否在运行</span>
+</span></span><span class="line"><span class="cl">tasklist /FI <span class="s2">&#34;IMAGENAME eq chrome.exe&#34;</span> <span class="mi">2</span><span class="p">&gt;</span>NUL <span class="p">|</span> find /I /N <span class="s2">&#34;chrome.exe&#34;</span><span class="p">&gt;</span>NUL
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="s2">&#34;</span><span class="nv">%ERRORLEVEL%</span><span class="s2">&#34;</span><span class="o">==</span><span class="s2">&#34;0&#34;</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> Chrome 正在运行。
+</span></span><span class="line"><span class="cl">    <span class="k">set</span> <span class="k">/p</span> <span class="nv">input</span><span class="p">=</span><span class="s2">&#34;是否需要强制关闭 Chrome？(Y/N) &#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="k">/i</span> <span class="s2">&#34;</span><span class="nv">%input%</span><span class="s2">&#34;</span><span class="o">==</span><span class="s2">&#34;y&#34;</span> <span class="k">goto</span> <span class="nl">close_chrome</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="k">else</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> Chrome 未运行，无需关闭。
+</span></span><span class="line"><span class="cl">    <span class="k">goto</span> <span class="nl">end</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">:</span><span class="nl">close_chrome</span>
+</span></span><span class="line"><span class="cl">taskkill /F /IM chrome.exe <span class="p">&gt;</span>nul <span class="mi">2</span><span class="p">&gt;&amp;</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> Chrome 已强制关闭。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">:</span><span class="nl">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> 暂停2秒...
+</span></span><span class="line"><span class="cl">timeout /t 2 /nobreak <span class="p">&gt;</span>nul
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> 清理 Chrome 数据中...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">chrome</span><span class="p">=</span><span class="nv">%userprofile%</span>\AppData\Local\Google\Chrome\User Data\Default
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">chrome_history</span><span class="p">=</span><span class="nv">%chrome%</span>\History
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">chrome_webdata</span><span class="p">=</span><span class="nv">%chrome%</span>\Web Data
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">chrome_cache</span><span class="p">=</span><span class="nv">%chrome%</span>\Cache\Cache_Data
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">chrome_cookies</span><span class="p">=</span><span class="nv">%chrome%</span>\Network
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">chrome_storage</span><span class="p">=</span><span class="nv">%chrome%</span>\Local Storage
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">chrome_session</span><span class="p">=</span><span class="nv">%chrome%</span>\Session
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">chrome_web</span><span class="p">=</span><span class="nv">%chrome%</span>\Web Applications
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">rd</span> /s /q <span class="s2">&#34;</span><span class="nv">%chrome_web%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
+</span></span><span class="line"><span class="cl"><span class="k">rd</span> /s /q <span class="s2">&#34;</span><span class="nv">%chrome_cache%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
+</span></span><span class="line"><span class="cl"><span class="k">rd</span> /s /q <span class="s2">&#34;</span><span class="nv">%chrome_cookies%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
+</span></span><span class="line"><span class="cl"><span class="k">rd</span> /s /q <span class="s2">&#34;</span><span class="nv">%chrome_storage%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
+</span></span><span class="line"><span class="cl"><span class="k">rd</span> /s /q <span class="s2">&#34;</span><span class="nv">%chrome_session%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
+</span></span><span class="line"><span class="cl"><span class="k">del</span> /f <span class="s2">&#34;</span><span class="nv">%chrome_history%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
+</span></span><span class="line"><span class="cl"><span class="k">del</span> /f <span class="s2">&#34;</span><span class="nv">%chrome_webdata%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> 清理完成。
+</span></span><span class="line"><span class="cl"><span class="k">pause</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="管理员账号创建">管理员账号创建
+</h3><p>判断重复以及设置不过期</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">net user<span class="p">|</span>find /i <span class="s2">&#34;elevate&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nv">%errorlevel%</span>  <span class="ow">neq</span> 0  <span class="p">(</span>net user elevate marriott*1 /add<span class="p">)</span>
+</span></span><span class="line"><span class="cl">net localgroup Administrators<span class="p">|</span>find /i <span class="s2">&#34;elevate&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nv">%errorlevel%</span>  <span class="ow">neq</span> 0 <span class="p">(</span>net localgroup Administrators elevate /add<span class="p">)</span>
+</span></span><span class="line"><span class="cl">WMIC USERACCOUNT WHERE Name=&#39;elevate&#39; SET PasswordExpires=FALSE
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem powershell -command &#34;Set-LocalUser -Name &#39;elevate&#39; -PasswordNeverExpires 1&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>精简版</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">net user elevate marriott*1 /add <span class="p">&amp;&amp;</span> net localgroup Administrators elevate /add <span class="p">&amp;&amp;</span> <span class="k">pause</span> <span class="p">&amp;&amp;</span> net user elevate /del
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">net user elevate /del
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>本地帐号被锁时<br>
+<code>net user elevate /active yes</code></p>
+<h2 id="安装">安装
+</h2><h3 id="安装-adobe-中文字体">安装 adobe 中文字体
+</h3><p><code> \\Adobe\LanguagePack\FontPack2200120085_XtdAlf_Lang_DC.msi /quiet /norestart</code></p>
+<p><code>&quot;C:\Users\EID\Desktop\Acrobat_DC_Web_WWMUI\Adobe Acrobat\Setup.exe&quot; /sl &quot;2052&quot; /sPB /sLS /l /re </code></p>
+<h3 id="kms-激活快捷方式复制">kms 激活/快捷方式/复制
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem Activate Windows</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">cd</span> /d <span class="nv">%windir%</span>\System32
+</span></span><span class="line"><span class="cl"><span class="p">@</span>cscript slmgr.vbs -skms kms.marriott.com
+</span></span><span class="line"><span class="cl"><span class="p">@</span>cscript slmgr.vbs -ato
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem create local folder</span>
+</span></span><span class="line"><span class="cl"><span class="k">md</span> C:\SetUp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem copy files to local folder</span>
+</span></span><span class="line"><span class="cl">xcopy <span class="s2">&#34;\\software$\Shortcuts&#34;</span> C:\Setup\Shortcuts /e /q /y /i
+</span></span><span class="line"><span class="cl">xcopy <span class="s2">&#34;\\software$\Adobe\LanguagePack&#34;</span> C:\Setup\Adobe\LanguagePack /e /q /y /i
+</span></span><span class="line"><span class="cl">xcopy <span class="s2">&#34;\\software$\shrfiles&#34;</span> C:\shrfiles /e /q /y /i
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem prevent Administrator as default user after reboot</span>
+</span></span><span class="line"><span class="cl">reg import <span class="s2">&#34;\\software$\REG\Disable_AutoAdminLogon.reg&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem prevent network disconnect after screen lock</span>
+</span></span><span class="line"><span class="cl">reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\238C9FA8-0AAD-41ED-83F4-97BE242C8F20\7bc4a2f9-d8fc-4469-b07b-33eb785aaca0 /v Attributes /t REG_DWORD /d 2 /f
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem For MI connector</span>
+</span></span><span class="line"><span class="cl">REG ADD HKLM\SOFTWARE\WOW6432Node\AGNS\NetClient\Settings /v OverrideUseSSL /t REG_DWORD /d 0 /f
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem copy shortcut</span>
+</span></span><span class="line"><span class="cl"><span class="k">copy</span> c:\setup\Shortcuts\*.* C:\Users\Public\Desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem deploy adobe reader language pack</span>
+</span></span><span class="line"><span class="cl"><span class="k">cd</span> /d c:\setup\adobe\languagepack
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">msiexec /i FontPack2200120085_XtdAlf_Lang_DC.msi /quiet /norestart
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">cd</span> /d c:\
+</span></span><span class="line"><span class="cl"><span class="k">rmdir</span> C:\SetUp /s /q
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">call</span> <span class="s2">&#34;\\software$\Applications\ODT\Install\!!Onekey_EN.bat&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="ntp确认方法">NTP确认方法
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">查看w32time.log文件
+</span></span><span class="line"><span class="cl">w32tm /debug /enable /file:C:\Windows\Temp\w32time.log /size:10000000 /entries:0-116
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">要快速判断PC与AD的时间同步情况，可以通过查看w32time.log文件中的关键信息。以下是一些步骤和提示：
+</span></span><span class="line"><span class="cl">打开w32time.log文件：通常位于C:\Windows\System32\w32time.log。
+</span></span><span class="line"><span class="cl">查找关键字：
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;NtpClient&#34;</span>：表示NTP客户端的活动。
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;Time Provider&#34;</span>：显示时间提供者的信息。
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;Peer&#34;</span>：显示同步的对等体信息。
+</span></span><span class="line"><span class="cl">检查同步状态：
+</span></span><span class="line"><span class="cl">查找类似于“The time service is now synchronizing the system time with the time source”的日志条目。这表明时间服务正在与时间源同步。
+</span></span><span class="line"><span class="cl">查找“NtpClient has received a valid time stamp from”的条目，后面跟着时间服务器的地址。这表明NTP客户端已成功从时间服务器接收到时间戳。
+</span></span><span class="line"><span class="cl">检查错误和警告：
+</span></span><span class="line"><span class="cl">查找“NtpClient was unable to set a manual peer”或“The time provider NtpClient is currently receiving valid time data from”等错误信息。这些条目可以帮助识别同步问题。
+</span></span><span class="line"><span class="cl">使用命令行工具：
+</span></span><span class="line"><span class="cl">运行w32tm /query /status命令以查看当前同步状态和时间源。
+</span></span><span class="line"><span class="cl">运行w32tm /query /peers命令以查看配置的时间对等体。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">直接查这个关键词 - The time service is now synchronizing the system time with the time source
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="管理员密码更改">管理员密码更改
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">powershell</span> <span class="n">-command</span> <span class="s2">&#34;Set-LocalUser -Name &#39;elevate&#39; -PasswordNeverExpires 1&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="查看事件">查看事件
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">查看服务关闭时间</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-WinEvent</span> <span class="n">-ProviderName</span> <span class="s2">&#34;Service Control Manager&#34;</span><span class="p">|</span><span class="nb">where </span><span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="py">message</span> <span class="o">-like</span> <span class="s2">&#34;*World Wide Web*&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">查看关机事件</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-WinEvent</span> <span class="n">-FilterHashtable</span> <span class="vm">@</span><span class="p">{</span><span class="n">LogName</span><span class="p">=</span><span class="s1">&#39;System&#39;</span><span class="p">;</span><span class="n">Id</span><span class="p">=</span><span class="mf">41</span><span class="p">}</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">TimeCreated</span><span class="p">,</span><span class="n">Id</span><span class="p">,</span><span class="n">Message</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># 查看登录锁屏事件</span>
+</span></span><span class="line"><span class="cl"><span class="c"># $StartTime = (Get-Date).AddDays(-1)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-WinEvent</span> <span class="n">-FilterHashtable</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">LogName</span> <span class="p">=</span> <span class="s1">&#39;Security&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Id</span>      <span class="p">=</span> <span class="mf">4624</span><span class="p">,</span><span class="mf">4648</span><span class="p">,</span><span class="mf">4634</span>
+</span></span><span class="line"><span class="cl">    <span class="c">#StartTime = $StartTime</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">-MaxEvents</span> <span class="mf">50</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">TimeCreated</span><span class="p">,</span> <span class="n">Id</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c">#整理xml格式</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-WinEvent</span> <span class="n">-FilterHashtable</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">LogName</span> <span class="p">=</span> <span class="s1">&#39;Security&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Id</span>      <span class="p">=</span> <span class="mf">4624</span><span class="p">,</span><span class="mf">4648</span><span class="p">,</span><span class="mf">4634</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">-MaxEvents</span> <span class="mf">50</span> <span class="p">|</span> <span class="nb">ForEach-Object</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$xml</span> <span class="p">=</span> <span class="p">[</span><span class="no">xml</span><span class="p">]</span><span class="nv">$_</span><span class="p">.</span><span class="py">ToXml</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="no">PSCustomObject</span><span class="p">]</span><span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">TimeCreated</span>      <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">TimeCreated</span>
+</span></span><span class="line"><span class="cl">        <span class="n">EventId</span>          <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">Id</span>
+</span></span><span class="line"><span class="cl">        <span class="n">TargetUserName</span>   <span class="p">=</span> <span class="p">(</span><span class="nv">$xml</span><span class="p">.</span><span class="py">Event</span><span class="p">.</span><span class="py">EventData</span><span class="p">.</span><span class="py">Data</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="py">Name</span> <span class="o">-eq</span> <span class="s1">&#39;TargetUserName&#39;</span> <span class="p">}).</span><span class="s1">&#39;#text&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">TargetDomainName</span> <span class="p">=</span> <span class="p">(</span><span class="nv">$xml</span><span class="p">.</span><span class="py">Event</span><span class="p">.</span><span class="py">EventData</span><span class="p">.</span><span class="py">Data</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="py">Name</span> <span class="o">-eq</span> <span class="s1">&#39;TargetDomainName&#39;</span> <span class="p">}).</span><span class="s1">&#39;#text&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LogonType</span>        <span class="p">=</span> <span class="p">(</span><span class="nv">$xml</span><span class="p">.</span><span class="py">Event</span><span class="p">.</span><span class="py">EventData</span><span class="p">.</span><span class="py">Data</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="py">Name</span> <span class="o">-eq</span> <span class="s1">&#39;LogonType&#39;</span> <span class="p">}).</span><span class="s1">&#39;#text&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IpAddress</span>        <span class="p">=</span> <span class="p">(</span><span class="nv">$xml</span><span class="p">.</span><span class="py">Event</span><span class="p">.</span><span class="py">EventData</span><span class="p">.</span><span class="py">Data</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="py">Name</span> <span class="o">-eq</span> <span class="s1">&#39;IpAddress&#39;</span> <span class="p">}).</span><span class="s1">&#39;#text&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ProcessName</span>      <span class="p">=</span> <span class="p">(</span><span class="nv">$xml</span><span class="p">.</span><span class="py">Event</span><span class="p">.</span><span class="py">EventData</span><span class="p">.</span><span class="py">Data</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="py">Name</span> <span class="o">-eq</span> <span class="s1">&#39;ProcessName&#39;</span> <span class="p">}).</span><span class="s1">&#39;#text&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">RecordId</span>         <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">RecordId</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="记录激活码到csv中">记录激活码到csv中
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c">#保存为ps1可以直接运行</span>
+</span></span><span class="line"><span class="cl"><span class="c">#powershell -c &#34;Set-ExecutionPolicy RemoteSigned&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$serialNumber</span> <span class="p">=</span> <span class="p">(</span><span class="n">wmic</span> <span class="n">bios</span> <span class="n">get</span> <span class="n">serialnumber</span><span class="p">).</span><span class="py">Split</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">`n</span><span class="s2">&#34;</span><span class="p">)[</span><span class="mf">2</span><span class="p">].</span><span class="py">Trim</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$productKey</span> <span class="p">=</span> <span class="p">(</span><span class="n">wmic</span> <span class="n">path</span> <span class="n">softwarelicensingservice</span> <span class="n">get</span> <span class="n">OA3xOriginalProductKey</span><span class="p">).</span><span class="py">Split</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">`n</span><span class="s2">&#34;</span><span class="p">)[</span><span class="mf">2</span><span class="p">].</span><span class="py">Trim</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">PSObject</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s2">&#34;SerialNumber&#34;</span> <span class="n">-NotePropertyValue</span> <span class="nv">$serialNumber</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s2">&#34;ProductKey&#34;</span> <span class="n">-NotePropertyValue</span> <span class="nv">$productKey</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="p">|</span> <span class="nb">Export-Csv</span> <span class="n">-Path</span> <span class="s2">&#34;output.csv&#34;</span> <span class="n">-NoTypeInformation</span> <span class="n">-Force</span> <span class="n">-Append</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="k">start</span> msedge http://--no-first-run
+</span></span><span class="line"><span class="cl">powershell -ExecutionPolicy Bypass -File key.ps1
+</span></span><span class="line"><span class="cl">notepad key.csv
+</span></span><span class="line"><span class="cl"><span class="k">pause</span>
+</span></span><span class="line"><span class="cl">shutdown -r -t 0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装工具">安装工具
+</h3><p><a class="link" href="https://support.microsoft.com/zh-cn/windows/%E5%8D%B8%E8%BD%BD%E5%B9%B6%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85%E7%94%BB%E5%9B%BE%E5%92%8C%E6%88%AA%E5%9B%BE%E5%B7%A5%E5%85%B7-d21261f8-1c3a-4776-9262-2d34928b1962"  target="_blank" rel="noopener"
+    >画图</a>
+<code>Get-AppxPackage -AllUsers *Microsoft.ScreenSketch* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register &quot;$($_.InstallLocation)\AppXManifest.xml&quot;}</code></p>
+
+</section>
+
+	
+    <footer class="article-footer">
+    
+
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 07月20日 09点41分, 2026年
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%B3%A8%E5%86%8C%E8%A1%A8%E7%9B%B8%E5%85%B3%E5%BD%92%E6%A1%A3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">注册表相关归档</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/shredos-powershell%E5%A4%84%E7%90%86%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%A5%E5%BF%97/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ShredOS&#43;Powershell处理格式化日志</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/powershell-ad%E5%9F%9F%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Powershell AD域命令汇总</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    Waline.init({"dark":"auto","el":"#waline","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/qq","https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/bmoji"],"locale":{"admin":"博主","placeholder":"有什么新点子？🎉（上方留下邮箱可以收到通知哦）"},"pageview":true,"requiredMeta":["name","email","url"],"serverURL":"https://comment.byao394.top/","visitor":true});
+</script>
+
+    
+
+    <footer class="site-footer">
+  <section class="copyright">
+    &copy;  2024 -  2026 Cancanneed64
+  </section>
+
+  <section class="copyright">
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener"
+      ><strong>粤ICP备2022142391号-1 </strong></a
+    >
+  </section>
+
+  <section class="powerby">
+    使用 <a
+      href="https://gohugo.io/"
+      target="_blank"
+      rel="noopener"
+      >Hugo</a
+    > 构建
+    <br />
+    主题 <b
+      ><a
+        href="https://github.com/CaiJimmy/hugo-theme-stack"
+        target="_blank"
+        rel="noopener"
+        data-version="3.26.0"
+        >Stack</a
+      ></b
+    > 由 <a
+      href="https://jimmycai.com"
+      target="_blank"
+      rel="noopener"
+      >Jimmy</a
+    > 设计
+  </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<style>
+  @font-face {
+    font-family: "nano";
+    src: url(https://cancanneed64.github.io/font/NanoPyongHanHei-Regular.ttf)
+      format("truetype");
+  }
+
+  :root {
+    --base-font-family: "nano";
+    --code-font-family: "nano";
+  }
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+<meting-js server="netease" type="playlist" id="3050508794" fixed="True">
+</meting-js>
+
+
+
+<style>
+  body {
+    background: url(https://cancanneed64.github.io/background/sora.png)
+      no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
+
+<script>
+     
+     const cssPath = "https://cancanneed64.github.io/waifu/waifu.css";
+     const tipsJsonPath = "https://cancanneed64.github.io/waifu/waifu-tips.json";
+     const tipsJsPath = "https://cancanneed64.github.io/waifu/waifu-tips.js";
+  const live2dJsPath = "https://cancanneed64.github.io/waifu/live2d.min.js";
+
+     
+     const live2d_path = "https://fastly.jsdelivr.net/gh/cancanneed64/live2d-widget@latest/";
+    
+  
+
+     
+     function loadExternalResource(url, type) {
+         return new Promise((resolve, reject) => {
+             let tag;
+             if (type === "css") {
+                 tag = document.createElement("link");
+                 tag.rel = "stylesheet";
+                 tag.href = url;
+             }
+             else if (type === "js") {
+                 tag = document.createElement("script");
+                 tag.src = url;
+             }
+             if (tag) {
+                 tag.onload = () => resolve(url);
+                 tag.onerror = () => reject(url);
+                 document.head.appendChild(tag);
+             }
+         });
+     }
+
+     
+     if (screen.width >= 768) {
+         Promise.all([
+             loadExternalResource(cssPath, "css"),
+             loadExternalResource(live2d_path + "live2d.min.js", "js"),
+             loadExternalResource(live2d_path + "waifu-tips.js", "js"),
+  		loadExternalResource(tipsJsPath, "js"),
+  		loadExternalResource(live2dJsPath, "js")
+
+         ]).then(() => {
+             
+             initWidget({
+                 waifuPath: tipsJsonPath,
+                 cdnPath: "https://fastly.jsdelivr.net/gh/cancanneed64/live2d_api/",
+  			
+  			
+                 tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
+             });
+  		initWaifuMouseEvent();
+         });
+
+     }
+
+  function initWaifuMouseEvent() {
+         const waifu = document.getElementById("waifu");
+         let isDown = false;
+         let waifuLeft;
+         let mouseLeft;
+         let waifuTop;
+         let mouseTop;
+         
+         waifu.onmousedown = function (e) {
+             isDown = true;
+             
+             waifuLeft = waifu.offsetLeft;
+             mouseLeft = e.clientX;
+             
+             waifuTop = waifu.offsetTop;
+             mouseTop = e.clientY;
+         }
+         
+         window.onmousemove = function (e) {
+             if (!isDown) {
+                 return;
+             }
+             
+             let currentLeft = waifuLeft + (e.clientX - mouseLeft);
+             if (currentLeft < 0) {
+                 currentLeft = 0;
+             } else if (currentLeft > window.innerWidth - 300) {
+                 currentLeft = window.innerWidth - 300;
+             }
+             waifu.style.left = currentLeft  + "px";
+             
+             let currentTop = waifuTop + (e.clientY - mouseTop);
+             if (currentTop < 30) {
+                 currentTop = 30
+             } else if (currentTop > window.innerHeight - 290) {
+                 currentTop = window.innerHeight - 290
+             }
+             waifu.style.top = currentTop + "px";
+         }
+         
+         window.onmouseup = function (e) {
+             isDown = false;
+         }
+     }
+</script>
+
+			
+	<script src="/js/prism.js"></script>
+
+
+    </body>
+</html>

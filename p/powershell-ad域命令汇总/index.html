@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="日常">
+<title>Powershell AD域命令汇总</title>
+
+<link rel='canonical' href='https://cancanneed64.github.io/p/powershell-ad%E5%9F%9F%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/'>
+
+<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="Powershell AD域命令汇总">
+<meta property='og:description' content="日常">
+<meta property='og:url' content='https://cancanneed64.github.io/p/powershell-ad%E5%9F%9F%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/'>
+<meta property='og:site_name' content='江清映明月'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:modified_time' content='2026-07-20T09:41:46&#43;00:00'/>
+<meta name="twitter:title" content="Powershell AD域命令汇总">
+<meta name="twitter:description" content="日常">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+
+<span id="top"></span>
+
+
+
+
+	 <link rel="stylesheet" href="/css/prism.css"/>
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu5f048b0037a3ebe412d4c3c4b3d8d9e8_103276_300x0_resize_q75_box.jpg" width="300"
+                            height="324" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌟</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">江清映明月</a></h1>
+            <h2 class="site-description">欢迎光临 点击右导航栏黑色蝴蝶回到文章顶部</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/cancanneed64'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友情链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#ad域相关">AD域相关</a>
+      <ol>
+        <li><a href="#查看用户上次登录时间">查看用户上次登录时间</a></li>
+        <li><a href="#域用户查询">域用户查询</a></li>
+        <li><a href="#用户账号状态">用户账号状态</a></li>
+        <li><a href="#指定domain-对emailaddressname-search">指定domain 对EmailAddress/Name Search</a></li>
+        <li><a href="#收集信息">收集信息</a></li>
+        <li><a href="#查看lastlogondate-在45天前的电脑">查看lastlogondate 在45天前的电脑</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+
+<a href="#top" class="backtop"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a>
+
+
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/powershell/" >
+                Powershell
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/powershell-ad%E5%9F%9F%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/">Powershell AD域命令汇总</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            日常
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+
+    <h1 id="powershell-ad域命令汇总">Powershell AD域命令汇总
+</h1><h2 id="ad域相关">AD域相关
+</h2><h3 id="查看用户上次登录时间">查看用户上次登录时间
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">get-aduser</span> <span class="p">(</span><span class="n">EID</span><span class="p">)</span> <span class="n">-Properties</span> <span class="n">lastlogon</span> <span class="p">|</span> <span class="nb">select </span><span class="n">name</span><span class="p">,</span> <span class="vm">@</span><span class="p">{</span><span class="n">n</span><span class="p">=</span><span class="s2">&#34;Lastlogon&#34;</span><span class="p">;</span><span class="n">e</span><span class="p">={[</span><span class="no">datetime</span><span class="p">]::</span><span class="n">FromFileTime</span><span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">lastlogon</span><span class="p">)}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><em>bash</em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">Option</span> <span class="n">Explicit</span> <span class="n">Dim</span> <span class="n">objWMIService</span><span class="p">,</span> <span class="n">colItems</span><span class="p">,</span> <span class="n">WshNetwork</span><span class="p">,</span> <span class="n">strComputer</span> <span class="n">Dim</span> <span class="n">objUser</span><span class="p">,</span> <span class="n">objItem</span><span class="p">,</span> <span class="n">dtmLastLogin</span><span class="p">,</span> <span class="n">strLogonInfo</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Set </span><span class="n">WshNetwork</span> <span class="p">=</span> <span class="n">CreateObject</span> <span class="p">(</span><span class="s2">&#34;Wscript.Network&#34;</span><span class="p">)</span> <span class="n">strComputer</span> <span class="p">=</span> <span class="n">WshNetwork</span><span class="p">.</span><span class="py">ComputerName</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Set </span><span class="n">objWMIService</span> <span class="p">=</span> <span class="n">GetObject</span> <span class="p">(</span><span class="s2">&#34;winmgmts:\\&#34;</span> <span class="p">&amp;</span> <span class="n">strComputer</span> <span class="p">&amp;</span> <span class="s2">&#34;\ root\cimv2 用户上次登录时间。返回主题。要找出过去 10 天内登录的所有用户，请运行
+</span></span></span><span class="line"><span class="cl"><span class="s2">Get-LocalUser |
+</span></span></span><span class="line"><span class="cl"><span class="s2"> Where-Object {</span><span class="nv">$_</span><span class="s2">.Lastlogon -ge (Get-Date)。 AddDays(-10)} |
+</span></span></span><span class="line"><span class="cl"><span class="s2"> Select-Object Name,Enabled,SID,Lastlogon |
+</span></span></span><span class="line"><span class="cl"><span class="s2">Format-List. 要搜索最近 30 天内未登录的用户，请运行。
+</span></span></span><span class="line"><span class="cl"><span class="s2">)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="域用户查询">域用户查询
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Aduser</span> <span class="p">(</span><span class="n">EID</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-Aduser</span> <span class="p">(</span><span class="n">EID</span><span class="p">)</span> <span class="n">-property</span> <span class="p">*</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADComputer</span> <span class="p">(</span><span class="n">HOSTNAME</span><span class="p">)</span> <span class="n">-property</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="n">LastLogonTime</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADGroup</span> <span class="p">(</span><span class="nb">DL-GROUP</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADGroupMember</span> <span class="p">(</span><span class="nb">DPT-Group</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="用户账号状态">用户账号状态
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Unlock-adaccount</span> <span class="p">(</span><span class="n">EID</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># When EID unknown</span>
+</span></span><span class="line"><span class="cl"><span class="nb">get-aduser</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">GivenName</span> <span class="o">-like</span> <span class="s2">&#34;*&#34;</span> <span class="o">-and</span> <span class="n">Surname</span> <span class="o">-eq</span> <span class="s2">&#34;&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">get-aduser</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">GivenName</span> <span class="o">-like</span> <span class="s2">&#34;**&#34;</span> <span class="o">-and</span> <span class="n">Surname</span> <span class="o">-eq</span> <span class="s2">&#34;&#34;</span><span class="p">}</span> <span class="n">-property</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="n">Name</span><span class="p">,</span><span class="n">GivenName</span><span class="p">,</span><span class="n">Surname</span><span class="p">|</span><span class="nb">ft
+</span></span></span><span class="line"><span class="cl"><span class="nb">get-aduser</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">GivenName</span> <span class="o">-like</span> <span class="s2">&#34;**&#34;</span> <span class="o">-and</span> <span class="n">Surname</span> <span class="o">-eq</span> <span class="s2">&#34;&#34;</span><span class="p">}</span> <span class="n">-SearchBase</span> <span class="s2">&#34;OU=Users,OU=,DC=,DC=,DC=,DC=com&#34;</span> <span class="n">-property</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="n">Name</span><span class="p">,</span><span class="n">GivenName</span><span class="p">,</span><span class="n">Surname</span><span class="p">|</span><span class="nb">ft
+</span></span></span><span class="line"><span class="cl"><span class="nb"></span>
+</span></span><span class="line"><span class="cl"><span class="c">#Find LockedOut Users</span>
+</span></span><span class="line"><span class="cl"> <span class="nb">Search-ADAccount</span> <span class="n">-SearchBase</span> <span class="s2">&#34;OU=Users,OU=,DC=,DC=,DC=,DC=com&#34;</span> <span class="n">-lockedout</span> <span class="p">|</span> <span class="nb">select </span><span class="n">name</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Search-ADAccount</span> <span class="n">-SearchBase</span> <span class="s2">&#34;OU=Users,OU=,DC=,DC=,DC=,DC=com&#34;</span> <span class="n">-lockedout</span> <span class="p">|</span> <span class="nb">unlock-adaccount</span>   <span class="c">#顺便unlock</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#Find Disabled Users</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Search-ADAccount</span> <span class="n">-SearchBase</span> <span class="s2">&#34;OU=Users,OU=,DC=,DC=,DC=,DC=com&#34;</span> <span class="n">-AccountDisabled</span> <span class="n">-UsersOnly</span> <span class="p">|</span> <span class="nb">select </span><span class="n">name</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADUser</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Enabled</span> <span class="o">-eq</span> <span class="s2">&#34;False&#34;</span> <span class="o">-and</span> <span class="n">EmailAddress</span> <span class="o">-like</span> <span class="s2">&#34;xx*&#34;</span><span class="p">}</span> <span class="n">-SearchBase</span> <span class="s2">&#34;OU=Users,OU=,DC=,DC=,DC=,DC=com&#34;</span> <span class="n">-Properties</span> <span class="p">*</span> <span class="p">|</span><span class="nb">select </span><span class="n">name</span><span class="p">,</span> <span class="n">Enabled</span><span class="p">,</span> <span class="n">mail</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#list all active user</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADUser</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">EmailAddress</span> <span class="o">-notlike</span> <span class="s2">&#34;xx*&#34;</span> <span class="o">-and</span> <span class="n">name</span> <span class="o">-notlike</span> <span class="s1">&#39;shr-*&#39;</span><span class="p">}</span> <span class="n">-SearchBase</span> <span class="s2">&#34;OU=Users,OU=,DC=,DC=,DC=,DC=com&#34;</span> <span class="n">-Properties</span> <span class="p">*|</span><span class="nb">select </span><span class="n">name</span><span class="p">,</span> <span class="n">GivenName</span><span class="p">,</span><span class="n">sn</span><span class="p">,</span><span class="n">EmailAddress</span><span class="p">,</span><span class="n">Department</span><span class="p">,</span><span class="n">title</span><span class="p">,</span><span class="n">manager</span><span class="p">|</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#Search from txt file (d:\list.txt is list for EIDs)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-Content</span> <span class="s2">&#34;d:\list.txt&#34;</span> <span class="p">|</span> <span class="p">%{</span><span class="nb">get-aduser</span> <span class="nv">$_</span> <span class="n">-property</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="n">Name</span><span class="p">,</span><span class="n">Manager</span><span class="p">}</span>             <span class="c">##  % 等于ForEach-Object</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-Content</span> <span class="s2">&#34;d:\list.txt&#34;</span> <span class="p">|</span> <span class="p">%{</span><span class="nb">get-aduser</span>  <span class="nv">$_</span> <span class="n">-property</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="n">name</span><span class="p">,</span><span class="n">GivenName</span><span class="p">,</span><span class="n">Surname</span><span class="p">,</span><span class="n">manager</span><span class="p">}|</span><span class="nb">export-csv</span> <span class="n">d:</span><span class="p">\</span><span class="n">test</span><span class="p">.</span><span class="py">csv</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#查看超过25天没登录的同事</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADUser</span> <span class="n">-Filter</span> <span class="s2">&#34;Enabled -eq &#39;</span><span class="nv">$true</span><span class="s2">&#39; -and Name -notlike &#39;shr-*&#39;&#34;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">    <span class="n">-SearchBase</span> <span class="s2">&#34;OU=Users,OU=CANRS,DC=int,DC=marrcorp,DC=marriott,DC=com&#34;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">    <span class="n">-Properties</span> <span class="n">LastLogonDate</span><span class="p">,</span> <span class="n">Manager</span><span class="p">,</span> <span class="n">DisplayName</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Where-Object</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$_</span><span class="p">.</span><span class="py">LastLogonDate</span> <span class="o">-lt</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="py">AddDays</span><span class="p">(</span><span class="mf">-25</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DisplayName</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Enabled</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">LastLogonDate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="vm">@</span><span class="p">{</span><span class="n">Name</span><span class="p">=</span><span class="s2">&#34;Manager&#34;</span><span class="p">;</span> <span class="n">Expression</span><span class="p">={</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">Manager</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nb">Get-ADUser</span> <span class="nv">$_</span><span class="p">.</span><span class="py">Manager</span> <span class="n">-Properties</span> <span class="n">DisplayName</span><span class="p">).</span><span class="py">DisplayName</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;No Manager&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="指定domain-对emailaddressname-search">指定domain 对EmailAddress/Name Search
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-ADUser</span> <span class="n">-Server</span> <span class="s2">&#34;(server)&#34;</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">EmailAddress</span> <span class="o">-eq</span> <span class="p">@.</span><span class="n">com</span><span class="p">}</span> <span class="n">-Properties</span> <span class="n">_</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADUser</span> <span class="n">-Server</span> <span class="s2">&#34;(server)&#34;</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span> <span class="o">-like</span> <span class="s2">&#34;(EID)_&#34;</span><span class="p">}</span> <span class="n">-Properties</span> <span class="n">_</span> <span class="p">|</span> <span class="nb">select </span><span class="n">name</span><span class="p">,</span> <span class="n">displayname</span> <span class="p">|</span> <span class="nb">ft
+</span></span></span><span class="line"><span class="cl"><span class="nb">Get-ADUser</span> <span class="n">-Server</span> <span class="s2">&#34;(server)&#34;</span> <span class="p">(</span><span class="n">EID</span><span class="p">)</span> <span class="n">-Properties</span> <span class="n">_</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADUser</span> <span class="n">-Server</span> <span class="s2">&#34;(server)&#34;</span> <span class="p">(</span><span class="n">EID</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#Find DL member</span>
+</span></span><span class="line"><span class="cl"><span class="nb">get-adgroup</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">DisplayName</span> <span class="o">-eq</span> <span class="s2">&#34;(DL-GROUPNAME)&#34;</span><span class="p">}</span>  <span class="p">|</span> <span class="nb">Get-ADGroupMember</span> <span class="p">|</span> <span class="nb">select </span><span class="n">name</span>
+</span></span><span class="line"><span class="cl"><span class="nb">get-adgroup</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">displayname</span> <span class="o">-eq</span> <span class="s2">&#34;(DL-GROUPNAME)&#34;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">Get-ADGroupMember</span><span class="p">|</span><span class="nb">select </span><span class="n">name</span> <span class="p">|</span><span class="nb">sort </span><span class="n">name</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#Remove member from AD</span>
+</span></span><span class="line"><span class="cl"><span class="nb">get-adgroup</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">displayname</span> <span class="o">-eq</span> <span class="s2">&#34;(DL-GROUPNAME)&#34;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">Remove-ADGroupMember</span> <span class="n">-Members</span> <span class="p">(</span><span class="n">EID</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#Change DL display name</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set-adgroup</span> <span class="p">(</span><span class="nb">DL-GROUPNAME</span><span class="p">)</span> <span class="n">-DisplayName</span> <span class="s2">&#34;(DL-GROUPNAME)&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#Change Email Address (Actually Not Working)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Set-ADGroup</span> <span class="s2">&#34;(DL-GROUPNAME)&#34;</span> <span class="o">-Replace</span> <span class="vm">@</span><span class="p">{</span><span class="n">mail</span><span class="p">=@.</span><span class="n">com</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#Find All PC under OU</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADComputer</span> <span class="n">-LDAPFilter</span> <span class="s2">&#34;(name=CANRC*)&#34;</span> <span class="n">-SearchBase</span> <span class="s2">&#34;OU=Users,OU=,DC=,DC=,DC=,DC=com&#34;</span><span class="p">|</span><span class="nb">select </span><span class="n">name</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="收集信息">收集信息
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">导出所有aduser</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADUser</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span> <span class="o">-notlike</span> <span class="s2">&#34;shr-*&#34;</span> <span class="o">-and</span> <span class="n">EmailAddress</span> <span class="o">-notlike</span> <span class="s2">&#34;xx*&#34;</span><span class="p">}</span> <span class="n">-SearchBase</span> <span class="s2">&#34;OU=Users,OU=,DC=,DC=,DC=,DC=com&#34;</span> <span class="n">-Properties</span> <span class="p">*</span> <span class="p">|</span><span class="nb">select </span><span class="n">name</span><span class="p">,</span><span class="n">DisplayName</span><span class="p">,</span><span class="n">EmailAddress</span><span class="p">|</span><span class="nb">export-csv</span> <span class="n">D:</span><span class="p">\</span><span class="n">users</span><span class="p">.</span><span class="py">csv</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><em>bash</em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># 导入Active Directory模块</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Import-Module</span> <span class="n">ActiveDirectory</span>
+</span></span><span class="line"><span class="cl"><span class="c"># 指定OU的DistinguishedName</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$ouDistinguishedName</span> <span class="p">=</span> <span class="s2">&#34;OU=Users,OU=,DC=,DC=,DC=,DC=com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># 获取指定OU下的所有计算机</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$computers</span> <span class="p">=</span> <span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="n">-SearchBase</span> <span class="nv">$ouDistinguishedName</span>
+</span></span><span class="line"><span class="cl"><span class="c"># 循环遍历每台计算机</span>
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$computer</span> <span class="k">in</span> <span class="nv">$computers</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$computerName</span> <span class="p">=</span> <span class="nv">$computer</span><span class="p">.</span><span class="py">Name</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># 尝试获取显示器信息</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$monitor</span> <span class="p">=</span> <span class="nb">Get-WmiObject</span> <span class="n">WmiMonitorID</span> <span class="n">-Namespace</span> <span class="n">root</span><span class="p">\</span><span class="n">wmi</span> <span class="n">-ComputerName</span> <span class="nv">$computerName</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$manufacturer</span> <span class="p">=</span> <span class="p">[</span><span class="no">System.Text.Encoding</span><span class="p">]::</span><span class="n">ASCII</span><span class="p">.</span><span class="py">GetString</span><span class="p">(</span><span class="nv">$monitor</span><span class="p">.</span><span class="py">ManufacturerName</span> <span class="o">-notmatch</span> <span class="mf">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$name</span> <span class="p">=</span> <span class="p">[</span><span class="no">System.Text.Encoding</span><span class="p">]::</span><span class="n">ASCII</span><span class="p">.</span><span class="py">GetString</span><span class="p">(</span><span class="nv">$monitor</span><span class="p">.</span><span class="py">UserFriendlyName</span> <span class="o">-notmatch</span> <span class="mf">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$serial</span> <span class="p">=</span> <span class="p">[</span><span class="no">System.Text.Encoding</span><span class="p">]::</span><span class="n">ASCII</span><span class="p">.</span><span class="py">GetString</span><span class="p">(</span><span class="nv">$monitor</span><span class="p">.</span><span class="py">SerialNumber</span> <span class="o">-notmatch</span> <span class="mf">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># 输出显示器信息</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;</span><span class="nv">$computerName</span><span class="s2"> - Manufacturer: </span><span class="nv">$manufacturer</span><span class="s2">, Name: </span><span class="nv">$name</span><span class="s2">, Serial: </span><span class="nv">$serial</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># 处理错误，如果无法获取显示器信息</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Write-Host</span> <span class="s2">&#34;Unable to retrieve monitor information for computer </span><span class="nv">$computerName</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># List Bitlocker password by PC, and save as csv</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADObject</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">objectclass</span> <span class="o">-eq</span> <span class="s1">&#39;msFVE-RecoveryInformation&#39;</span><span class="p">}</span> <span class="n">-SearchBase</span> <span class="s2">&#34;OU=Users,OU=,DC=,DC=,DC=,DC=com&#34;</span> <span class="n">-Propertie</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="n">CanonicalName</span><span class="p">,</span> <span class="nb">msFVE-RecoveryPassword</span> <span class="p">|</span> <span class="nb">Export-csv</span> <span class="n">D:</span><span class="p">\</span><span class="n">Bitlocker</span><span class="p">.</span><span class="py">csv</span>
+</span></span><span class="line"><span class="cl"><span class="c"># 特定机子</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADObject</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">objectclass</span> <span class="o">-eq</span> <span class="s1">&#39;msFVE-RecoveryInformation&#39;</span><span class="p">}</span> <span class="n">-SearchBase</span> <span class="p">(</span><span class="nb">Get-ADComputer</span> <span class="n">CANRSLTPF531WAL</span><span class="p">).</span><span class="py">DistinguishedName</span> <span class="n">-Properties</span> <span class="p">\*</span> <span class="p">|</span> <span class="nb">select </span><span class="s1">&#39;msFVE-RecoveryPassword&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="查看lastlogondate-在45天前的电脑">查看lastlogondate 在45天前的电脑
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="n">-SearchBase</span> <span class="s2">&#34;OU=Computers,OU=,DC=,DC=,DC=,DC=com&#34;</span> <span class="n">-Properties</span> <span class="n">LastLogonDate</span><span class="p">|</span><span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="py">LastLogonDate</span> <span class="o">-lt</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="py">AddDays</span><span class="p">(</span><span class="mf">-45</span><span class="p">)</span> <span class="p">}|</span><span class="nb">select </span><span class="n">name</span><span class="p">,</span> <span class="n">LastLogonDate</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+	
+    <footer class="article-footer">
+    
+
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 07月20日 09点41分, 2026年
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/shredos-powershell%E5%A4%84%E7%90%86%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%A5%E5%BF%97/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ShredOS&#43;Powershell处理格式化日志</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%B3%A8%E5%86%8C%E8%A1%A8%E7%9B%B8%E5%85%B3%E5%BD%92%E6%A1%A3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">注册表相关归档</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BF%90%E7%BB%B4%E9%97%AE%E9%A2%98%E5%BD%92%E6%A1%A3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">运维问题归档</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    Waline.init({"dark":"auto","el":"#waline","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/qq","https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/bmoji"],"locale":{"admin":"博主","placeholder":"有什么新点子？🎉（上方留下邮箱可以收到通知哦）"},"pageview":true,"requiredMeta":["name","email","url"],"serverURL":"https://comment.byao394.top/","visitor":true});
+</script>
+
+    
+
+    <footer class="site-footer">
+  <section class="copyright">
+    &copy;  2024 -  2026 Cancanneed64
+  </section>
+
+  <section class="copyright">
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener"
+      ><strong>粤ICP备2022142391号-1 </strong></a
+    >
+  </section>
+
+  <section class="powerby">
+    使用 <a
+      href="https://gohugo.io/"
+      target="_blank"
+      rel="noopener"
+      >Hugo</a
+    > 构建
+    <br />
+    主题 <b
+      ><a
+        href="https://github.com/CaiJimmy/hugo-theme-stack"
+        target="_blank"
+        rel="noopener"
+        data-version="3.26.0"
+        >Stack</a
+      ></b
+    > 由 <a
+      href="https://jimmycai.com"
+      target="_blank"
+      rel="noopener"
+      >Jimmy</a
+    > 设计
+  </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<style>
+  @font-face {
+    font-family: "nano";
+    src: url(https://cancanneed64.github.io/font/NanoPyongHanHei-Regular.ttf)
+      format("truetype");
+  }
+
+  :root {
+    --base-font-family: "nano";
+    --code-font-family: "nano";
+  }
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+<meting-js server="netease" type="playlist" id="3050508794" fixed="True">
+</meting-js>
+
+
+
+<style>
+  body {
+    background: url(https://cancanneed64.github.io/background/sora.png)
+      no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
+
+<script>
+     
+     const cssPath = "https://cancanneed64.github.io/waifu/waifu.css";
+     const tipsJsonPath = "https://cancanneed64.github.io/waifu/waifu-tips.json";
+     const tipsJsPath = "https://cancanneed64.github.io/waifu/waifu-tips.js";
+  const live2dJsPath = "https://cancanneed64.github.io/waifu/live2d.min.js";
+
+     
+     const live2d_path = "https://fastly.jsdelivr.net/gh/cancanneed64/live2d-widget@latest/";
+    
+  
+
+     
+     function loadExternalResource(url, type) {
+         return new Promise((resolve, reject) => {
+             let tag;
+             if (type === "css") {
+                 tag = document.createElement("link");
+                 tag.rel = "stylesheet";
+                 tag.href = url;
+             }
+             else if (type === "js") {
+                 tag = document.createElement("script");
+                 tag.src = url;
+             }
+             if (tag) {
+                 tag.onload = () => resolve(url);
+                 tag.onerror = () => reject(url);
+                 document.head.appendChild(tag);
+             }
+         });
+     }
+
+     
+     if (screen.width >= 768) {
+         Promise.all([
+             loadExternalResource(cssPath, "css"),
+             loadExternalResource(live2d_path + "live2d.min.js", "js"),
+             loadExternalResource(live2d_path + "waifu-tips.js", "js"),
+  		loadExternalResource(tipsJsPath, "js"),
+  		loadExternalResource(live2dJsPath, "js")
+
+         ]).then(() => {
+             
+             initWidget({
+                 waifuPath: tipsJsonPath,
+                 cdnPath: "https://fastly.jsdelivr.net/gh/cancanneed64/live2d_api/",
+  			
+  			
+                 tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
+             });
+  		initWaifuMouseEvent();
+         });
+
+     }
+
+  function initWaifuMouseEvent() {
+         const waifu = document.getElementById("waifu");
+         let isDown = false;
+         let waifuLeft;
+         let mouseLeft;
+         let waifuTop;
+         let mouseTop;
+         
+         waifu.onmousedown = function (e) {
+             isDown = true;
+             
+             waifuLeft = waifu.offsetLeft;
+             mouseLeft = e.clientX;
+             
+             waifuTop = waifu.offsetTop;
+             mouseTop = e.clientY;
+         }
+         
+         window.onmousemove = function (e) {
+             if (!isDown) {
+                 return;
+             }
+             
+             let currentLeft = waifuLeft + (e.clientX - mouseLeft);
+             if (currentLeft < 0) {
+                 currentLeft = 0;
+             } else if (currentLeft > window.innerWidth - 300) {
+                 currentLeft = window.innerWidth - 300;
+             }
+             waifu.style.left = currentLeft  + "px";
+             
+             let currentTop = waifuTop + (e.clientY - mouseTop);
+             if (currentTop < 30) {
+                 currentTop = 30
+             } else if (currentTop > window.innerHeight - 290) {
+                 currentTop = window.innerHeight - 290
+             }
+             waifu.style.top = currentTop + "px";
+         }
+         
+         window.onmouseup = function (e) {
+             isDown = false;
+         }
+     }
+</script>
+
+			
+	<script src="/js/prism.js"></script>
+
+
+    </body>
+</html>
