@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="日常使用">
-<title>vscode技巧</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="工具">
+<title>Python Playwright抓取网页文档</title>
 
-<link rel='canonical' href='https://cancanneed64.github.io/p/vscode%E6%8A%80%E5%B7%A7/'>
+<link rel='canonical' href='https://cancanneed64.github.io/p/python-playwright%E6%8A%93%E5%8F%96%E7%BD%91%E9%A1%B5%E6%96%87%E6%A1%A3/'>
 
-<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="vscode技巧">
-<meta property='og:description' content="日常使用">
-<meta property='og:url' content='https://cancanneed64.github.io/p/vscode%E6%8A%80%E5%B7%A7/'>
+<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="Python Playwright抓取网页文档">
+<meta property='og:description' content="工具">
+<meta property='og:url' content='https://cancanneed64.github.io/p/python-playwright%E6%8A%93%E5%8F%96%E7%BD%91%E9%A1%B5%E6%96%87%E6%A1%A3/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-03T05:41:55&#43;00:00'/>
-<meta name="twitter:title" content="vscode技巧">
-<meta name="twitter:description" content="日常使用">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-07-10T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-03T05:41:55&#43;00:00'/>
+<meta name="twitter:title" content="Python Playwright抓取网页文档">
+<meta name="twitter:description" content="工具">
     <link rel="shortcut icon" href="/favicon.svg" />
 
   
@@ -279,12 +279,9 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#vscode">vscode</a></li>
-    <li><a href="#markdown-插件">markdown 插件</a>
-      <ol>
-        <li><a href="#安装">安装</a></li>
-      </ol>
-    </li>
+    <li><a href="#初学playwright">初学Playwright</a></li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#playwright抓取网页文档">Playwright抓取网页文档</a></li>
   </ol>
 </nav>
         </div>
@@ -308,8 +305,8 @@
     
     <header class="article-category">
         
-            <a href="/categories/go/" >
-                Go
+            <a href="/categories/python/" >
+                Python
             </a>
         
     </header>
@@ -317,12 +314,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/vscode%E6%8A%80%E5%B7%A7/">vscode技巧</a>
+            <a href="/p/python-playwright%E6%8A%93%E5%8F%96%E7%BD%91%E9%A1%B5%E6%96%87%E6%A1%A3/">Python Playwright抓取网页文档</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            日常使用
+            工具
         </h3>
         
     </div>
@@ -343,7 +340,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">05月07日, 2023年</time>
+                <time class="article-time--published">07月10日, 2026年</time>
             </div>
         
 
@@ -374,51 +371,113 @@
     
     
 
-    <h2 id="vscode">vscode
-</h2><p><a class="link" href="https://blog.csdn.net/weixin_46655235/article/details/121788623"  target="_blank" rel="noopener"
-    >多行处理快捷键</a></p>
-<p><a class="link" href="https://blog.csdn.net/weixin_43314519/article/details/107572206"  target="_blank" rel="noopener"
-    >使用 git</a></p>
-<p>工作区对比
-<a class="link" href="https://blog.csdn.net/xsq123/article/details/126948730"  target="_blank" rel="noopener"
-    >连接</a></p>
-<h2 id="markdown-插件">markdown 插件
-</h2><h3 id="安装">安装
-</h3><ol>
-<li><a class="link" href="https://markdown-all-in-one.github.io/docs/guide/#features"  target="_blank" rel="noopener"
-    >Markdown All in One</a></li>
-</ol>
-<ul>
-<li>实时预览</li>
-<li>创建 TOC
-<ul>
-<li>&gt; Create Table of Contents</li>
-</ul>
-</li>
-<li>快捷键
-<ul>
-<li>ctrl+b/i</li>
-<li>alt+s</li>
-</ul>
-</li>
-</ul>
-<ol start="2">
-<li>Markdown PDF</li>
-</ol>
-<ul>
-<li>导出为 PDF
-<ul>
-<li>&gt; export pdf</li>
-</ul>
-</li>
-</ul>
-<ol start="3">
-<li>markdownlint</li>
-</ol>
-<ul>
-<li>规范书写格式</li>
-</ul>
-
+    <h1 id="python-playwright抓取网页文档">Python Playwright抓取网页文档
+</h1><h2 id="初学playwright">初学Playwright
+</h2><p>之前使用Selenium较多，对比之下selenium速度慢些
+Selenium 使用 WebDriver 协议，Playwright 直接控制浏览器协议，API 风格差异较大
+Playwright Inspector则可以直接将用户操作代码化，with会自动释放缓存，且需要带上page.pause()否则直接结束任务，使用过程中发现其实Inspector也可以直接获取元素文本
+<a class="link" href="https://playwright.nodejs.cn/python/docs/debug"  target="_blank" rel="noopener"
+    >PlaywrightPython中文网</a>
+<a class="link" href="https://www.h3blog.com/article/490/#2%E5%B1%82iframe-%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C"  target="_blank" rel="noopener"
+    >何三笔记</a></p>
+<h2 id="安装">安装
+</h2><p><code>pip install playwright</code>
+<code>python -m playwright install</code>
+如果速度太慢改用网上清华源</p>
+<h2 id="playwright抓取网页文档">Playwright抓取网页文档
+</h2><p>定位方法:CSS / XPath / 文本 / 属性 / getByRole定位</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">playwright.sync_api</span> <span class="kn">import</span> <span class="n">sync_playwright</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看有哪些frame</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">dump_frame_tree</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">indent</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="n">frame</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;@&#39;</span> <span class="o">+</span> <span class="n">frame</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">child_frames</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dump_frame_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="s2">&#34;    &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 同步模式（新手首选）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动Chrome浏览器，headless=False表示显示浏览器窗口（调试用）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># user_data_dir保留用户登录cookie</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># start-maximized窗口最大化，注意元素定位有加载速度问题</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">sync_playwright</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">browser</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">chromium</span><span class="o">.</span><span class="n">launch_persistent_context</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">user_data_dir</span><span class="o">=</span><span class="s2">&#34;./playwright_profile&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">headless</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;--start-maximized&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="n">wait_until</span><span class="o">=</span><span class="s2">&#34;networkidle&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">frame</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">frame_locator</span><span class="p">(</span><span class="s1">&#39;[title=&#34;Document reading pane&#34;]&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">frame_locator</span><span class="p">(</span><span class="s1">&#39;[title=&#34;Inner document reading pane&#34;]&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">text</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">&#34;body&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">inner_text</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">page</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>循环页面保存到文件中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;extracted_content.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;a+&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">wait_until</span><span class="o">=</span><span class="s2">&#34;networkidle&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">frame</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">frame_locator</span><span class="p">(</span><span class="s1">&#39;[title=&#34;Document reading pane&#34;]&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">frame_locator</span><span class="p">(</span><span class="s1">&#39;[title=&#34;Inner document reading pane&#34;]&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">text</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">&#34;body&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">inner_text</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">✓ 已保存 </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> 页面的内容&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> 页面 失败: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 	
@@ -454,25 +513,12 @@
             
                 
 <article class="">
-    <a href="/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/">
+    <a href="/p/%E5%88%A9%E7%94%A8ocr%E6%95%B4%E7%90%86%E4%BB%93%E5%BA%93%E5%BA%93%E5%AD%98/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Go 语言实战</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Go语言入门</h2>
+            <h2 class="article-title">利用ocr整理仓库库存</h2>
         </div>
     </a>
 </article>
@@ -493,12 +539,12 @@
             
                 
 <article class="">
-    <a href="/p/7days-gee%E8%AE%B0%E5%BD%95/">
+    <a href="/p/python%E7%88%AC%E5%8F%96%E7%BB%9F%E8%AE%A1%E9%A1%B5%E9%9D%A2%E5%88%86%E6%9E%90/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">7days gee记录</h2>
+            <h2 class="article-title">Python爬取统计页面分析</h2>
         </div>
     </a>
 </article>
@@ -506,12 +552,25 @@
             
                 
 <article class="">
-    <a href="/p/goroutine-%E5%85%A5%E9%97%A8/">
+    <a href="/p/excel%E5%BC%BA%E5%88%B6xls%E4%BF%9D%E5%AD%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Goroutine 入门</h2>
+            <h2 class="article-title">excel强制xls保存解决方法</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/python%E7%88%AC%E5%8F%96%E7%BB%9F%E8%AE%A1%E9%A1%B5%E9%9D%A2%E5%88%86%E6%9E%90/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Python爬取统计页面分析</h2>
         </div>
     </a>
 </article>
