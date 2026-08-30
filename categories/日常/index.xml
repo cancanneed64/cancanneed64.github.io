@@ -73,8 +73,7 @@
 &lt;/h2&gt;&lt;p&gt;设置私钥密码
 &lt;code&gt;ssh-keygen -t rsa -C &amp;quot;email&amp;quot;&lt;/code&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;第一个输入回车，接着输入fingerprint密码&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;第一个输入回车，接着输入fingerprint密码&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;回到github页面设置SSH
 &lt;img src=&#34;https://cancanneed64.github.io/_resources/github%20ssh.jpg&#34;
 	
@@ -104,8 +103,7 @@ key中填入返回的结果
 &lt;p&gt;添加注释并提交
 &lt;code&gt;git commit -m &amp;quot;&amp;quot;&lt;/code&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;如果直接git commit会打开编辑器，如果直接关闭会中止&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;如果直接git commit会打开编辑器，如果直接关闭会中止&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;查看日志
 &lt;code&gt;git log&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;简述多个
@@ -157,8 +155,7 @@ key中填入返回的结果
 &lt;p&gt;压缩历史，合并上一个提交
 &lt;code&gt;git rebase -i&lt;/code&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;HEAD-2选定当前分支中包含HEAD在内的两个最新历史记录为对象在编辑器中打开&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;HEAD-2选定当前分支中包含HEAD在内的两个最新历史记录为对象在编辑器中打开&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;6仓库推拉&#34;&gt;6.仓库推拉
 &lt;/h2&gt;&lt;p&gt;添加远程仓库，设置为origin
 &lt;code&gt;git remote add origin git@github.com:id/file.git&lt;/code&gt;&lt;/p&gt;

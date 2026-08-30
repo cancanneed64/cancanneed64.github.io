@@ -1,34 +1,31 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
+<!doctype html>
+<html
+  lang="zh-cn"
+  dir="ltr"
+>
+  <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="方法">
 <title>ShredOS&#43;Powershell处理格式化日志</title>
 
-<link rel='canonical' href='https://cancanneed64.github.io/p/shredos-powershell%E5%A4%84%E7%90%86%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%A5%E5%BF%97/'>
-
-<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="ShredOS+Powershell处理格式化日志">
+<link rel='canonical' href='https://cancanneed64.github.io/p/shredos-powershell%E5%A4%84%E7%90%86%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%A5%E5%BF%97/'> 
+<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css" />
+<meta property='og:title' content="ShredOS+Powershell处理格式化日志">
 <meta property='og:description' content="方法">
 <meta property='og:url' content='https://cancanneed64.github.io/p/shredos-powershell%E5%A4%84%E7%90%86%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%A5%E5%BF%97/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-11-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T09:44:58&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-11-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T11:27:02&#43;00:00'/>
 <meta name="twitter:title" content="ShredOS+Powershell处理格式化日志">
 <meta name="twitter:description" content="方法">
     <link rel="shortcut icon" href="/favicon.svg" />
-
-  
-
 
 
 <span id="top"></span>
 
 
 
-
-	 <link rel="stylesheet" href="/css/prism.css"/>
-
-
-    </head>
-    <body class="
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="
     article-page
     ">
     <script>
@@ -53,7 +50,9 @@
         }
     })();
 </script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+<div
+      class="container main-container flex on-phone--column extended"
+    ><aside class="sidebar left-sidebar sticky ">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
@@ -70,7 +69,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu5f048b0037a3ebe412d4c3c4b3d8d9e8_103276_300x0_resize_q75_box.jpg" width="300"
+                        <img src="/img/avatar_hu_2041914432b10566.jpg" width="300"
                             height="324" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -261,9 +260,8 @@
         
             
                 
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<section class="widget archives">
+  <div class="widget-icon"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <line x1="5" y1="9" x2="19" y2="9" />
   <line x1="5" y1="15" x2="19" y2="15" />
@@ -272,22 +270,16 @@
 </svg>
 
 
+</div>
+  <h2 class="widget-title section-title">目录</h2>
 
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
+  <div class="widget--toc"><nav id="TableOfContents">
   <ol>
     <li><a href="#shredos">ShredOS</a></li>
     <li><a href="#powershell">Powershell</a></li>
   </ol>
-</nav>
-        </div>
-    </section>
-
-
-<a href="#top" class="backtop"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a>
+</nav></div>
+</section>
 
 
 
@@ -296,7 +288,7 @@
     </aside>
 
 
-            <main class="main full-width">
+      <main class="main full-width">
     <article class="main-article">
     <header class="article-header">
 
@@ -376,8 +368,7 @@
 <a class="link" href="https://github.com/PartialVolume/shredos.x86_64"  target="_blank" rel="noopener"
     >Github link</a></p>
 <blockquote>
-<p>一款开源的硬盘格式化处理软件，可以用来对 PC/Laptop/服务器等带硬盘的机器进行格式化处理，<del>但目前无法对 HP 服务器进行很好的兼容，无法打开镜像</del>，详情见 github issue 页面</p>
-</blockquote>
+<p>一款开源的硬盘格式化处理软件，可以用来对 PC/Laptop/服务器等带硬盘的机器进行格式化处理，<del>但目前无法对 HP 服务器进行很好的兼容，无法打开镜像</del>，详情见 github issue 页面</p></blockquote>
 <p>镜像制作过程可以参考下 github 说明，此处不作赘述</p>
 <p><del>TODO: 补充对硬盘的处理，具体怎么将配置固定</del></p>
 <p>v0.37 版本新增了对默认方式的修改，具体可以修改镜像中的 grub.cf 文件，<a class="link" href="https://github.com/PartialVolume/shredos.x86_64?tab=readme-ov-file#how-to-exclude-the-fat-formatted-shredos-boot-drive-from-nwipe-interactive-and-autonuke-modes"  target="_blank" rel="noopener"
@@ -790,7 +781,7 @@
 
 
         <span>
-            最后更新于 08月30日 09点44分, 2026年
+            最后更新于 08月30日 11点27分, 2026年
         </span>
     </section></footer>
 
@@ -988,10 +979,9 @@
                 rel="stylesheet" 
                 href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
             >
-
-            </main>
-        </div>
-        <script 
+</main>
+    </div>
+    <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
@@ -1143,9 +1133,7 @@
      }
 </script>
 
-			
-	<script src="/js/prism.js"></script>
 
-
-    </body>
+    <a href="#top" class="backtop"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a>
+  </body>
 </html>

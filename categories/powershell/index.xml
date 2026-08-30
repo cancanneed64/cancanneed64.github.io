@@ -1044,8 +1044,7 @@
 &lt;a class=&#34;link&#34; href=&#34;https://github.com/PartialVolume/shredos.x86_64&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Github link&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;一款开源的硬盘格式化处理软件，可以用来对 PC/Laptop/服务器等带硬盘的机器进行格式化处理，&lt;del&gt;但目前无法对 HP 服务器进行很好的兼容，无法打开镜像&lt;/del&gt;，详情见 github issue 页面&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;一款开源的硬盘格式化处理软件，可以用来对 PC/Laptop/服务器等带硬盘的机器进行格式化处理，&lt;del&gt;但目前无法对 HP 服务器进行很好的兼容，无法打开镜像&lt;/del&gt;，详情见 github issue 页面&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;镜像制作过程可以参考下 github 说明，此处不作赘述&lt;/p&gt;
 &lt;p&gt;&lt;del&gt;TODO: 补充对硬盘的处理，具体怎么将配置固定&lt;/del&gt;&lt;/p&gt;
 &lt;p&gt;v0.37 版本新增了对默认方式的修改，具体可以修改镜像中的 grub.cf 文件，&lt;a class=&#34;link&#34; href=&#34;https://github.com/PartialVolume/shredos.x86_64?tab=readme-ov-file#how-to-exclude-the-fat-formatted-shredos-boot-drive-from-nwipe-interactive-and-autonuke-modes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;

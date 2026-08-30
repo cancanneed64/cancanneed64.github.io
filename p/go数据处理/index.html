@@ -1,34 +1,31 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
+<!doctype html>
+<html
+  lang="zh-cn"
+  dir="ltr"
+>
+  <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习">
 <title>Go数据处理</title>
 
-<link rel='canonical' href='https://cancanneed64.github.io/p/go%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/'>
-
-<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="Go数据处理">
+<link rel='canonical' href='https://cancanneed64.github.io/p/go%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/'> 
+<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css" />
+<meta property='og:title' content="Go数据处理">
 <meta property='og:description' content="学习">
 <meta property='og:url' content='https://cancanneed64.github.io/p/go%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T09:44:58&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T11:27:02&#43;00:00'/>
 <meta name="twitter:title" content="Go数据处理">
 <meta name="twitter:description" content="学习">
     <link rel="shortcut icon" href="/favicon.svg" />
-
-  
-
 
 
 <span id="top"></span>
 
 
 
-
-	 <link rel="stylesheet" href="/css/prism.css"/>
-
-
-    </head>
-    <body class="
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="
     article-page
     ">
     <script>
@@ -53,7 +50,9 @@
         }
     })();
 </script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+<div
+      class="container main-container flex on-phone--column extended"
+    ><aside class="sidebar left-sidebar sticky ">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
@@ -70,7 +69,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu5f048b0037a3ebe412d4c3c4b3d8d9e8_103276_300x0_resize_q75_box.jpg" width="300"
+                        <img src="/img/avatar_hu_2041914432b10566.jpg" width="300"
                             height="324" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -261,9 +260,8 @@
         
             
                 
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<section class="widget archives">
+  <div class="widget-icon"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <line x1="5" y1="9" x2="19" y2="9" />
   <line x1="5" y1="15" x2="19" y2="15" />
@@ -272,12 +270,10 @@
 </svg>
 
 
+</div>
+  <h2 class="widget-title section-title">目录</h2>
 
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
+  <div class="widget--toc"><nav id="TableOfContents">
   <ol>
     <li><a href="#关于-map">关于 map</a></li>
     <li><a href="#go-打印中文出现乱码">go 打印中文出现乱码</a></li>
@@ -294,12 +290,8 @@
     <li><a href="#字符串注意事项">字符串注意事项</a></li>
     <li><a href="#小数点和替换">小数点和替换</a></li>
   </ol>
-</nav>
-        </div>
-    </section>
-
-
-<a href="#top" class="backtop"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a>
+</nav></div>
+</section>
 
 
 
@@ -308,7 +300,7 @@
     </aside>
 
 
-            <main class="main full-width">
+      <main class="main full-width">
     <article class="main-article">
     <header class="article-header">
 
@@ -410,10 +402,10 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">str</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&#34;halo,北京&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// len 返回字节数而非字符数，中文字符被逐字节拆开输出，因此乱码
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="nx">str</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>   <span class="c1">// 按单字节取值，中文的 3 个字节各自被当成一个字符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// len 返回字节数而非字符数，中文字符被逐字节拆开输出，因此乱码</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="nx">str</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>   <span class="c1">// 按单字节取值，中文的 3 个字节各自被当成一个字符</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>方法一 使用 rune 切片可以</p>
@@ -428,9 +420,9 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">str</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&#34;halo,北京&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">str2</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">rune</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>        <span class="c1">// 转成 rune 切片，一个元素对应一个完整字符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 此时 len 是字符数，中文不会被拆散
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">str2</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">str2</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">rune</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>        <span class="c1">// 转成 rune 切片，一个元素对应一个完整字符</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 此时 len 是字符数，中文不会被拆散</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">str2</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="nx">str2</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -447,10 +439,10 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">str</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&#34;halo,北京&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// range 遍历字符串时自动按 UTF-8 解码，val 直接是完整字符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">val</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">str</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// index 是字节下标，遇到中文会跳 3，val 是解码后的 rune
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;index=%d, val=%c \n&#34;</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// range 遍历字符串时自动按 UTF-8 解码，val 直接是完整字符</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">val</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">str</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// index 是字节下标，遇到中文会跳 3，val 是解码后的 rune</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;index=%d, val=%c \n&#34;</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -494,22 +486,22 @@
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//byte代表 UTF-8 字符串的1个字节的值，表示一个ASCII码字符,utf-8中一个中文占三个字节
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//rune（实际上是int32），代表单个 Unicode字符4个字节，常用来处理unicode或utf-8字符（一切字符）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//Go 语言的 string 是用 uft-8 进行编码的，英文字母占用一个字节，而中文字母占用 3个字节
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//%q解释型字符串，反引号可以不写换行符（因为没法写）来表示一个多行的字符串
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//byte代表 UTF-8 字符串的1个字节的值，表示一个ASCII码字符,utf-8中一个中文占三个字节</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//rune（实际上是int32），代表单个 Unicode字符4个字节，常用来处理unicode或utf-8字符（一切字符）</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//Go 语言的 string 是用 uft-8 进行编码的，英文字母占用一个字节，而中文字母占用 3个字节</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//%q解释型字符串，反引号可以不写换行符（因为没法写）来表示一个多行的字符串</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nx">s1</span> <span class="o">:=</span> <span class="s">&#34;big&#34;</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">bytestr</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">bytestr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;p&#39;</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%T&#34;</span><span class="p">,</span> <span class="nx">bytestr</span><span class="p">)</span> <span class="c1">//uint8
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">bytestr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%T&#34;</span><span class="p">,</span> <span class="nx">bytestr</span><span class="p">)</span> <span class="c1">//uint8</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">bytestr</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nx">runestr</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">rune</span><span class="p">(</span><span class="nx">s1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">runestr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;p&#39;</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%T&#34;</span><span class="p">,</span> <span class="nx">runestr</span><span class="p">)</span> <span class="c1">//int32
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">runestr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%T&#34;</span><span class="p">,</span> <span class="nx">runestr</span><span class="p">)</span> <span class="c1">//int32</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">runestr</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;byte 占用 %d 个字节数\nrune 占用 %d 个字节数&#34;</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">bytestr</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">runestr</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -545,13 +537,13 @@ Go 要求映射键具有可比性。因此，将 K 声明为 comparable 是必�
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">all</span> <span class="nx">allType</span>
-</span></span><span class="line"><span class="cl"><span class="nx">all</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">aaa</span><span class="p">)</span>                    <span class="c1">// 先赋值为结构体指针
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">all</span> <span class="p">=</span> <span class="s">&#34;abc&#34;</span>                       <span class="c1">// 再赋值为字符串，接口可持有任意类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">str</span><span class="p">,</span> <span class="nx">st</span> <span class="o">:=</span> <span class="nx">all</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>           <span class="c1">// 类型断言：st 为断言是否成功，失败不会 panic
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>                  <span class="c1">// 断言成功则输出 abc
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">st</span><span class="p">)</span>                   <span class="c1">// 输出 true
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nf">TypeOf</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span>  <span class="c1">// 输出实际类型 string
-</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nx">all</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">aaa</span><span class="p">)</span>                    <span class="c1">// 先赋值为结构体指针</span>
+</span></span><span class="line"><span class="cl"><span class="nx">all</span> <span class="p">=</span> <span class="s">&#34;abc&#34;</span>                       <span class="c1">// 再赋值为字符串，接口可持有任意类型</span>
+</span></span><span class="line"><span class="cl"><span class="nx">str</span><span class="p">,</span> <span class="nx">st</span> <span class="o">:=</span> <span class="nx">all</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>           <span class="c1">// 类型断言：st 为断言是否成功，失败不会 panic</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>                  <span class="c1">// 断言成功则输出 abc</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">st</span><span class="p">)</span>                   <span class="c1">// 输出 true</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nf">TypeOf</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span>  <span class="c1">// 输出实际类型 string</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="interface">interface
 </h2><div class="highlight"><div class="chroma">
@@ -574,23 +566,23 @@ Go 要求映射键具有可比性。因此，将 K 声明为 comparable 是必�
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 定义接口：任何实现了 call() 的类型都算实现了 Phone
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Phone</span> <span class="kd">interface</span> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 定义接口：任何实现了 call() 的类型都算实现了 Phone</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Phone</span> <span class="kd">interface</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">call</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">NokiaPhone</span> <span class="kd">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 值接收者实现接口方法，NokiaPhone 由此满足 Phone
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">no</span> <span class="nx">NokiaPhone</span><span class="p">)</span> <span class="nf">call</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 值接收者实现接口方法，NokiaPhone 由此满足 Phone</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">no</span> <span class="nx">NokiaPhone</span><span class="p">)</span> <span class="nf">call</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;calling&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">phone</span> <span class="nx">Phone</span>
-</span></span><span class="line"><span class="cl"><span class="nx">phone</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">NokiaPhone</span><span class="p">)</span>  <span class="c1">// 接口变量持有 *NokiaPhone
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">phone</span><span class="p">.</span><span class="nf">call</span><span class="p">()</span>             <span class="c1">// 动态派发到 NokiaPhone 的实现
-</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nx">phone</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">NokiaPhone</span><span class="p">)</span>  <span class="c1">// 接口变量持有 *NokiaPhone</span>
+</span></span><span class="line"><span class="cl"><span class="nx">phone</span><span class="p">.</span><span class="nf">call</span><span class="p">()</span>             <span class="c1">// 动态派发到 NokiaPhone 的实现</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果没有将 interface 给 new 成 struct 则会报错</p>
 <div class="highlight"><div class="chroma">
@@ -635,11 +627,11 @@ new 虽然也可以初始化，但只能得到 nil</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="nx">nums0</span> <span class="o">:=</span> <span class="p">[][]</span><span class="kt">int</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">}}</span>  <span class="c1">// 二维切片，元素本身是 []int
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">nums0</span><span class="p">)</span>                <span class="c1">// [[1 2] [3 4]]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">nums0</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">nums0</span><span class="p">,</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">})</span><span class="c1">// 追加一整行，注意要 append 回原变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">nums0</span><span class="p">)</span>                <span class="c1">// [[1 2] [3 4] [5 6]]
-</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="nx">nums0</span> <span class="o">:=</span> <span class="p">[][]</span><span class="kt">int</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">}}</span>  <span class="c1">// 二维切片，元素本身是 []int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">nums0</span><span class="p">)</span>                <span class="c1">// [[1 2] [3 4]]</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">nums0</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">nums0</span><span class="p">,</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">})</span><span class="c1">// 追加一整行，注意要 append 回原变量</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">nums0</span><span class="p">)</span>                <span class="c1">// [[1 2] [3 4] [5 6]]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>不改变原来数组的内存
 <code>ans = append(ans, append([]int(nil), nums...))（正确写法）</code>
@@ -700,7 +692,7 @@ func Replace(s, old, new string, n int) string</p>
 
 
         <span>
-            最后更新于 08月30日 09点44分, 2026年
+            最后更新于 08月30日 11点27分, 2026年
         </span>
     </section></footer>
 
@@ -924,10 +916,9 @@ func Replace(s, old, new string, n int) string</p>
                 rel="stylesheet" 
                 href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
             >
-
-            </main>
-        </div>
-        <script 
+</main>
+    </div>
+    <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
@@ -1079,9 +1070,7 @@ func Replace(s, old, new string, n int) string</p>
      }
 </script>
 
-			
-	<script src="/js/prism.js"></script>
 
-
-    </body>
+    <a href="#top" class="backtop"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a>
+  </body>
 </html>

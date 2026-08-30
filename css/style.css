@@ -1,22 +1,23 @@
-/* 添加返回顶部 */
+/* 返回顶部 */
 .backtop {
-    color: #b3b1b1;
-    position: fixed;
-    right: 16px;
-    bottom: 16px;
-    width: 32px;
-    height: 32px;
-    z-index: 999998;
+  color: #b3b1b1;
+  position: fixed;
+  right: 16px;
+  bottom: 330px;
+  width: 36px;
+  height: 36px;
+  z-index: 999998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 50%;
+  transition:
+    color 0.2s,
+    background 0.2s;
 }
 
-
-/* 添加返回顶部 
-.backtop {
-    bottom: -15px;
-    right: 2px;
-    display: none;
-    position: absolute;  
-    border: 0;
-    &:hover {
-        filter: opacity(60%);  // 悬停淡化
-    }*/
+.backtop:hover {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+}

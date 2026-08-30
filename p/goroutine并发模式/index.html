@@ -1,34 +1,31 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
+<!doctype html>
+<html
+  lang="zh-cn"
+  dir="ltr"
+>
+  <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习">
 <title>Goroutine并发模式</title>
 
-<link rel='canonical' href='https://cancanneed64.github.io/p/goroutine%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/'>
-
-<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="Goroutine并发模式">
+<link rel='canonical' href='https://cancanneed64.github.io/p/goroutine%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/'> 
+<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css" />
+<meta property='og:title' content="Goroutine并发模式">
 <meta property='og:description' content="学习">
 <meta property='og:url' content='https://cancanneed64.github.io/p/goroutine%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T09:44:58&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T11:27:02&#43;00:00'/>
 <meta name="twitter:title" content="Goroutine并发模式">
 <meta name="twitter:description" content="学习">
     <link rel="shortcut icon" href="/favicon.svg" />
-
-  
-
 
 
 <span id="top"></span>
 
 
 
-
-	 <link rel="stylesheet" href="/css/prism.css"/>
-
-
-    </head>
-    <body class="
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="
     article-page
     ">
     <script>
@@ -53,7 +50,9 @@
         }
     })();
 </script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+<div
+      class="container main-container flex on-phone--column extended"
+    ><aside class="sidebar left-sidebar sticky ">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
@@ -70,7 +69,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu5f048b0037a3ebe412d4c3c4b3d8d9e8_103276_300x0_resize_q75_box.jpg" width="300"
+                        <img src="/img/avatar_hu_2041914432b10566.jpg" width="300"
                             height="324" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -261,9 +260,8 @@
         
             
                 
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<section class="widget archives">
+  <div class="widget-icon"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <line x1="5" y1="9" x2="19" y2="9" />
   <line x1="5" y1="15" x2="19" y2="15" />
@@ -272,23 +270,17 @@
 </svg>
 
 
+</div>
+  <h2 class="widget-title section-title">目录</h2>
 
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
+  <div class="widget--toc"><nav id="TableOfContents">
   <ol>
     <li><a href="#1-runner">1. runner</a></li>
     <li><a href="#2-pool">2. pool</a></li>
     <li><a href="#3-work">3. work</a></li>
   </ol>
-</nav>
-        </div>
-    </section>
-
-
-<a href="#top" class="backtop"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a>
+</nav></div>
+</section>
 
 
 
@@ -297,7 +289,7 @@
     </aside>
 
 
-            <main class="main full-width">
+      <main class="main full-width">
     <article class="main-article">
     <header class="article-header">
 
@@ -374,8 +366,7 @@
     <h1 id="goroutine-并发模式">Goroutine 并发模式
 </h1><h2 id="1-runner">1. runner
 </h2><blockquote>
-<p>简介，使用通道监视程序执行时间，当开发需要调度后台处理任务的程序的时候，这个程序可能会座位 cron 作业执行，或者基于定时任务的云环境执行</p>
-</blockquote>
+<p>简介，使用通道监视程序执行时间，当开发需要调度后台处理任务的程序的时候，这个程序可能会座位 cron 作业执行，或者基于定时任务的云环境执行</p></blockquote>
 <p>调度运行无人值守的面向任务程序，支持以下：</p>
 <ul>
 <li>程序可以在分配的时间内完成工作，正常终止；</li>
@@ -492,29 +483,29 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 </span></span></span><span class="line"><span class="cl"><span class="cm">runner 可以执行任何程序，可以监控程序，可以发送信号终止程序
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
 </span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Runner</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">interrupt</span> <span class="kd">chan</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span>   <span class="c1">//发送的信号，用来终止程序
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">complete</span>  <span class="kd">chan</span> <span class="kt">error</span>       <span class="c1">//用于通知任务全部完成
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">timeout</span>   <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="c1">//程序的超时时间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">tasks</span>     <span class="p">[]</span><span class="kd">func</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>      <span class="c1">//要执行的任务
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//工厂函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">New</span><span class="p">(</span><span class="nx">tm</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="o">*</span><span class="nx">Runner</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">Runner</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">complete</span><span class="p">:</span>  <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">error</span><span class="p">),</span> <span class="c1">//无缓冲
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">timeout</span><span class="p">:</span>   <span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">tm</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">interrupt</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="c1">//有缓冲
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">interrupt</span> <span class="kd">chan</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span>   <span class="c1">//发送的信号，用来终止程序</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">complete</span>  <span class="kd">chan</span> <span class="kt">error</span>       <span class="c1">//用于通知任务全部完成</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">timeout</span>   <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="c1">//程序的超时时间</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">tasks</span>     <span class="p">[]</span><span class="kd">func</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>      <span class="c1">//要执行的任务</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//将需要执行的任务，添加到Runner里
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Runner</span><span class="p">)</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">tasks</span> <span class="o">...</span><span class="kd">func</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//工厂函数</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">New</span><span class="p">(</span><span class="nx">tm</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="o">*</span><span class="nx">Runner</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">Runner</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">complete</span><span class="p">:</span>  <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">error</span><span class="p">),</span> <span class="c1">//无缓冲</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">timeout</span><span class="p">:</span>   <span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">tm</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">interrupt</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="c1">//有缓冲</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//将需要执行的任务，添加到Runner里</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Runner</span><span class="p">)</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">tasks</span> <span class="o">...</span><span class="kd">func</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nx">tasks</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">tasks</span><span class="p">,</span> <span class="nx">tasks</span><span class="o">...</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//执行任务，执行的过程中接收到中断信号时，返回中断错误
-</span></span></span><span class="line"><span class="cl"><span class="c1">//如果任务全部执行完，还没有接收到中断信号，则返回nil
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Runner</span><span class="p">)</span> <span class="nf">run</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//执行任务，执行的过程中接收到中断信号时，返回中断错误</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//如果任务全部执行完，还没有接收到中断信号，则返回nil</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Runner</span><span class="p">)</span> <span class="nf">run</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">task</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">r</span><span class="p">.</span><span class="nx">tasks</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nf">isInterrupt</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nx">ErrInterrupt</span>
@@ -524,8 +515,8 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kc">nil</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//检查是否接收到了中断信号
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Runner</span><span class="p">)</span> <span class="nf">isInterrupt</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//检查是否接收到了中断信号</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Runner</span><span class="p">)</span> <span class="nf">isInterrupt</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">select</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">r</span><span class="p">.</span><span class="nx">interrupt</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">signal</span><span class="p">.</span><span class="nf">Stop</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">interrupt</span><span class="p">)</span>
@@ -534,10 +525,10 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kc">false</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//开始执行所有任务，并且监视通道事件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Runner</span><span class="p">)</span> <span class="nf">Start</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//希望接收哪些系统信号
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">signal</span><span class="p">.</span><span class="nf">Notify</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">interrupt</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Interrupt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//开始执行所有任务，并且监视通道事件</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Runner</span><span class="p">)</span> <span class="nf">Start</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//希望接收哪些系统信号</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">signal</span><span class="p">.</span><span class="nf">Notify</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">interrupt</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Interrupt</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">r</span><span class="p">.</span><span class="nx">complete</span> <span class="o">&lt;-</span> <span class="nx">r</span><span class="p">.</span><span class="nf">run</span><span class="p">()</span>
@@ -601,19 +592,19 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
 </span></span><span class="line"><span class="cl">	<span class="s">&#34;log&#34;</span>
 </span></span><span class="line"><span class="cl">	<span class="s">&#34;os&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;runner&#34;</span> <span class="c1">//这个是写的runner所在包
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;runner&#34;</span> <span class="c1">//这个是写的runner所在包</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;time&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//必须在3内完成，超时时间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">const</span> <span class="nx">timeout</span> <span class="p">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//必须在3内完成，超时时间</span>
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">timeout</span> <span class="p">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;开始工作&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">runner</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">timeout</span><span class="p">)</span>                        <span class="c1">//初始化runner
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">r</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="nf">createTask</span><span class="p">(),</span> <span class="nf">createTask</span><span class="p">(),</span> <span class="nf">createTask</span><span class="p">())</span> <span class="c1">//添加任务
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//执行任务并处理结果
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">runner</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">timeout</span><span class="p">)</span>                        <span class="c1">//初始化runner</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="nf">createTask</span><span class="p">(),</span> <span class="nf">createTask</span><span class="p">(),</span> <span class="nf">createTask</span><span class="p">())</span> <span class="c1">//添加任务</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//执行任务并处理结果</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">switch</span> <span class="nx">err</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="nx">runner</span><span class="p">.</span><span class="nx">ErrTimeOut</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;超时错误&#34;</span><span class="p">)</span>
@@ -640,8 +631,7 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 </h2><p>1.6 后标准库自带资源池 sync.Pool</p>
 <blockquote>
 <p>简介，如何使用有缓冲的通道实现资源池，管理任意数量 goroutine 之间共享及独立使用的资源
-作用:共享数据库连接或者内存缓冲区，申请与归还资源到池中</p>
-</blockquote>
+作用:共享数据库连接或者内存缓冲区，申请与归还资源到池中</p></blockquote>
 <p>调用 errors/log/io/sync</p>
 <ol>
 <li><code>m sync.Mutex</code>，保证多个 goroutine 访问资源池时值安全</li>
@@ -754,8 +744,8 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 </span></span><span class="line"><span class="cl">	<span class="s">&#34;sync&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//一个安全的资源池，被管理的资源必须都实现io.Close接口
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Pool</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//一个安全的资源池，被管理的资源必须都实现io.Close接口</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Pool</span> <span class="kd">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">m</span>       <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">res</span>     <span class="kd">chan</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Closer</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">factory</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="nx">io</span><span class="p">.</span><span class="nx">Closer</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
@@ -764,8 +754,8 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">ErrPoolClosed</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;资源池已经被关闭。&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//创建一个资源池
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">New</span><span class="p">(</span><span class="nx">fn</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="nx">io</span><span class="p">.</span><span class="nx">Closer</span><span class="p">,</span> <span class="kt">error</span><span class="p">),</span> <span class="nx">size</span> <span class="kt">uint</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">Pool</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//创建一个资源池</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">New</span><span class="p">(</span><span class="nx">fn</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="nx">io</span><span class="p">.</span><span class="nx">Closer</span><span class="p">,</span> <span class="kt">error</span><span class="p">),</span> <span class="nx">size</span> <span class="kt">uint</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">Pool</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">size</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;size的值太小了。&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
@@ -774,8 +764,8 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 </span></span><span class="line"><span class="cl">		<span class="nx">res</span><span class="p">:</span>     <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Closer</span><span class="p">,</span> <span class="nx">size</span><span class="p">),</span>
 </span></span><span class="line"><span class="cl">	<span class="p">},</span> <span class="kc">nil</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//从资源池里获取一个资源
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Pool</span><span class="p">)</span> <span class="nf">Acquire</span><span class="p">()</span> <span class="p">(</span><span class="nx">io</span><span class="p">.</span><span class="nx">Closer</span><span class="p">,</span><span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//从资源池里获取一个资源</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Pool</span><span class="p">)</span> <span class="nf">Acquire</span><span class="p">()</span> <span class="p">(</span><span class="nx">io</span><span class="p">.</span><span class="nx">Closer</span><span class="p">,</span><span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">select</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">r</span><span class="p">,</span><span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">p</span><span class="p">.</span><span class="nx">res</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Acquire:共享资源&#34;</span><span class="p">)</span>
@@ -789,8 +779,8 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//关闭资源池，释放资源
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Pool</span><span class="p">)</span> <span class="nf">Close</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//关闭资源池，释放资源</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Pool</span><span class="p">)</span> <span class="nf">Close</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">p</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
@@ -800,22 +790,22 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">closed</span> <span class="p">=</span> <span class="kc">true</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">//关闭通道，不让写入了
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nb">close</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//关闭通道，不让写入了</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">close</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">res</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">//关闭通道里的资源
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="nx">r</span><span class="o">:=</span><span class="k">range</span> <span class="nx">p</span><span class="p">.</span><span class="nx">res</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//关闭通道里的资源</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">r</span><span class="o">:=</span><span class="k">range</span> <span class="nx">p</span><span class="p">.</span><span class="nx">res</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">r</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Pool</span><span class="p">)</span> <span class="nf">Release</span><span class="p">(</span><span class="nx">r</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Closer</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//保证该操作和Close方法的操作是安全的
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">p</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//保证该操作和Close方法的操作是安全的</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">p</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">//资源池都关闭了，就省这一个没有释放的资源了，释放即可
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">closed</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//资源池都关闭了，就省这一个没有释放的资源了，释放即可</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">closed</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">r</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
@@ -906,8 +896,8 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//1.6版本之后自带pool
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//1.6版本之后自带pool</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
 </span></span><span class="line"><span class="cl">	<span class="s">&#34;log&#34;</span>
 </span></span><span class="line"><span class="cl">	<span class="s">&#34;math/rand&#34;</span>
@@ -917,21 +907,21 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//模拟的最大goroutine
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">maxGoroutine</span> <span class="p">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//模拟的最大goroutine</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">maxGoroutine</span> <span class="p">=</span> <span class="mi">5</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//等待任务完成
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//等待任务完成</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="nx">maxGoroutine</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="o">:=&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">New</span><span class="p">:</span><span class="nx">createConnection</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">//模拟好几个goroutine同时使用资源池查询数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="nx">query</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">query</span> <span class="p">&lt;</span> <span class="nx">maxGoroutine</span><span class="p">;</span> <span class="nx">query</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//模拟好几个goroutine同时使用资源池查询数据</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">query</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">query</span> <span class="p">&lt;</span> <span class="nx">maxGoroutine</span><span class="p">;</span> <span class="nx">query</span><span class="o">++</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">q</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="nf">dbQuery</span><span class="p">(</span><span class="nx">q</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">			<span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
@@ -941,33 +931,33 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 </span></span><span class="line"><span class="cl">	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//模拟数据库查询
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">dbQuery</span><span class="p">(</span><span class="nx">query</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">pool</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//模拟数据库查询</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">dbQuery</span><span class="p">(</span><span class="nx">query</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">pool</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">conn</span><span class="o">:=</span><span class="nx">pool</span><span class="p">.</span><span class="nf">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">dbConnection</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">pool</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">//模拟查询
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//模拟查询</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;第%d个查询，使用的是ID为%d的数据库连接&#34;</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">ID</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//数据库连接
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">dbConnection</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ID</span> <span class="kt">int32</span><span class="c1">//连接的标志
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//数据库连接</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">dbConnection</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ID</span> <span class="kt">int32</span><span class="c1">//连接的标志</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//实现io.Closer接口
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">dbConnection</span><span class="p">)</span> <span class="nf">Close</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//实现io.Closer接口</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">dbConnection</span><span class="p">)</span> <span class="nf">Close</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;关闭连接&#34;</span><span class="p">,</span> <span class="nx">db</span><span class="p">.</span><span class="nx">ID</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kc">nil</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">idCounter</span> <span class="kt">int32</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//生成数据库连接的方法，以供资源池使用
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">createConnection</span><span class="p">()</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//并发安全，给数据库连接生成唯一标志
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">id</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">idCounter</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//生成数据库连接的方法，以供资源池使用</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">createConnection</span><span class="p">()</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//并发安全，给数据库连接生成唯一标志</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">id</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">idCounter</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">dbConnection</span><span class="p">{</span><span class="nx">ID</span><span class="p">:</span><span class="nx">id</span><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -976,8 +966,7 @@ interrupt 缓冲区容量为 1 的通道，保证通道至少能接受一个来�
 </details>
 <h2 id="3-work">3. work
 </h2><blockquote>
-<p>简介，使用无缓冲通道来创建一个 goroutine 池，保证两个 goroutine 间数据交换，不会卡住丢失</p>
-</blockquote>
+<p>简介，使用无缓冲通道来创建一个 goroutine 池，保证两个 goroutine 间数据交换，不会卡住丢失</p></blockquote>
 <p>Pool 包含 Worker 接口和声明 sync wg
 New 使用固定数量的 goroutine 来新建一个工作池，创建一个 Pool 并用无缓冲通道初始化 work，创建同数 goroutine，只接收 worker 接口值并调用 Task 方法
 循环先阻塞，直到将 worker 传到 work 通道中再执行 Task 方法
@@ -1046,45 +1035,45 @@ Run 方法向池里提交工作，调用者必须等待工作池某个 goroutine
 </span></span><span class="line"><span class="cl">	<span class="s">&#34;sync&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 任务类型接口
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Worker</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 任务类型接口</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Worker</span> <span class="kd">interface</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">Task</span><span class="p">(</span><span class="nx">goid</span> <span class="kt">int</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 任务池
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Pool</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 任务池</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Pool</span> <span class="kd">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">work</span> <span class="kd">chan</span> <span class="nx">Worker</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">wg</span>   <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 新建
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">New</span><span class="p">(</span><span class="nx">maxGoroutines</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">Pool</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//任务池
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">p</span> <span class="o">:=</span> <span class="nx">Pool</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 新建</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">New</span><span class="p">(</span><span class="nx">maxGoroutines</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">Pool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//任务池</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span> <span class="o">:=</span> <span class="nx">Pool</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">work</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">Worker</span><span class="p">),</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="nx">maxGoroutines</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//创建maxGoroutines个go协程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">maxGoroutines</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//创建maxGoroutines个go协程</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">maxGoroutines</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">goid</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="c1">//保证goroutine不停止执行通道中的任务
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">for</span> <span class="nx">w</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">p</span><span class="p">.</span><span class="nx">work</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//保证goroutine不停止执行通道中的任务</span>
+</span></span><span class="line"><span class="cl">			<span class="k">for</span> <span class="nx">w</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">p</span><span class="p">.</span><span class="nx">work</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">				<span class="nx">w</span><span class="p">.</span><span class="nf">Task</span><span class="p">(</span><span class="nx">goid</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">			<span class="c1">//每个goroutine不再执行work通道中任务时停止
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">p</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//每个goroutine不再执行work通道中任务时停止</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">p</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">p</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 运行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Pool</span><span class="p">)</span> <span class="nf">Run</span><span class="p">(</span><span class="nx">r</span> <span class="nx">Worker</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 运行</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Pool</span><span class="p">)</span> <span class="nf">Run</span><span class="p">(</span><span class="nx">r</span> <span class="nx">Worker</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">work</span> <span class="o">&lt;-</span> <span class="nx">r</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 停止
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Pool</span><span class="p">)</span> <span class="nf">Shutdown</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 停止</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Pool</span><span class="p">)</span> <span class="nf">Shutdown</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nb">close</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">work</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1109,7 +1098,7 @@ Run 方法向池里提交工作，调用者必须等待工作池某个 goroutine
 
 
         <span>
-            最后更新于 08月30日 09点44分, 2026年
+            最后更新于 08月30日 11点27分, 2026年
         </span>
     </section></footer>
 
@@ -1333,10 +1322,9 @@ Run 方法向池里提交工作，调用者必须等待工作池某个 goroutine
                 rel="stylesheet" 
                 href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
             >
-
-            </main>
-        </div>
-        <script 
+</main>
+    </div>
+    <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
@@ -1488,9 +1476,7 @@ Run 方法向池里提交工作，调用者必须等待工作池某个 goroutine
      }
 </script>
 
-			
-	<script src="/js/prism.js"></script>
 
-
-    </body>
+    <a href="#top" class="backtop"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a>
+  </body>
 </html>

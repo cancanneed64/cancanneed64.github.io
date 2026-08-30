@@ -1,34 +1,31 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
+<!doctype html>
+<html
+  lang="zh-cn"
+  dir="ltr"
+>
+  <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="方法">
 <title>表格索引多种查询方法</title>
 
-<link rel='canonical' href='https://cancanneed64.github.io/p/%E8%A1%A8%E6%A0%BC%E7%B4%A2%E5%BC%95%E5%A4%9A%E7%A7%8D%E6%9F%A5%E8%AF%A2%E6%96%B9%E6%B3%95/'>
-
-<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css"><meta property='og:title' content="表格索引多种查询方法">
+<link rel='canonical' href='https://cancanneed64.github.io/p/%E8%A1%A8%E6%A0%BC%E7%B4%A2%E5%BC%95%E5%A4%9A%E7%A7%8D%E6%9F%A5%E8%AF%A2%E6%96%B9%E6%B3%95/'> 
+<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css" />
+<meta property='og:title' content="表格索引多种查询方法">
 <meta property='og:description' content="方法">
 <meta property='og:url' content='https://cancanneed64.github.io/p/%E8%A1%A8%E6%A0%BC%E7%B4%A2%E5%BC%95%E5%A4%9A%E7%A7%8D%E6%9F%A5%E8%AF%A2%E6%96%B9%E6%B3%95/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-09-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T09:44:58&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-09-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T11:27:02&#43;00:00'/>
 <meta name="twitter:title" content="表格索引多种查询方法">
 <meta name="twitter:description" content="方法">
     <link rel="shortcut icon" href="/favicon.svg" />
-
-  
-
 
 
 <span id="top"></span>
 
 
 
-
-	 <link rel="stylesheet" href="/css/prism.css"/>
-
-
-    </head>
-    <body class="
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="
     article-page
     ">
     <script>
@@ -53,7 +50,9 @@
         }
     })();
 </script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+<div
+      class="container main-container flex on-phone--column extended"
+    ><aside class="sidebar left-sidebar sticky ">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
@@ -70,7 +69,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu5f048b0037a3ebe412d4c3c4b3d8d9e8_103276_300x0_resize_q75_box.jpg" width="300"
+                        <img src="/img/avatar_hu_2041914432b10566.jpg" width="300"
                             height="324" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -261,9 +260,8 @@
         
             
                 
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<section class="widget archives">
+  <div class="widget-icon"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <line x1="5" y1="9" x2="19" y2="9" />
   <line x1="5" y1="15" x2="19" y2="15" />
@@ -272,24 +270,18 @@
 </svg>
 
 
+</div>
+  <h2 class="widget-title section-title">目录</h2>
 
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
+  <div class="widget--toc"><nav id="TableOfContents">
   <ol>
     <li><a href="#转换表格为数据">转换表格为数据</a></li>
     <li><a href="#excel-表格处理">Excel 表格处理</a></li>
     <li><a href="#python-制作本地小工具">Python 制作本地小工具</a></li>
     <li><a href="#golang-进行操作">Golang 进行操作</a></li>
   </ol>
-</nav>
-        </div>
-    </section>
-
-
-<a href="#top" class="backtop"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a>
+</nav></div>
+</section>
 
 
 
@@ -298,7 +290,7 @@
     </aside>
 
 
-            <main class="main full-width">
+      <main class="main full-width">
     <article class="main-article">
     <header class="article-header">
 
@@ -1083,8 +1075,8 @@ Python 图形化界面模板
 </span></span><span class="line"><span class="cl">	<span class="s">&#34;strings&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 读取CSV文件并获取指定列和行的数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">ReadCSV</span><span class="p">(</span><span class="nx">filename</span> <span class="kt">string</span><span class="p">)</span> <span class="p">[][]</span><span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 读取CSV文件并获取指定列和行的数据</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">ReadCSV</span><span class="p">(</span><span class="nx">filename</span> <span class="kt">string</span><span class="p">)</span> <span class="p">[][]</span><span class="kt">string</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
@@ -1093,16 +1085,16 @@ Python 图形化界面模板
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nx">reader</span> <span class="o">:=</span> <span class="nx">csv</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">rows</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">reader</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//fmt.Println(rows)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//fmt.Println(rows)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//fmt.Println(rows)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="nx">rows</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//fmt.Println(rows)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">rows</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 去除空格定义表格，进行取样
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Dealdata</span><span class="p">(</span><span class="nx">data</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">c_if</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">r_if</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">cc</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">rr</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[][]</span><span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 去除空格定义表格，进行取样</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Dealdata</span><span class="p">(</span><span class="nx">data</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">c_if</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">r_if</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">cc</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">rr</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[][]</span><span class="kt">string</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">cc</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">cc</span> <span class="p">=</span> <span class="mi">12</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;cc等于12&#34;</span><span class="p">)</span>
@@ -1122,13 +1114,13 @@ Python 图形化界面模板
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">l</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([][]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">rr</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">c_if</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">//跳过前缀行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">data</span> <span class="p">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">cc</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//跳过前缀行</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">data</span> <span class="p">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">cc</span><span class="p">:]</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">),</span> <span class="nx">data</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">//通过note判断1个字符还是2个字符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">var</span> <span class="nx">note</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//通过note判断1个字符还是2个字符</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">note</span> <span class="kt">int</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">91</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">note</span> <span class="p">=</span> <span class="mi">2</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -1138,8 +1130,8 @@ Python 图形化界面模板
 </span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">sl</span> <span class="kt">string</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">rr</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">//跳过行首序列
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">if</span> <span class="nx">r_if</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//跳过行首序列</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">r_if</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">&gt;</span> <span class="nx">cc</span><span class="o">*</span><span class="nx">note</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">				<span class="nx">sl</span> <span class="p">=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">1</span> <span class="p">:</span> <span class="nx">cc</span><span class="o">*</span><span class="nx">note</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">
@@ -1162,12 +1154,12 @@ Python 图形化界面模板
 </span></span><span class="line"><span class="cl">			<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nx">cc</span><span class="o">*</span><span class="nx">note</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">				<span class="nx">sl</span> <span class="p">=</span> <span class="nx">data</span>
 </span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">			<span class="c1">//fmt.Println(sl)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">for</span> <span class="nx">n</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">n</span><span class="o">+</span><span class="nx">note</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">sl</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">n</span> <span class="p">=</span> <span class="nx">n</span> <span class="o">+</span> <span class="nx">note</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//fmt.Println(sl)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">for</span> <span class="nx">n</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">n</span><span class="o">+</span><span class="nx">note</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">sl</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">n</span> <span class="p">=</span> <span class="nx">n</span> <span class="o">+</span> <span class="nx">note</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">				<span class="nx">l</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">l</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">sl</span><span class="p">[</span><span class="nx">n</span><span class="p">:</span><span class="nx">n</span><span class="o">+</span><span class="nx">note</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">			<span class="c1">//fmt.Println(l)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">&gt;</span> <span class="nx">cc</span><span class="o">*</span><span class="nx">note</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//fmt.Println(l)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">&gt;</span> <span class="nx">cc</span><span class="o">*</span><span class="nx">note</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">				<span class="nx">data</span> <span class="p">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">cc</span><span class="o">*</span><span class="nx">note</span><span class="p">:]</span>
 </span></span><span class="line"><span class="cl">			<span class="p">}</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
@@ -1175,50 +1167,50 @@ Python 图形化界面模板
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">l</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">PreDeal</span><span class="p">(</span><span class="nx">st</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">q</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//表格预处理
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//只留下字符数字并将列表结果转为字符串
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">re</span> <span class="o">:=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">MustCompile</span><span class="p">(</span><span class="s">`\w`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//表格预处理</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//只留下字符数字并将列表结果转为字符串</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">re</span> <span class="o">:=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">MustCompile</span><span class="p">(</span><span class="s">`\w`</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">q</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">re</span><span class="p">.</span><span class="nf">FindAllString</span><span class="p">(</span><span class="nx">q</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">st</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">re</span><span class="p">.</span><span class="nf">FindAllString</span><span class="p">(</span><span class="nx">st</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//fmt.Println(st, q)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//查询转大写
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">q</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToUpper</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//按2个字符方式取表格
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">goal</span> <span class="o">:=</span> <span class="nf">splitStringByInterval</span><span class="p">(</span><span class="nx">q</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//fmt.Println(st, q)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//查询转大写</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">q</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToUpper</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//按2个字符方式取表格</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">goal</span> <span class="o">:=</span> <span class="nf">splitStringByInterval</span><span class="p">(</span><span class="nx">q</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">st</span><span class="p">,</span> <span class="nx">goal</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">SearchData</span><span class="p">(</span><span class="nx">st</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">q</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">c_if</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">r_if</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">cc</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">rr</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">//只留下字符数字并将列表结果转为字符串
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">var</span> <span class="nx">goal</span> <span class="p">[]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//只留下字符数字并将列表结果转为字符串</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">goal</span> <span class="p">[]</span><span class="kt">string</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">st</span><span class="p">,</span> <span class="nx">goal</span> <span class="p">=</span> <span class="nf">PreDeal</span><span class="p">(</span><span class="nx">st</span><span class="p">,</span> <span class="nx">q</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">st</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">c_if</span><span class="p">,</span> <span class="nx">r_if</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//处理表格
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">data</span> <span class="o">:=</span> <span class="nf">Dealdata</span><span class="p">(</span><span class="nx">st</span><span class="p">,</span> <span class="nx">c_if</span><span class="p">,</span> <span class="nx">r_if</span><span class="p">,</span> <span class="nx">cc</span><span class="p">,</span> <span class="nx">rr</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//fmt.Println(data)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">ans</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//处理表格</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">data</span> <span class="o">:=</span> <span class="nf">Dealdata</span><span class="p">(</span><span class="nx">st</span><span class="p">,</span> <span class="nx">c_if</span><span class="p">,</span> <span class="nx">r_if</span><span class="p">,</span> <span class="nx">cc</span><span class="p">,</span> <span class="nx">rr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//fmt.Println(data)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ans</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">idx</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">goal</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">//列
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">m</span> <span class="o">:=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//列</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">m</span> <span class="o">:=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">ci</span> <span class="o">:=</span> <span class="nb">int</span><span class="p">([]</span><span class="nb">rune</span><span class="p">(</span><span class="nx">m</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="sc">&#39;A&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="c1">//行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">n</span> <span class="o">:=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">idx</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="sc">&#39;0&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//行</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">n</span> <span class="o">:=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">idx</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="sc">&#39;0&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">ri</span> <span class="o">:=</span> <span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="c1">//fmt.Println(ri, ci, string(data[ri][ci]))
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//fmt.Println(ri, ci, string(data[ri][ci]))</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="nx">ans</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">ans</span><span class="p">,</span> <span class="nb">string</span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="nx">ri</span><span class="p">][</span><span class="nx">ci</span><span class="p">]))</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nx">revise_ans</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">ans</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//fmt.Println(ans)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="nx">revise_ans</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//fmt.Println(ans)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">revise_ans</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1256,7 +1248,7 @@ Python 图形化界面模板
 
 
         <span>
-            最后更新于 08月30日 09点44分, 2026年
+            最后更新于 08月30日 11点27分, 2026年
         </span>
     </section></footer>
 
@@ -1480,10 +1472,9 @@ Python 图形化界面模板
                 rel="stylesheet" 
                 href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
             >
-
-            </main>
-        </div>
-        <script 
+</main>
+    </div>
+    <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
@@ -1635,9 +1626,7 @@ Python 图形化界面模板
      }
 </script>
 
-			
-	<script src="/js/prism.js"></script>
 
-
-    </body>
+    <a href="#top" class="backtop"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a>
+  </body>
 </html>
