@@ -10,7 +10,7 @@
 <meta property='og:description' content="日常">
 <meta property='og:url' content='https://cancanneed64.github.io/p/powershell-ad%E5%9F%9F%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-03T05:41:55&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T09:44:58&#43;00:00'/>
 <meta name="twitter:title" content="Powershell AD域命令汇总">
 <meta name="twitter:description" content="日常">
     <link rel="shortcut icon" href="/favicon.svg" />
@@ -362,7 +362,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 3 分钟
+                    阅读时长: 4 分钟
                 </time>
             </div>
         
@@ -402,17 +402,33 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">Option</span> <span class="n">Explicit</span> <span class="n">Dim</span> <span class="n">objWMIService</span><span class="p">,</span> <span class="n">colItems</span><span class="p">,</span> <span class="n">WshNetwork</span><span class="p">,</span> <span class="n">strComputer</span> <span class="n">Dim</span> <span class="n">objUser</span><span class="p">,</span> <span class="n">objItem</span><span class="p">,</span> <span class="n">dtmLastLogin</span><span class="p">,</span> <span class="n">strLogonInfo</span>
-</span></span><span class="line"><span class="cl"><span class="nb">Set </span><span class="n">WshNetwork</span> <span class="p">=</span> <span class="n">CreateObject</span> <span class="p">(</span><span class="s2">&#34;Wscript.Network&#34;</span><span class="p">)</span> <span class="n">strComputer</span> <span class="p">=</span> <span class="n">WshNetwork</span><span class="p">.</span><span class="py">ComputerName</span>
-</span></span><span class="line"><span class="cl"><span class="nb">Set </span><span class="n">objWMIService</span> <span class="p">=</span> <span class="n">GetObject</span> <span class="p">(</span><span class="s2">&#34;winmgmts:\\&#34;</span> <span class="p">&amp;</span> <span class="n">strComputer</span> <span class="p">&amp;</span> <span class="s2">&#34;\ root\cimv2 用户上次登录时间。返回主题。要找出过去 10 天内登录的所有用户，请运行
-</span></span></span><span class="line"><span class="cl"><span class="s2">Get-LocalUser |
-</span></span></span><span class="line"><span class="cl"><span class="s2"> Where-Object {</span><span class="nv">$_</span><span class="s2">.Lastlogon -ge (Get-Date)。 AddDays(-10)} |
-</span></span></span><span class="line"><span class="cl"><span class="s2"> Select-Object Name,Enabled,SID,Lastlogon |
-</span></span></span><span class="line"><span class="cl"><span class="s2">Format-List. 要搜索最近 30 天内未登录的用户，请运行。
-</span></span></span><span class="line"><span class="cl"><span class="s2">)
-</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-vb" data-lang="vb"><span class="line"><span class="cl"><span class="c">&#39; VBScript 片段：取本机名，连到本机 WMI 的 cimv2 命名空间
+</span></span></span><span class="line"><span class="cl"><span class="c">&#39; 注意：原文这段是从网页粘贴时被截断的，仅供参考
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="k">Option</span> <span class="n">Explicit</span>
+</span></span><span class="line"><span class="cl"><span class="k">Dim</span> <span class="n">objWMIService</span><span class="p">,</span> <span class="n">colItems</span><span class="p">,</span> <span class="n">WshNetwork</span><span class="p">,</span> <span class="n">strComputer</span>
+</span></span><span class="line"><span class="cl"><span class="k">Dim</span> <span class="n">objUser</span><span class="p">,</span> <span class="n">objItem</span><span class="p">,</span> <span class="n">dtmLastLogin</span><span class="p">,</span> <span class="n">strLogonInfo</span>
+</span></span><span class="line"><span class="cl"><span class="k">Set</span> <span class="n">WshNetwork</span> <span class="o">=</span> <span class="n">CreateObject</span><span class="p">(</span><span class="s">&#34;Wscript.Network&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">strComputer</span> <span class="o">=</span> <span class="n">WshNetwork</span><span class="p">.</span><span class="n">ComputerName</span>
+</span></span><span class="line"><span class="cl"><span class="k">Set</span> <span class="n">objWMIService</span> <span class="o">=</span> <span class="n">GetObject</span><span class="p">(</span><span class="s">&#34;winmgmts:\\&#34;</span> <span class="o">&amp;</span> <span class="n">strComputer</span> <span class="o">&amp;</span> <span class="s">&#34;\root\cimv2&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="域用户查询">域用户查询
+</div><p>查询本机用户的上次登录时间。找出过去 10 天内登录过的所有用户：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-LocalUser</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="py">Lastlogon</span> <span class="o">-ge</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="py">AddDays</span><span class="p">(</span><span class="mf">-10</span><span class="p">)}</span> <span class="p">|</span>   <span class="c"># 登录时间晚于 10 天前</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span><span class="n">Enabled</span><span class="p">,</span><span class="n">SID</span><span class="p">,</span><span class="n">Lastlogon</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Format-List</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>把 <code>-ge</code> 改成 <code>-lt</code>、天数改成 30，即可反过来搜最近 30 天内未登录的用户。</p>
+<h3 id="域用户查询">域用户查询
 </h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -422,11 +438,11 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Aduser</span> <span class="p">(</span><span class="n">EID</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">Get-Aduser</span> <span class="p">(</span><span class="n">EID</span><span class="p">)</span> <span class="n">-property</span> <span class="p">*</span>
-</span></span><span class="line"><span class="cl"><span class="nb">Get-ADComputer</span> <span class="p">(</span><span class="n">HOSTNAME</span><span class="p">)</span> <span class="n">-property</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="n">LastLogonTime</span>
-</span></span><span class="line"><span class="cl"><span class="nb">Get-ADGroup</span> <span class="p">(</span><span class="nb">DL-GROUP</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">Get-ADGroupMember</span> <span class="p">(</span><span class="nb">DPT-Group</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Aduser</span> <span class="p">(</span><span class="n">EID</span><span class="p">)</span>                                              <span class="c"># 按登录名查单个域用户</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-Aduser</span> <span class="p">(</span><span class="n">EID</span><span class="p">)</span> <span class="n">-property</span> <span class="p">*</span>                                  <span class="c"># 查该用户的全部属性</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADComputer</span> <span class="p">(</span><span class="n">HOSTNAME</span><span class="p">)</span> <span class="n">-property</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="n">LastLogonTime</span>  <span class="c"># 查某台机器的最后登录时间</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADGroup</span> <span class="p">(</span><span class="nb">DL-GROUP</span><span class="p">)</span>                                        <span class="c"># 查通讯组/安全组本身</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-ADGroupMember</span> <span class="p">(</span><span class="nb">DPT-Group</span><span class="p">)</span>                                 <span class="c"># 列出组内成员</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="用户账号状态">用户账号状态
@@ -570,7 +586,7 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">导出所有aduser</span>
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># 导出所有 aduser（排除 shr-* 账号和内部邮箱）</span>
 </span></span><span class="line"><span class="cl"><span class="nb">Get-ADUser</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span> <span class="o">-notlike</span> <span class="s2">&#34;shr-*&#34;</span> <span class="o">-and</span> <span class="n">EmailAddress</span> <span class="o">-notlike</span> <span class="s2">&#34;xx*&#34;</span><span class="p">}</span> <span class="n">-SearchBase</span> <span class="s2">&#34;OU=Users,OU=,DC=,DC=,DC=,DC=com&#34;</span> <span class="n">-Properties</span> <span class="p">*</span> <span class="p">|</span><span class="nb">select </span><span class="n">name</span><span class="p">,</span><span class="n">DisplayName</span><span class="p">,</span><span class="n">EmailAddress</span><span class="p">|</span><span class="nb">export-csv</span> <span class="n">D:</span><span class="p">\</span><span class="n">users</span><span class="p">.</span><span class="py">csv</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -665,7 +681,7 @@
 
 
         <span>
-            最后更新于 08月03日 05点41分, 2026年
+            最后更新于 08月30日 09点44分, 2026年
         </span>
     </section></footer>
 

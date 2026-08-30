@@ -10,7 +10,7 @@
 <meta property='og:description' content="学习">
 <meta property='og:url' content='https://cancanneed64.github.io/p/go%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-03T05:41:55&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T09:44:58&#43;00:00'/>
 <meta name="twitter:title" content="Go数据处理">
 <meta name="twitter:description" content="学习">
     <link rel="shortcut icon" href="/favicon.svg" />
@@ -406,12 +406,14 @@
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">	<span class="k">var</span> <span class="nb">str</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&#34;halo,北京&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">i</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">(</span><span class="nb">str</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%c</span><span class="s2">&#34;</span><span class="p">,</span> <span class="nb">str</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">str</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&#34;halo,北京&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// len 返回字节数而非字符数，中文字符被逐字节拆开输出，因此乱码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="nx">str</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>   <span class="c1">// 按单字节取值，中文的 3 个字节各自被当成一个字符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>方法一 使用 rune 切片可以</p>
@@ -422,12 +424,14 @@
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">	<span class="k">var</span> <span class="nb">str</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&#34;halo,北京&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">str2</span> <span class="p">:</span><span class="o">=</span> <span class="p">[]</span><span class="n">rune</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">i</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">(</span><span class="n">str2</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%c</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">str2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">str</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&#34;halo,北京&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">str2</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">rune</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>        <span class="c1">// 转成 rune 切片，一个元素对应一个完整字符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 此时 len 是字符数，中文不会被拆散
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">str2</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="nx">str2</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -438,11 +442,15 @@
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">	<span class="k">var</span> <span class="nb">str</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&#34;halo,北京&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">val</span> <span class="p">:</span><span class="o">=</span> <span class="nb">range</span> <span class="nb">str</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s2">&#34;index=</span><span class="si">%d</span><span class="s2">, val=</span><span class="si">%c</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">str</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&#34;halo,北京&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// range 遍历字符串时自动按 UTF-8 解码，val 直接是完整字符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">val</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">str</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// index 是字节下标，遇到中文会跳 3，val 是解码后的 rune
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;index=%d, val=%c \n&#34;</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -536,14 +544,14 @@ Go 要求映射键具有可比性。因此，将 K 声明为 comparable 是必�
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">var</span> <span class="n">all</span> <span class="n">allType</span>
-</span></span><span class="line"><span class="cl"><span class="n">all</span> <span class="o">=</span> <span class="n">new</span><span class="p">(</span><span class="n">aaa</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">all</span> <span class="o">=</span> <span class="s2">&#34;abc&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">str</span><span class="p">,</span> <span class="n">st</span> <span class="p">:</span><span class="o">=</span> <span class="n">all</span><span class="o">.</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">reflect</span><span class="o">.</span><span class="n">TypeOf</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">all</span> <span class="nx">allType</span>
+</span></span><span class="line"><span class="cl"><span class="nx">all</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">aaa</span><span class="p">)</span>                    <span class="c1">// 先赋值为结构体指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">all</span> <span class="p">=</span> <span class="s">&#34;abc&#34;</span>                       <span class="c1">// 再赋值为字符串，接口可持有任意类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">str</span><span class="p">,</span> <span class="nx">st</span> <span class="o">:=</span> <span class="nx">all</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>           <span class="c1">// 类型断言：st 为断言是否成功，失败不会 panic
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>                  <span class="c1">// 断言成功则输出 abc
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">st</span><span class="p">)</span>                   <span class="c1">// 输出 true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nf">TypeOf</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span>  <span class="c1">// 输出实际类型 string
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="interface">interface
 </h2><div class="highlight"><div class="chroma">
@@ -561,22 +569,28 @@ Go 要求映射键具有可比性。因此，将 K 声明为 comparable 是必�
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">type</span> <span class="n">Phone</span> <span class="n">interface</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">call</span><span class="p">()</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 定义接口：任何实现了 call() 的类型都算实现了 Phone
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Phone</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">call</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">type</span> <span class="n">NokiaPhone</span> <span class="n">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">NokiaPhone</span> <span class="kd">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">func</span> <span class="p">(</span><span class="n">no</span> <span class="n">NokiaPhone</span><span class="p">)</span> <span class="n">call</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&#34;calling&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 值接收者实现接口方法，NokiaPhone 由此满足 Phone
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">no</span> <span class="nx">NokiaPhone</span><span class="p">)</span> <span class="nf">call</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;calling&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">var</span> <span class="n">phone</span> <span class="n">Phone</span>
-</span></span><span class="line"><span class="cl"><span class="n">phone</span> <span class="o">=</span> <span class="n">new</span><span class="p">(</span><span class="n">NokiaPhone</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">phone</span><span class="o">.</span><span class="n">call</span><span class="p">()</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">phone</span> <span class="nx">Phone</span>
+</span></span><span class="line"><span class="cl"><span class="nx">phone</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">NokiaPhone</span><span class="p">)</span>  <span class="c1">// 接口变量持有 *NokiaPhone
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">phone</span><span class="p">.</span><span class="nf">call</span><span class="p">()</span>             <span class="c1">// 动态派发到 NokiaPhone 的实现
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果没有将 interface 给 new 成 struct 则会报错</p>
 <div class="highlight"><div class="chroma">
@@ -591,14 +605,14 @@ Go 要求映射键具有可比性。因此，将 K 声明为 comparable 是必�
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">xx</span>\<span class="n">gotree</span><span class="o">&gt;</span> <span class="n">go</span> <span class="n">run</span> <span class="o">.</span>\<span class="n">main</span><span class="o">.</span><span class="n">go</span>
-</span></span><span class="line"><span class="cl"><span class="n">panic</span><span class="p">:</span> <span class="n">runtime</span> <span class="n">error</span><span class="p">:</span> <span class="n">invalid</span> <span class="n">memory</span> <span class="n">address</span> <span class="ow">or</span> <span class="n">nil</span> <span class="n">pointer</span> <span class="n">dereference</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="k">signal</span> <span class="mh">0xc0000005</span> <span class="n">code</span><span class="o">=</span><span class="mh">0x0</span> <span class="n">addr</span><span class="o">=</span><span class="mh">0x0</span> <span class="n">pc</span><span class="o">=</span><span class="mh">0xb66670</span><span class="p">]</span>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">PS C:\Users\xx\gotree&gt; go run .\main.go
+</span></span><span class="line"><span class="cl">panic: runtime error: invalid memory address or nil pointer dereference
+</span></span><span class="line"><span class="cl">[signal 0xc0000005 code=0x0 addr=0x0 pc=0xb66670]
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">goroutine</span> <span class="mi">1</span> <span class="p">[</span><span class="n">running</span><span class="p">]:</span>
-</span></span><span class="line"><span class="cl"><span class="n">main</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="n">C</span><span class="p">:</span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">xx</span><span class="o">/</span><span class="n">gotree</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">64</span> <span class="o">+</span><span class="mh">0x10</span>
-</span></span><span class="line"><span class="cl"><span class="n">exit</span> <span class="n">status</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">goroutine 1 [running]:
+</span></span><span class="line"><span class="cl">main.main()
+</span></span><span class="line"><span class="cl">        C:/Users/xx/gotree/main.go:64 +0x10
+</span></span><span class="line"><span class="cl">exit status 2
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>new 和 make 的区别
@@ -621,11 +635,11 @@ new 虽然也可以初始化，但只能得到 nil</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">	nums0 := [][]int{{1, 2}, {3, 4}}
-</span></span><span class="line"><span class="cl">	fmt.Println(nums0)
-</span></span><span class="line"><span class="cl">	nums0 = append(nums0, []int{5, 6})
-</span></span><span class="line"><span class="cl">	fmt.Println(nums0)
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="nx">nums0</span> <span class="o">:=</span> <span class="p">[][]</span><span class="kt">int</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">}}</span>  <span class="c1">// 二维切片，元素本身是 []int
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">nums0</span><span class="p">)</span>                <span class="c1">// [[1 2] [3 4]]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">nums0</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">nums0</span><span class="p">,</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">})</span><span class="c1">// 追加一整行，注意要 append 回原变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">nums0</span><span class="p">)</span>                <span class="c1">// [[1 2] [3 4] [5 6]]
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>不改变原来数组的内存
 <code>ans = append(ans, append([]int(nil), nums...))（正确写法）</code>
@@ -686,7 +700,7 @@ func Replace(s, old, new string, n int) string</p>
 
 
         <span>
-            最后更新于 08月03日 05点41分, 2026年
+            最后更新于 08月30日 09点44分, 2026年
         </span>
     </section></footer>
 

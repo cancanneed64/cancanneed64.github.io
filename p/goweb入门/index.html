@@ -10,7 +10,7 @@
 <meta property='og:description' content="学习">
 <meta property='og:url' content='https://cancanneed64.github.io/p/goweb%E5%85%A5%E9%97%A8/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-03T05:41:55&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T09:44:58&#43;00:00'/>
 <meta name="twitter:title" content="Goweb入门">
 <meta name="twitter:description" content="学习">
     <link rel="shortcut icon" href="/favicon.svg" />
@@ -397,7 +397,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 9 分钟
+                    阅读时长: 10 分钟
                 </time>
             </div>
         
@@ -475,10 +475,10 @@ user 中的 who 处理</p>
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">this</span><span class="p">.</span><span class="nx">conn</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">msg</span> <span class="o">+</span> <span class="s">&#34;\n&#34;</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">this</span><span class="p">.</span><span class="nx">conn</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">msg</span> <span class="o">+</span> <span class="s">&#34;\n&#34;</span><span class="p">))</span>  <span class="c1">// 写入连接，返回写入字节数和错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>  <span class="c1">// 打印错误后返回，避免继续使用坏连接
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -497,20 +497,22 @@ user 中的 who 处理</p>
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
+</span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">test</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">test</span><span class="p">()</span>  <span class="c1">// panic 在 test 内被 recover，main 不会崩溃
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nb">recover</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recover:%v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// defer 必须在 panic 之前注册才能生效
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nb">recover</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>  <span class="c1">// recover 捕获 panic，恢复正常流程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recover:%v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}()</span>
-</span></span><span class="line"><span class="cl">	<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;an error occurred&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;an error occurred&#34;</span><span class="p">)</span>  <span class="c1">// 触发 panic，后续代码不再执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>for-range channel 用法
@@ -731,10 +733,10 @@ multipart/form-data 时，数据被存储到 MultipartForm 字段中而不是 Fo
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">ParseMultipartForm</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">fileHeader</span> <span class="p">:</span><span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">MultipartForm</span><span class="o">.</span><span class="n">File</span><span class="p">[</span><span class="s2">&#34;uploaded][0]</span>
-</span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">fileHeader</span><span class="o">.</span><span class="n">Open</span><span class="p">()</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">r</span><span class="p">.</span><span class="nf">ParseMultipartForm</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>                       <span class="c1">// 解析 multipart 表单，参数为内存缓冲上限（字节）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fileHeader</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">MultipartForm</span><span class="p">.</span><span class="nx">File</span><span class="p">[</span><span class="s">&#34;uploaded&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1">// 取 name=&#34;uploaded&#34; 的第一个文件头
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">fileHeader</span><span class="p">.</span><span class="nf">Open</span><span class="p">()</span>                    <span class="c1">// 打开文件，得到可读取的句柄
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行 ParseMultipartForm 方法，从 MultipartForm 的 File 取出 fileHeader，然后通过调用文件头的 Open 方法打开文件，服务器会将文件的内容读取到一个字节数组中，并将这个字节数组的内容打印出来，纯文本文件会把这个文件内容打印在浏览器上
 FormFile 可以返回给定键的第一个值，返回文件和文件头</p>
@@ -758,10 +760,10 @@ Header 取得一个由首部组成的映射，修改映射可以修改首部，�
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">w.Header().Set(&#34;Set-Cookie&#34;, c1.String())
-</span></span><span class="line"><span class="cl">w.Header().Add(&#34;Set-Cookie&#34;, c2.String())
-</span></span><span class="line"><span class="cl">http.SetCook(w, &amp;c1) //传递指向Cookie结构的指针
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">w</span><span class="p">.</span><span class="nf">Header</span><span class="p">().</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;Set-Cookie&#34;</span><span class="p">,</span> <span class="nx">c1</span><span class="p">.</span><span class="nf">String</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nx">w</span><span class="p">.</span><span class="nf">Header</span><span class="p">().</span><span class="nf">Add</span><span class="p">(</span><span class="s">&#34;Set-Cookie&#34;</span><span class="p">,</span> <span class="nx">c2</span><span class="p">.</span><span class="nf">String</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nx">http</span><span class="p">.</span><span class="nf">SetCookie</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">c1</span><span class="p">)</span> <span class="c1">//传递指向Cookie结构的指针
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>cookie 实现闪现消息
 c := http.Cookie{
@@ -804,25 +806,13 @@ panic 会终止正常流程，如果 panic 是内部函数产生那会返回给�
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{if .}} action
-</span></span><span class="line"><span class="cl">{{else}} action
-</span></span><span class="line"><span class="cl">{{end}}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{range .}}
-</span></span><span class="line"><span class="cl">&lt;li&gt;{{.}}&lt;/li&gt;
-</span></span><span class="line"><span class="cl">{{else}} action
-</span></span><span class="line"><span class="cl">{{end}}
+<pre tabindex="0" class="chroma"><code class="language-go-html-template" data-lang="go-html-template"><span class="line"><span class="cl"><span class="cm">{{/* 条件判断：. 为空值(nil/0/&#34;&#34;/空集合)时走 else */}}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">{{</span><span class="k">if</span><span class="w"> </span><span class="na">.</span><span class="cp">}}</span> action
+</span></span><span class="line"><span class="cl"><span class="cp">{{</span><span class="k">else</span><span class="cp">}}</span> action
+</span></span><span class="line"><span class="cl"><span class="cp">{{</span><span class="k">end</span><span class="cp">}}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -834,11 +824,29 @@ panic 会终止正常流程，如果 panic 是内部函数产生那会返回给�
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{with arg}}
-</span></span><span class="line"><span class="cl">到end之间.会变成arg的内容
-</span></span><span class="line"><span class="cl">{{else}} action
-</span></span><span class="line"><span class="cl">如果arg为空，则会替换成else
-</span></span><span class="line"><span class="cl">{{end}}
+<pre tabindex="0" class="chroma"><code class="language-go-html-template" data-lang="go-html-template"><span class="line"><span class="cl"><span class="cm">{{/* 遍历集合，. 在循环内指向当前元素；集合为空时走 else */}}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">{{</span><span class="k">range</span><span class="w"> </span><span class="na">.</span><span class="cp">}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span><span class="cp">{{</span><span class="na">.</span><span class="cp">}}</span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">{{</span><span class="k">else</span><span class="cp">}}</span> action
+</span></span><span class="line"><span class="cl"><span class="cp">{{</span><span class="k">end</span><span class="cp">}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go-html-template" data-lang="go-html-template"><span class="line"><span class="cl"><span class="cm">{{/* 临时把 . 重设为 arg，到 end 之间的 . 都指向 arg */}}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">{{</span><span class="k">with</span><span class="w"> </span><span class="nx">arg</span><span class="cp">}}</span>
+</span></span><span class="line"><span class="cl"><span class="cm">{{/* 此处 . 的内容即 arg */}}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">{{</span><span class="k">else</span><span class="cp">}}</span> action
+</span></span><span class="line"><span class="cl"><span class="cm">{{/* arg 为空值时走 else 分支 */}}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">{{</span><span class="k">end</span><span class="cp">}}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>包含另一个模板
@@ -874,7 +882,7 @@ taskkill /PID pid /f 关闭端口</p>
 -d 提交 Post</p>
 <h3 id="存储数据">存储数据
 </h3><p>gob 一种能存储在文件里面的二进制格式，可以快速高效地将内存中的数据序列化到一个或多个文件里面</p>
-<p>io/ioutill 库
+<p>io/ioutil 库
 用 WriteFile 和 ReadFile 对文件进行写入读取</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -882,8 +890,8 @@ taskkill /PID pid /f 关闭端口</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ioutill.WriteFile(&#34;data1&#34;, data, 0644)
-</span></span><span class="line"><span class="cl">read1, _ := ioutil.ReadFile(&#34;data1&#34;)
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">ioutil</span><span class="p">.</span><span class="nf">WriteFile</span><span class="p">(</span><span class="s">&#34;data1&#34;</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">read1</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadFile</span><span class="p">(</span><span class="s">&#34;data1&#34;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>写入程序会将文件的名字/数据以及权限传入
@@ -901,14 +909,14 @@ taskkill /PID pid /f 关闭端口</p>
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">file1, _ := os.Create(&#34;data2&#34;)
-</span></span><span class="line"><span class="cl">defer file1.Close()
-</span></span><span class="line"><span class="cl">bytes, _ := file1.Write(data)
-</span></span><span class="line"><span class="cl">file2, _ := os.Open(&#34;data2&#34;)
-</span></span><span class="line"><span class="cl">defer file2.Close()
-</span></span><span class="line"><span class="cl">read2 := make([]byte, len(data))
-</span></span><span class="line"><span class="cl">bytes, _ = file2.Read(read2)
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">file1</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="s">&#34;data2&#34;</span><span class="p">)</span>   <span class="c1">// 创建文件，已存在则清空
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">defer</span> <span class="nx">file1</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>              <span class="c1">// 用完关闭，防止句柄泄漏
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">bytes</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">file1</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>    <span class="c1">// 写入字节切片，返回写入数量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">file2</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;data2&#34;</span><span class="p">)</span>     <span class="c1">// 以只读方式打开同一文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">defer</span> <span class="nx">file2</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nx">read2</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span> <span class="c1">// 按数据长度预分配读取缓冲
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">bytes</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">file2</span><span class="p">.</span><span class="nf">Read</span><span class="p">(</span><span class="nx">read2</span><span class="p">)</span>     <span class="c1">// 读满缓冲，返回实际读取数量
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Create 出 file 文件后进行写入，Open 文件后进行 read</p>
 <h4 id="csv-处理">CSV 处理
@@ -920,10 +928,10 @@ taskkill /PID pid /f 关闭端口</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">writer := csv.NewWriter(csvFile)
-</span></span><span class="line"><span class="cl">...
-</span></span><span class="line"><span class="cl">writer.Flush()
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">writer</span> <span class="o">:=</span> <span class="nx">csv</span><span class="p">.</span><span class="nf">NewWriter</span><span class="p">(</span><span class="nx">csvFile</span><span class="p">)</span> <span class="c1">// 基于文件创建 csv 写入器（带缓冲）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="nx">writer</span><span class="p">.</span><span class="nf">Flush</span><span class="p">()</span>                   <span class="c1">// 必须 Flush，否则缓冲区数据不会落盘
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>打开 csv 文件，将 FieldsPerRecord 字段设为-1，即使读取时缺少字段也不会中断，为正数时，字段数量少于值会报错，为 0 时，读取第一条记录的字段数量未作值，在使用 readall 一次性读取所有记录</p>
 <div class="highlight"><div class="chroma">
@@ -937,13 +945,13 @@ taskkill /PID pid /f 关闭端口</p>
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">file, err := os.Open(&#34;csv&#34;)
-</span></span><span class="line"><span class="cl">...
-</span></span><span class="line"><span class="cl">defer file.Close()
-</span></span><span class="line"><span class="cl">reader := csv.NewReader(file)
-</span></span><span class="line"><span class="cl">reader.FiledsPerRecord = -1
-</span></span><span class="line"><span class="cl">record, err := reader.ReadAll()
-</span></span><span class="line"><span class="cl">...
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;csv&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nx">reader</span> <span class="o">:=</span> <span class="nx">csv</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">reader</span><span class="p">.</span><span class="nx">FieldsPerRecord</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span>      <span class="c1">// -1：字段数不一致也不报错；正数：不足则报错；0：以首行字段数为准
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">record</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">reader</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">()</span>  <span class="c1">// 一次性读出所有记录
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="gob-包">gob 包
@@ -958,11 +966,11 @@ taskkill /PID pid /f 关闭端口</p>
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="n">store</span><span class="p">(</span><span class="n">data</span> <span class="n">interface</span><span class="p">{},</span> <span class="n">filename</span> <span class="n">string</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">buffer</span> <span class="p">:</span><span class="o">=</span> <span class="n">new</span><span class="p">(</span><span class="n">bytes</span><span class="o">.</span><span class="n">Buffer</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">encoder</span> <span class="p">:</span><span class="o">=</span> <span class="n">gob</span><span class="o">.</span><span class="n">NewEncoder</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">store</span><span class="p">(</span><span class="nx">data</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">filename</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">buffer</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">)</span>          <span class="c1">// 编码结果先写入内存缓冲
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">encoder</span> <span class="o">:=</span> <span class="nx">gob</span><span class="p">.</span><span class="nf">NewEncoder</span><span class="p">(</span><span class="nx">buffer</span><span class="p">)</span>    <span class="c1">// 创建 gob 编码器（二进制格式）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">...</span>                                  <span class="c1">// encoder.Encode(data) 后再把 buffer 写入文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>载入数据</p>
@@ -974,13 +982,15 @@ taskkill /PID pid /f 关闭端口</p>
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="nb">load</span><span class="p">(</span><span class="n">data</span> <span class="n">interface</span><span class="p">{},</span> <span class="n">filename</span> <span class="n">string</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">raw</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">ioutil</span><span class="o">.</span><span class="n">ReadFile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">buffer</span> <span class="p">:</span><span class="o">=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">dec</span> <span class="p">:</span><span class="o">=</span> <span class="n">dec</span><span class="o">.</span><span class="n">Decode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">load</span><span class="p">(</span><span class="nx">data</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">filename</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">raw</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span> <span class="c1">// 读出整个文件内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">buffer</span> <span class="o">:=</span> <span class="nx">bytes</span><span class="p">.</span><span class="nf">NewBuffer</span><span class="p">(</span><span class="nx">raw</span><span class="p">)</span>        <span class="c1">// 包装成 Reader 供解码器使用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">decoder</span> <span class="o">:=</span> <span class="nx">gob</span><span class="p">.</span><span class="nf">NewDecoder</span><span class="p">(</span><span class="nx">buffer</span><span class="p">)</span>     <span class="c1">// 创建 gob 解码器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">err</span> <span class="p">=</span> <span class="nx">decoder</span><span class="p">.</span><span class="nf">Decode</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>            <span class="c1">// data 必须传指针，否则无法写回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">...</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1035,23 +1045,25 @@ defer Db.Close()放在 main 函数中否则占用资源
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
+</span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="n">Posts</span><span class="p">(</span><span class="n">limit</span> <span class="ne">int</span><span class="p">)</span> <span class="p">(</span><span class="n">posts</span> <span class="p">[]</span><span class="n">Post</span><span class="p">,</span> <span class="n">err</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">rows</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">Db</span><span class="o">.</span><span class="n">Query</span><span class="p">(</span><span class="s2">&#34;select id, content, author from posts limit $1&#34;</span><span class="p">,</span> <span class="n">limit</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Posts</span><span class="p">(</span><span class="nx">limit</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">posts</span> <span class="p">[]</span><span class="nx">Post</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// $1 是占位符，由 limit 填入，避免 SQL 注入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">rows</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">Db</span><span class="p">.</span><span class="nf">Query</span><span class="p">(</span><span class="s">&#34;select id, content, author from posts limit $1&#34;</span><span class="p">,</span> <span class="nx">limit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">rows</span><span class="o">.</span><span class="n">Next</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">post</span> <span class="p">:</span><span class="o">=</span> <span class="n">Post</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">		<span class="n">err</span> <span class="o">=</span> <span class="n">rows</span><span class="o">.</span><span class="n">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Content</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Author</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">rows</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span> <span class="p">{</span>  <span class="c1">// 逐行前进，直到没有更多结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">post</span> <span class="o">:=</span> <span class="nx">Post</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">err</span> <span class="p">=</span> <span class="nx">rows</span><span class="p">.</span><span class="nf">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">post</span><span class="p">.</span><span class="nx">Id</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">post</span><span class="p">.</span><span class="nx">Content</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">post</span><span class="p">.</span><span class="nx">Author</span><span class="p">)</span>  <span class="c1">// 按列顺序写入字段指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="k">return</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="n">posts</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">posts</span><span class="p">,</span> <span class="n">post</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">posts</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">posts</span><span class="p">,</span> <span class="nx">post</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="n">rows</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">rows</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>  <span class="c1">// 释放连接（更稳妥的写法是 defer rows.Close()）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1063,11 +1075,13 @@ defer Db.Close()放在 main 函数中否则占用资源
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="n">GetPost</span><span class="p">(</span><span class="n">id</span> <span class="ne">int</span><span class="p">)</span> <span class="p">(</span><span class="n">post</span> <span class="n">Post</span><span class="p">,</span> <span class="n">err</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">post</span> <span class="o">=</span> <span class="n">Post</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">	<span class="n">err</span> <span class="o">=</span> <span class="n">Db</span><span class="o">.</span><span class="n">QueryRow</span><span class="p">(</span><span class="s2">&#34;select id, content, author from posts where id = $1&#34;</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Content</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Author</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">GetPost</span><span class="p">(</span><span class="nx">id</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">post</span> <span class="nx">Post</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">post</span> <span class="p">=</span> <span class="nx">Post</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// QueryRow 只取一行，直接接 Scan；无结果时返回 sql.ErrNoRows
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">err</span> <span class="p">=</span> <span class="nx">Db</span><span class="p">.</span><span class="nf">QueryRow</span><span class="p">(</span><span class="s">&#34;select id, content, author from posts where id = $1&#34;</span><span class="p">,</span> <span class="nx">id</span><span class="p">).</span><span class="nf">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">post</span><span class="p">.</span><span class="nx">Id</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">post</span><span class="p">.</span><span class="nx">Content</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">post</span><span class="p">.</span><span class="nx">Author</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -1085,17 +1099,19 @@ defer Db.Close()放在 main 函数中否则占用资源
 </span><span class="lnt"> 8
 </span><span class="lnt"> 9
 </span><span class="lnt">10
+</span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="p">(</span><span class="n">post</span> <span class="o">*</span><span class="n">Post</span><span class="p">)</span> <span class="n">Create</span><span class="p">()</span> <span class="p">(</span><span class="n">err</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">statement</span> <span class="p">:</span><span class="o">=</span> <span class="s2">&#34;insert into posts (content, author) values ($1, $2) returning id&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">stmt</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">Db</span><span class="o">.</span><span class="n">Prepare</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">post</span> <span class="o">*</span><span class="nx">Post</span><span class="p">)</span> <span class="nf">Create</span><span class="p">()</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// returning id 让 PostgreSQL 把自增主键回传
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">statement</span> <span class="o">:=</span> <span class="s">&#34;insert into posts (content, author) values ($1, $2) returning id&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">stmt</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">Db</span><span class="p">.</span><span class="nf">Prepare</span><span class="p">(</span><span class="nx">statement</span><span class="p">)</span>  <span class="c1">// 预编译语句，可重复执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="n">defer</span> <span class="n">stmt</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="n">err</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="n">QueryRow</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">Content</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">Author</span><span class="p">)</span><span class="o">.</span><span class="n">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="n">post</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">stmt</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>  <span class="c1">// 预编译语句用完必须关闭
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">err</span> <span class="p">=</span> <span class="nx">stmt</span><span class="p">.</span><span class="nf">QueryRow</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">Content</span><span class="p">,</span> <span class="nx">post</span><span class="p">.</span><span class="nx">Author</span><span class="p">).</span><span class="nf">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">post</span><span class="p">.</span><span class="nx">Id</span><span class="p">)</span>  <span class="c1">// 把回传的 id 写回结构体
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1106,10 +1122,12 @@ defer Db.Close()放在 main 函数中否则占用资源
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="p">(</span><span class="n">post</span> <span class="o">*</span><span class="n">Post</span><span class="p">)</span> <span class="n">Delete</span><span class="p">()</span> <span class="p">(</span><span class="n">err</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">Db</span><span class="o">.</span><span class="n">Exec</span><span class="p">(</span><span class="s2">&#34;delete from posts where id = $1&#34;</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">post</span> <span class="o">*</span><span class="nx">Post</span><span class="p">)</span> <span class="nf">Delete</span><span class="p">()</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Exec 用于不返回行的语句，忽略的第一个返回值是影响行数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">Db</span><span class="p">.</span><span class="nf">Exec</span><span class="p">(</span><span class="s">&#34;delete from posts where id = $1&#34;</span><span class="p">,</span> <span class="nx">post</span><span class="p">.</span><span class="nx">Id</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -1121,10 +1139,12 @@ defer Db.Close()放在 main 函数中否则占用资源
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="p">(</span><span class="n">post</span> <span class="o">*</span><span class="n">Post</span><span class="p">)</span> <span class="n">Update</span><span class="p">()</span> <span class="p">(</span><span class="n">err</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">Db</span><span class="o">.</span><span class="n">Exec</span><span class="p">(</span><span class="s2">&#34;update posts set content = $2, author = $3 where id = $1&#34;</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">Content</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">Author</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">post</span> <span class="o">*</span><span class="nx">Post</span><span class="p">)</span> <span class="nf">Update</span><span class="p">()</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 占位符顺序与后面参数一一对应：$1=Id、$2=Content、$3=Author
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">Db</span><span class="p">.</span><span class="nf">Exec</span><span class="p">(</span><span class="s">&#34;update posts set content = $2, author = $3 where id = $1&#34;</span><span class="p">,</span> <span class="nx">post</span><span class="p">.</span><span class="nx">Id</span><span class="p">,</span> <span class="nx">post</span><span class="p">.</span><span class="nx">Content</span><span class="p">,</span> <span class="nx">post</span><span class="p">.</span><span class="nx">Author</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -1145,7 +1165,7 @@ PUT 是幂等的，无论调用多少次服务器的状态都不会改变，PUT 
 <h3 id="xml">XML
 </h3><p>创建用于存储 XML 数据的结构
 使用 unmarshal 将 xml 数据解封</p>
-<p>在结构中使用`作为标签，名字必须以大写英文字母开头，创建一个与 XML 元素标签同名的字段存储，可以将元素&quot;&lt;/name/&gt;&ldquo;属性存到字段，也可以使用 a&gt;b&gt;c 形式</p>
+<p>在结构中使用 <code>`</code> 反引号作为标签，名字必须以大写英文字母开头，创建一个与 XML 元素标签同名的字段存储，可以将元素&quot;&lt;/name/&gt;&ldquo;属性存到字段，也可以使用 a&gt;b&gt;c 形式</p>
 <p>解码
 处理体积小的 XML 文件,unmarshal</p>
 <div class="highlight"><div class="chroma">
@@ -1159,14 +1179,14 @@ PUT 是幂等的，无论调用多少次服务器的状态都不会改变，PUT 
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">	<span class="n">xmlFile</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&#34;post.xml&#34;</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="nx">xmlFile</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;post.xml&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="o">...</span>
-</span></span><span class="line"><span class="cl">	<span class="n">defer</span> <span class="n">xmlFile</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="n">xmlData</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">ioutil</span><span class="o">.</span><span class="n">ReadAll</span><span class="p">(</span><span class="n">xmlFile</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span>
-</span></span><span class="line"><span class="cl">	<span class="k">var</span> <span class="n">post</span> <span class="n">Post</span>
-</span></span><span class="line"><span class="cl">	<span class="n">xml</span><span class="o">.</span><span class="n">Unmarshal</span><span class="p">(</span><span class="n">xmlData</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">post</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">xmlFile</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">xmlData</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">xmlFile</span><span class="p">)</span>  <span class="c1">// 一次性读入全部内容，适合小文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">post</span> <span class="nx">Post</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">xml</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">xmlData</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">post</span><span class="p">)</span>            <span class="c1">// 解封到结构体，需传指针
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>以流的方式传输 XML 文件以及体积较大的文件
 decoder</p>
@@ -1180,12 +1200,12 @@ decoder</p>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">	xmlFile, err := os.Create(&#34;post.xml&#34;)
-</span></span><span class="line"><span class="cl">...
-</span></span><span class="line"><span class="cl">	encoder := xml.NewEncoder(xmlFile)
-</span></span><span class="line"><span class="cl">	encoder.Indent(&#34;&#34;, &#34;\t&#34;)
-</span></span><span class="line"><span class="cl">	err = encoder.Encode(&amp;post)
-</span></span><span class="line"><span class="cl">...
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="nx">xmlFile</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="s">&#34;post.xml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">encoder</span> <span class="o">:=</span> <span class="nx">xml</span><span class="p">.</span><span class="nf">NewEncoder</span><span class="p">(</span><span class="nx">xmlFile</span><span class="p">)</span>  <span class="c1">// 流式编码，适合大文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">encoder</span><span class="p">.</span><span class="nf">Indent</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;\t&#34;</span><span class="p">)</span>            <span class="c1">// 设置缩进，输出带格式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">err</span> <span class="p">=</span> <span class="nx">encoder</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">post</span><span class="p">)</span>         <span class="c1">// 直接写入文件，无需中间缓冲
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>创建 XML
@@ -1196,9 +1216,9 @@ marshal</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">output, err := xml.Marshal(&amp;post) //无格式
-</span></span><span class="line"><span class="cl">output, err := xml.MarshalIndent(&amp;post, &#34;&#34;, &#34;\t\t&#34;) //有格式
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">output</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">xml</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">post</span><span class="p">)</span> <span class="c1">//无格式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">output</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">xml</span><span class="p">.</span><span class="nf">MarshalIndent</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">post</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;\t\t&#34;</span><span class="p">)</span> <span class="c1">//有格式
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加 XML 声明
 <code>err = ioutil.WriteFile(&quot;post.xml&quot;, []byte(xml.Header + string(output)), 0644)</code></p>
@@ -1212,11 +1232,11 @@ marshal</p>
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">	xmlFile, err := os.Create(&#34;post.xml&#34;)
-</span></span><span class="line"><span class="cl">...
-</span></span><span class="line"><span class="cl">	encoder := xml.NewEncoder(xmlFile)
-</span></span><span class="line"><span class="cl">	encoder.Indent(&#34;&#34;, &#34;\t&#34;)
-</span></span><span class="line"><span class="cl">...
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="nx">xmlFile</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="s">&#34;post.xml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">encoder</span> <span class="o">:=</span> <span class="nx">xml</span><span class="p">.</span><span class="nf">NewEncoder</span><span class="p">(</span><span class="nx">xmlFile</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">encoder</span><span class="p">.</span><span class="nf">Indent</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;\t&#34;</span><span class="p">)</span>  <span class="c1">// 两个参数分别是整体前缀和每层缩进
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="json">JSON
@@ -1237,14 +1257,14 @@ marshal</p>
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">	<span class="n">jsonFile</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&#34;post.json&#34;</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="nx">jsonFile</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;post.json&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="o">...</span>
-</span></span><span class="line"><span class="cl">	<span class="n">defer</span> <span class="n">jsonFile</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="n">jsonData</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">ioutil</span><span class="o">.</span><span class="n">ReadAll</span><span class="p">(</span><span class="n">jsonFile</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span>
-</span></span><span class="line"><span class="cl">	<span class="k">var</span> <span class="n">post</span> <span class="n">Post</span>
-</span></span><span class="line"><span class="cl">	<span class="n">json</span><span class="o">.</span><span class="n">Unmarshal</span><span class="p">(</span><span class="n">jsonData</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">post</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">jsonFile</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">jsonData</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">jsonFile</span><span class="p">)</span>  <span class="c1">// 全量读入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">post</span> <span class="nx">Post</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">post</span><span class="p">)</span>            <span class="c1">// 解封到结构体，需传指针
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>encode</p>
 <div class="highlight"><div class="chroma">
@@ -1261,14 +1281,14 @@ marshal</p>
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">	<span class="n">jsonFile</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&#34;post.json&#34;</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="nx">jsonFile</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;post.json&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="o">...</span>
-</span></span><span class="line"><span class="cl">	<span class="n">defer</span> <span class="n">jsonFile</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">jsonFile</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="n">decoder</span> <span class="p">:</span><span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">NewDecoder</span><span class="p">(</span><span class="n">jsonFile</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">var</span> <span class="n">post</span> <span class="n">Post</span>
-</span></span><span class="line"><span class="cl">		<span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="n">post</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">decoder</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">NewDecoder</span><span class="p">(</span><span class="nx">jsonFile</span><span class="p">)</span>  <span class="c1">// 流式解码器，逐条读取
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="p">{</span>                                 <span class="c1">// 循环直到 err == io.EOF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="kd">var</span> <span class="nx">post</span> <span class="nx">Post</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">err</span> <span class="o">:=</span> <span class="nx">decoder</span><span class="p">.</span><span class="nf">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">post</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="o">...</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -1283,10 +1303,10 @@ marshal</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">	output, err := json.MarshalIndent(&amp;post, &#34;&#34;, &#34;\t\t&#34;)
-</span></span><span class="line"><span class="cl">...
-</span></span><span class="line"><span class="cl">	err = ioutil.WriteFile(&#34;post.json&#34;, output, 0644)
-</span></span><span class="line"><span class="cl">...
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="nx">output</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">MarshalIndent</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">post</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;\t\t&#34;</span><span class="p">)</span>  <span class="c1">// 封装为带缩进的 JSON 字节切片
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">err</span> <span class="p">=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">WriteFile</span><span class="p">(</span><span class="s">&#34;post.json&#34;</span><span class="p">,</span> <span class="nx">output</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>     <span class="c1">// 0644：拥有者可读写，其他人只读
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>encode</p>
@@ -1300,12 +1320,12 @@ marshal</p>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">	jsonFile, err := os.Create(&#34;post.json&#34;)
-</span></span><span class="line"><span class="cl">...
-</span></span><span class="line"><span class="cl">	jsonWriter := io.Writer(jsonFile)
-</span></span><span class="line"><span class="cl">	encoder := json.NewEncoder(jsonWriter)
-</span></span><span class="line"><span class="cl">	err = encoder.Encode(&amp;post)
-</span></span><span class="line"><span class="cl">...
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="nx">jsonFile</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="s">&#34;post.json&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">jsonWriter</span> <span class="o">:=</span> <span class="nx">io</span><span class="p">.</span><span class="nf">Writer</span><span class="p">(</span><span class="nx">jsonFile</span><span class="p">)</span>         <span class="c1">// 转成 io.Writer 接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">encoder</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">NewEncoder</span><span class="p">(</span><span class="nx">jsonWriter</span><span class="p">)</span>    <span class="c1">// 基于 Writer 创建编码器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">err</span> <span class="p">=</span> <span class="nx">encoder</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">post</span><span class="p">)</span>               <span class="c1">// 编码并直接写入文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="并发与并行">并发与并行
@@ -1336,17 +1356,17 @@ marshal</p>
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">func</span> <span class="p">(</span><span class="n">wg</span> <span class="o">*</span><span class="n">sync</span><span class="o">.</span><span class="n">WaitGroup</span><span class="p">){</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">printNumbers2</span><span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="n">wg</span><span class="o">.</span><span class="n">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">fuc</span> <span class="n">main</span><span class="p">(){</span>
-</span></span><span class="line"><span class="cl">	<span class="k">var</span> <span class="n">wg</span> <span class="n">sync</span><span class="o">.</span><span class="n">WaitGroup</span>
-</span></span><span class="line"><span class="cl">	<span class="n">wg</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="n">go</span> <span class="n">printNumbers2</span><span class="p">(</span><span class="o">&amp;</span><span class="n">wg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="n">go</span> <span class="n">printLetters2</span><span class="p">(</span><span class="o">&amp;</span><span class="n">wg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="n">wg</span><span class="o">.</span><span class="n">Wait</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>  <span class="c1">// 任务结束，计数器减 1（放 defer 更安全）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>              <span class="c1">// 计数器设为 2，对应下面两个 goroutine
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">go</span> <span class="nf">printNumbers2</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">wg</span><span class="p">)</span>  <span class="c1">// 必须传指针，否则复制的副本计数无效
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">go</span> <span class="nf">printLetters2</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">wg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>              <span class="c1">// 阻塞直到计数器归零
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果没有对计数器进行减数操作会引发 panic</p>
@@ -1391,7 +1411,7 @@ main 函数尝试移除 w1 的值，但没有包含任何值因此阻塞</p>
 
 
         <span>
-            最后更新于 08月03日 05点41分, 2026年
+            最后更新于 08月30日 09点44分, 2026年
         </span>
     </section></footer>
 

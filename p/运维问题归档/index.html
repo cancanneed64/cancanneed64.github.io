@@ -10,7 +10,7 @@
 <meta property='og:description' content="日常">
 <meta property='og:url' content='https://cancanneed64.github.io/p/%E8%BF%90%E7%BB%B4%E9%97%AE%E9%A2%98%E5%BD%92%E6%A1%A3/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-03T05:41:55&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T09:44:58&#43;00:00'/>
 <meta name="twitter:title" content="运维问题归档">
 <meta name="twitter:description" content="日常">
     <link rel="shortcut icon" href="/favicon.svg" />
@@ -373,7 +373,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 4 分钟
+                    阅读时长: 5 分钟
                 </time>
             </div>
         
@@ -399,9 +399,11 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
+</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">@</span><span class="k">echo</span> off
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 递归静默删除 Chrome 缓存目录</span>
 </span></span><span class="line"><span class="cl"><span class="k">rd</span> /s /q <span class="s2">&#34;</span><span class="nv">%localappdata%</span><span class="s2">\Google\Chrome\User Data\Default\Cache&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="k">pause</span>
 </span></span></code></pre></td></tr></table>
@@ -420,16 +422,24 @@
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">@</span><span class="k">echo</span> off
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem RunDll32 调用 IE 选项的清理接口，末尾数字为清理项掩码</span>
 </span></span><span class="line"><span class="cl"><span class="k">echo</span> Clear Temporary Internet Files:
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 8 = 临时文件</span>
 </span></span><span class="line"><span class="cl">RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 8
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">echo</span> Clear Cookies:
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 2 = Cookies</span>
 </span></span><span class="line"><span class="cl">RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 2
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">echo</span> Clear History:
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 1 = 历史记录</span>
 </span></span><span class="line"><span class="cl">RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 1
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">echo</span> on
@@ -480,11 +490,17 @@
 </span><span class="lnt">40
 </span><span class="lnt">41
 </span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">@</span><span class="k">echo</span> off
 </span></span><span class="line"><span class="cl"><span class="c1">rem    检查 Chrome 是否在运行</span>
 </span></span><span class="line"><span class="cl">tasklist /FI <span class="s2">&#34;IMAGENAME eq chrome.exe&#34;</span> <span class="mi">2</span><span class="p">&gt;</span>NUL <span class="p">|</span> find /I /N <span class="s2">&#34;chrome.exe&#34;</span><span class="p">&gt;</span>NUL
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem find 命中则 ERRORLEVEL 为 0，说明进程存在</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="s2">&#34;</span><span class="nv">%ERRORLEVEL%</span><span class="s2">&#34;</span><span class="o">==</span><span class="s2">&#34;0&#34;</span> <span class="p">(</span>
 </span></span><span class="line"><span class="cl">    <span class="k">echo</span> Chrome 正在运行。
 </span></span><span class="line"><span class="cl">    <span class="k">set</span> <span class="k">/p</span> <span class="nv">input</span><span class="p">=</span><span class="s2">&#34;是否需要强制关闭 Chrome？(Y/N) &#34;</span>
@@ -495,6 +511,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="nl">close_chrome</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem /F 强制 /IM 按映像名结束进程</span>
 </span></span><span class="line"><span class="cl">taskkill /F /IM chrome.exe <span class="p">&gt;</span>nul <span class="mi">2</span><span class="p">&gt;&amp;</span><span class="mi">1</span>
 </span></span><span class="line"><span class="cl"><span class="k">echo</span> Chrome 已强制关闭。
 </span></span><span class="line"><span class="cl">
@@ -504,6 +521,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">echo</span> 清理 Chrome 数据中...
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 先把用户数据目录存成变量，下面按类别拼出各子路径</span>
 </span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">chrome</span><span class="p">=</span><span class="nv">%userprofile%</span>\AppData\Local\Google\Chrome\User Data\Default
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">chrome_history</span><span class="p">=</span><span class="nv">%chrome%</span>\History
@@ -514,11 +532,13 @@
 </span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">chrome_session</span><span class="p">=</span><span class="nv">%chrome%</span>\Session
 </span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">chrome_web</span><span class="p">=</span><span class="nv">%chrome%</span>\Web Applications
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 目录用 rd 递归删除</span>
 </span></span><span class="line"><span class="cl"><span class="k">rd</span> /s /q <span class="s2">&#34;</span><span class="nv">%chrome_web%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
 </span></span><span class="line"><span class="cl"><span class="k">rd</span> /s /q <span class="s2">&#34;</span><span class="nv">%chrome_cache%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
 </span></span><span class="line"><span class="cl"><span class="k">rd</span> /s /q <span class="s2">&#34;</span><span class="nv">%chrome_cookies%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
 </span></span><span class="line"><span class="cl"><span class="k">rd</span> /s /q <span class="s2">&#34;</span><span class="nv">%chrome_storage%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
 </span></span><span class="line"><span class="cl"><span class="k">rd</span> /s /q <span class="s2">&#34;</span><span class="nv">%chrome_session%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 单个文件用 del 删除</span>
 </span></span><span class="line"><span class="cl"><span class="k">del</span> /f <span class="s2">&#34;</span><span class="nv">%chrome_history%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
 </span></span><span class="line"><span class="cl"><span class="k">del</span> /f <span class="s2">&#34;</span><span class="nv">%chrome_webdata%</span><span class="s2">&#34;</span> <span class="p">&gt;</span>nul
 </span></span><span class="line"><span class="cl">
@@ -530,20 +550,28 @@
 </h3><p>判断重复以及设置不过期</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">net user<span class="p">|</span>find /i <span class="s2">&#34;elevate&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 查本地是否已有 elevate 账户，不存在则创建</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 注意：紧跟其后的 if 判断依赖上一条命令的 errorlevel，勿在同行追加注释</span>
+</span></span><span class="line"><span class="cl">net user<span class="p">|</span>find /i <span class="s2">&#34;elevate&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nv">%errorlevel%</span>  <span class="ow">neq</span> 0  <span class="p">(</span>net user elevate marriott*1 /add<span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 再查是否已在管理员组，不在则加入</span>
 </span></span><span class="line"><span class="cl">net localgroup Administrators<span class="p">|</span>find /i <span class="s2">&#34;elevate&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nv">%errorlevel%</span>  <span class="ow">neq</span> 0 <span class="p">(</span>net localgroup Administrators elevate /add<span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 设置该账户密码永不过期</span>
 </span></span><span class="line"><span class="cl">WMIC USERACCOUNT WHERE Name=&#39;elevate&#39; SET PasswordExpires=FALSE
-</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem powershell -command &#34;Set-LocalUser -Name &#39;elevate&#39; -PasswordNeverExpires 1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 等价的 PowerShell 写法：Set-LocalUser -Name &#39;elevate&#39; -PasswordNeverExpires 1</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>精简版</p>
@@ -602,17 +630,23 @@
 </span><span class="lnt">32
 </span><span class="lnt">33
 </span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem Activate Windows</span>
 </span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">cd</span> /d <span class="nv">%windir%</span>\System32
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 指定 KMS 服务器</span>
 </span></span><span class="line"><span class="cl"><span class="p">@</span>cscript slmgr.vbs -skms kms.marriott.com
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 触发联机激活</span>
 </span></span><span class="line"><span class="cl"><span class="p">@</span>cscript slmgr.vbs -ato
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem create local folder</span>
 </span></span><span class="line"><span class="cl"><span class="k">md</span> C:\SetUp
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem copy files to local folder</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem copy files to local folder（/e 含空目录 /q 静默 /y 覆盖 /i 目标视作目录）</span>
 </span></span><span class="line"><span class="cl">xcopy <span class="s2">&#34;\\software$\Shortcuts&#34;</span> C:\Setup\Shortcuts /e /q /y /i
 </span></span><span class="line"><span class="cl">xcopy <span class="s2">&#34;\\software$\Adobe\LanguagePack&#34;</span> C:\Setup\Adobe\LanguagePack /e /q /y /i
 </span></span><span class="line"><span class="cl">xcopy <span class="s2">&#34;\\software$\shrfiles&#34;</span> C:\shrfiles /e /q /y /i
@@ -634,58 +668,62 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">msiexec /i FontPack2200120085_XtdAlf_Lang_DC.msi /quiet /norestart
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 装完清掉临时目录</span>
 </span></span><span class="line"><span class="cl"><span class="k">cd</span> /d c:\
 </span></span><span class="line"><span class="cl"><span class="k">rmdir</span> C:\SetUp /s /q
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 最后调用 Office 部署脚本</span>
 </span></span><span class="line"><span class="cl"><span class="k">call</span> <span class="s2">&#34;\\software$\Applications\ODT\Install\!!Onekey_EN.bat&#34;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="ntp确认方法">NTP确认方法
 </h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">查看w32time.log文件
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: 开启 w32time 调试日志，输出到 C:\Windows\Temp\w32time.log</span>
 </span></span><span class="line"><span class="cl">w32tm /debug /enable /file:C:\Windows\Temp\w32time.log /size:10000000 /entries:0-116
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">要快速判断PC与AD的时间同步情况，可以通过查看w32time.log文件中的关键信息。以下是一些步骤和提示：
-</span></span><span class="line"><span class="cl">打开w32time.log文件：通常位于C:\Windows\System32\w32time.log。
-</span></span><span class="line"><span class="cl">查找关键字：
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;NtpClient&#34;</span>：表示NTP客户端的活动。
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;Time Provider&#34;</span>：显示时间提供者的信息。
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;Peer&#34;</span>：显示同步的对等体信息。
-</span></span><span class="line"><span class="cl">检查同步状态：
-</span></span><span class="line"><span class="cl">查找类似于“The time service is now synchronizing the system time with the time source”的日志条目。这表明时间服务正在与时间源同步。
-</span></span><span class="line"><span class="cl">查找“NtpClient has received a valid time stamp from”的条目，后面跟着时间服务器的地址。这表明NTP客户端已成功从时间服务器接收到时间戳。
-</span></span><span class="line"><span class="cl">检查错误和警告：
-</span></span><span class="line"><span class="cl">查找“NtpClient was unable to set a manual peer”或“The time provider NtpClient is currently receiving valid time data from”等错误信息。这些条目可以帮助识别同步问题。
-</span></span><span class="line"><span class="cl">使用命令行工具：
-</span></span><span class="line"><span class="cl">运行w32tm /query /status命令以查看当前同步状态和时间源。
-</span></span><span class="line"><span class="cl">运行w32tm /query /peers命令以查看配置的时间对等体。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">直接查这个关键词 - The time service is now synchronizing the system time with the time source
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="管理员密码更改">管理员密码更改
+</div><p>要快速判断 PC 与 AD 的时间同步情况，可以通过查看 w32time.log 文件中的关键信息：</p>
+<ol>
+<li>打开 w32time.log 文件：通常位于 <code>C:\Windows\System32\w32time.log</code></li>
+<li>查找关键字：
+<ul>
+<li><code>NtpClient</code>：表示 NTP 客户端的活动</li>
+<li><code>Time Provider</code>：显示时间提供者的信息</li>
+<li><code>Peer</code>：显示同步的对等体信息</li>
+</ul>
+</li>
+<li>检查同步状态：
+<ul>
+<li>查找类似 “The time service is now synchronizing the system time with the time source” 的日志条目，这表明时间服务正在与时间源同步</li>
+<li>查找 “NtpClient has received a valid time stamp from” 的条目，后面跟着时间服务器的地址，这表明 NTP 客户端已成功从时间服务器接收到时间戳</li>
+</ul>
+</li>
+<li>检查错误和警告：查找 “NtpClient was unable to set a manual peer” 或 “The time provider NtpClient is currently receiving valid time data from” 等错误信息，这些条目可以帮助识别同步问题</li>
+<li>使用命令行工具：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: 查看当前同步状态和时间源</span>
+</span></span><span class="line"><span class="cl">w32tm /query /status
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: 查看配置的时间对等体</span>
+</span></span><span class="line"><span class="cl">w32tm /query /peers
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>排查时最快的方式是直接搜索关键词 <code>The time service is now synchronizing the system time with the time source</code></p>
+<h3 id="管理员密码更改">管理员密码更改
 </h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -701,11 +739,13 @@
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">查看服务关闭时间</span>
-</span></span><span class="line"><span class="cl"><span class="nb">Get-WinEvent</span> <span class="n">-ProviderName</span> <span class="s2">&#34;Service Control Manager&#34;</span><span class="p">|</span><span class="nb">where </span><span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="py">message</span> <span class="o">-like</span> <span class="s2">&#34;*World Wide Web*&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">查看关机事件</span>
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># 查看服务关闭时间（筛选 W3SVC 相关消息）</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-WinEvent</span> <span class="n">-ProviderName</span> <span class="s2">&#34;Service Control Manager&#34;</span> <span class="p">|</span> <span class="nb">where </span><span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="py">message</span> <span class="o">-like</span> <span class="s2">&#34;*World Wide Web*&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 查看非正常关机事件（Event ID 41 = 系统未先正常关机就重启）</span>
 </span></span><span class="line"><span class="cl"><span class="nb">Get-WinEvent</span> <span class="n">-FilterHashtable</span> <span class="vm">@</span><span class="p">{</span><span class="n">LogName</span><span class="p">=</span><span class="s1">&#39;System&#39;</span><span class="p">;</span><span class="n">Id</span><span class="p">=</span><span class="mf">41</span><span class="p">}</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">TimeCreated</span><span class="p">,</span><span class="n">Id</span><span class="p">,</span><span class="n">Message</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -813,12 +853,20 @@
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="k">start</span> msedge http://--no-first-run
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 打开 Edge 并跳过首次运行向导</span>
+</span></span><span class="line"><span class="cl"><span class="k">start</span> msedge http://--no-first-run
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 绕过执行策略跑取号脚本</span>
 </span></span><span class="line"><span class="cl">powershell -ExecutionPolicy Bypass -File key.ps1
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 打开结果核对</span>
 </span></span><span class="line"><span class="cl">notepad key.csv
 </span></span><span class="line"><span class="cl"><span class="k">pause</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 立即重启</span>
 </span></span><span class="line"><span class="cl">shutdown -r -t 0
 </span></span></code></pre></td></tr></table>
 </div>
@@ -843,7 +891,7 @@
 
 
         <span>
-            最后更新于 08月03日 05点41分, 2026年
+            最后更新于 08月30日 09点44分, 2026年
         </span>
     </section></footer>
 

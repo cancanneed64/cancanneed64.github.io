@@ -10,7 +10,7 @@
 <meta property='og:description' content="学习">
 <meta property='og:url' content='https://cancanneed64.github.io/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-08T22:10:45&#43;08:00'/><meta property='article:modified_time' content='2026-08-03T05:41:55&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-08T22:10:45&#43;08:00'/><meta property='article:modified_time' content='2026-08-30T09:44:58&#43;00:00'/>
 <meta name="twitter:title" content="Go 语言实战">
 <meta name="twitter:description" content="学习">
     <link rel="shortcut icon" href="/favicon.svg" />
@@ -374,7 +374,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -452,10 +452,10 @@ RSS 匹配器</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">cd</span> <span class="err">$</span><span class="nx">GOPATH</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">tools</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span>
-</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">install</span> <span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">get</span> <span class="o">-</span><span class="nx">u</span> <span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">tools</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span><span class="nx">godoc</span>
-</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">install</span> <span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">tools</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span><span class="nx">godoc</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/golang.org/x/tools/cmd/
+</span></span><span class="line"><span class="cl">go install ...                                  <span class="c1"># 编译安装当前目录下的包</span>
+</span></span><span class="line"><span class="cl">go get -u golang.org/x/tools/cmd/godoc          <span class="c1"># 拉取并更新 godoc 源码</span>
+</span></span><span class="line"><span class="cl">go install golang.org/x/tools/cmd/godoc         <span class="c1"># 安装 godoc 到 $GOPATH/bin</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><em>go env</em>
@@ -466,9 +466,9 @@ RSS 匹配器</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">env</span> <span class="o">-</span><span class="nx">w</span> <span class="nx">GO111MODULE</span><span class="p">=</span><span class="nx">on</span>
-</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">env</span> <span class="o">-</span><span class="nx">w</span> <span class="nx">GOPROXY</span><span class="p">=</span><span class="nx">https</span><span class="p">:</span><span class="c1">//goproxy.cn,direct
-</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">go env -w <span class="nv">GO111MODULE</span><span class="o">=</span>on                        <span class="c1"># 开启 module 模式</span>
+</span></span><span class="line"><span class="cl">go env -w <span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.cn,direct     <span class="c1"># 换国内代理，direct 表示回源直连</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><em>go vet</em>
 检查常见错误</p>
@@ -526,13 +526,15 @@ RSS 匹配器</p>
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">user</span> <span class="kd">struct</span><span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Go 没有 class，用 struct 承担同样的角色
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">user</span> <span class="kd">struct</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">bill</span> <span class="nx">user</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">bill</span> <span class="nx">user</span>  <span class="c1">// 声明即分配，字段被初始化为零值
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>方法</p>
 <div class="highlight"><div class="chroma">
@@ -637,13 +639,15 @@ go 语言约定，_test.go 结尾的文件是测试文件，测试函数需要�
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">BenchmarkSprintf</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">){</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Benchmark 前缀 + *testing.B 才会被 go test -bench 识别
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">BenchmarkSprintf</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">number</span> <span class="o">:=</span> <span class="mi">10</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span><span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="nx">number</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>          <span class="c1">// 丢弃上面准备工作的耗时，只测循环部分
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">{</span>   <span class="c1">// b.N 由测试框架动态调整以保证足够采样
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="nx">number</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -669,7 +673,7 @@ b.ResetTimer()初始化计时器
 
 
         <span>
-            最后更新于 08月03日 05点41分, 2026年
+            最后更新于 08月30日 09点44分, 2026年
         </span>
     </section></footer>
 

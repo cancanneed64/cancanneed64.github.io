@@ -10,7 +10,7 @@
 <meta property='og:description' content="工具">
 <meta property='og:url' content='https://cancanneed64.github.io/p/python%E5%8A%9E%E5%85%AC%E5%B0%8F%E5%B7%A5%E5%85%B7/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-06-10T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-03T05:41:55&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-06-10T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T09:44:58&#43;00:00'/>
 <meta name="twitter:title" content="Python办公小工具">
 <meta name="twitter:description" content="工具">
     <link rel="shortcut icon" href="/favicon.svg" />
@@ -366,7 +366,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 11 分钟
+                    阅读时长: 12 分钟
                 </time>
             </div>
         
@@ -388,49 +388,53 @@
 <h2 id="根据图片拖动目标">根据图片拖动目标
 </h2><p>一天同事突然问到有没有办法在页面中一次性批量选中所有文件拖动进一个文件夹，碰巧页面没有开发这类全选的功能，只能一个个处理，于是尝试做了一下这个拖动小工具</p>
 <h3 id="前文">前文
-</h3><div class="highlight"><div class="chroma">
+</h3><p>使用前的准备步骤：</p>
+<ol>
+<li>
+<p>安装 python3.4 以上版本，并配置环境变量（<a class="link" href="https://www.runoob.com/python3/python3-install.html"  target="_blank" rel="noopener"
+    >教程</a>）</p>
+</li>
+<li>
+<p>安装依赖包，在 cmd 中（win+R 输入 cmd 回车）执行：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1.安装python3.4以上版本，并配置环境变量
-</span></span><span class="line"><span class="cl">教程：https://www.runoob.com/python3/python3-install.html
-</span></span><span class="line"><span class="cl">2.安装依赖包
-</span></span><span class="line"><span class="cl">方法：在cmd中（win+R  输入cmd  回车）输入
-</span></span><span class="line"><span class="cl">pip install pyperclip 回车
-</span></span><span class="line"><span class="cl">pip install xlrd 回车
-</span></span><span class="line"><span class="cl">pip install pyautogui==0.9.50 回车
-</span></span><span class="line"><span class="cl">pip install opencv-python 回车
-</span></span><span class="line"><span class="cl">pip install pillow 回车
-</span></span><span class="line"><span class="cl">3.把每一步要操作的图标、区域截图保存至本文件夹  png格式（注意如果同屏有多个相同图标，回默认找到最左上的一个，因此怎么截图，截多大的区域，是个学问，如输入框只截中间空白部分肯定是不行的，宗旨就是“唯一”）
-</span></span><span class="line"><span class="cl">4.在cmd.xls 的sheet1 中，配置每一步的指令，如指令类型1234  对应的内容填截图文件名，指令5对应的内容是等待时长（单位秒） 指令6对应的内容是滚轮滚动的距离，正数表示向上滚，负数表示向下滚
-</span></span><span class="line"><span class="cl">5.保存文件
-</span></span><span class="line"><span class="cl">6.双击waterRPA.py打开程序，按1表示excel中的指令执行一次，按2表示无限重复执行直到程序关闭
-</span></span><span class="line"><span class="cl">7.开始程序后请将程序框最小化，不然程序框挡住的区域是无法识别和操作的
-</span></span><span class="line"><span class="cl">8.如果程序开始后因为你选择了无限重复而鼠标被占用停不下来，alt+F4吧~
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">想自己开发和优化的  可以看看pyautogui库其他用法 https://blog.csdn.net/qingfengxd1/article/details/108270159
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install pyperclip          <span class="c1"># 读写系统剪贴板</span>
+</span></span><span class="line"><span class="cl">pip install xlrd               <span class="c1"># 读取 .xls 指令表</span>
+</span></span><span class="line"><span class="cl">pip install <span class="nv">pyautogui</span><span class="o">==</span>0.9.50  <span class="c1"># 模拟鼠标键盘，锁定版本避免 API 变动</span>
+</span></span><span class="line"><span class="cl">pip install opencv-python      <span class="c1"># 图像匹配，用于在屏幕上定位截图</span>
+</span></span><span class="line"><span class="cl">pip install pillow             <span class="c1"># 截图与图片处理，opencv 的依赖</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="二次开发">二次开发
+</div></li>
+<li>
+<p>把每一步要操作的图标、区域截图保存至本文件夹，png 格式（注意如果同屏有多个相同图标，会默认找到最左上的一个，因此怎么截图、截多大的区域是个学问，如输入框只截中间空白部分肯定是不行的，宗旨就是“唯一”）</p>
+</li>
+<li>
+<p>在 cmd.xls 的 sheet1 中配置每一步的指令：指令类型 1234 对应的内容填截图文件名，指令 5 对应的内容是等待时长（单位秒），指令 6 对应的内容是滚轮滚动的距离，正数表示向上滚，负数表示向下滚</p>
+</li>
+<li>
+<p>保存文件</p>
+</li>
+<li>
+<p>双击 waterRPA.py 打开程序，按 1 表示 excel 中的指令执行一次，按 2 表示无限重复执行直到程序关闭</p>
+</li>
+<li>
+<p>开始程序后请将程序框最小化，不然程序框挡住的区域是无法识别和操作的</p>
+</li>
+<li>
+<p>如果程序开始后因为选择了无限重复而鼠标被占用停不下来，alt+F4 吧~</p>
+</li>
+</ol>
+<p>想自己开发和优化的，可以看看 <a class="link" href="https://blog.csdn.net/qingfengxd1/article/details/108270159"  target="_blank" rel="noopener"
+    >pyautogui 库其他用法</a></p>
+<h3 id="二次开发">二次开发
 </h3><p>流程:</p>
 <ol>
 <li>根据&quot;cmd.xls&quot;作为数据库的思想，读取行数与内容</li>
@@ -586,7 +590,7 @@
 </span></span><span class="line"><span class="cl">            <span class="c1">#reTry不为空多次</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">sheet1</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">ctype</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">sheet1</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span> <span class="c1">#第3列第2行非空</span>
-</span></span><span class="line"><span class="cl">                <span class="c1">#ctype :  0 empty,1 string, 2 number, 3 date, 4 boolean, 5 error</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">#ctype :  0 empty,1 string, 2 number, 3 date, 4 boolean, 5 error</span>
 </span></span><span class="line"><span class="cl">                <span class="n">reTry</span> <span class="o">=</span> <span class="n">sheet1</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>      <span class="c1">#如果非空则赋值，回到循环小于等于i则退出循环</span>
 </span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">reTry</span><span class="p">),</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">                    <span class="n">location</span> <span class="o">=</span> <span class="n">pyautogui</span><span class="o">.</span><span class="n">locateCenterOnScreen</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">confidence</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>   <span class="c1">#定位起始位置</span>
@@ -1909,7 +1913,7 @@
 
 
         <span>
-            最后更新于 08月03日 05点41分, 2026年
+            最后更新于 08月30日 09点44分, 2026年
         </span>
     </section></footer>
 

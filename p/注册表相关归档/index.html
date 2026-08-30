@@ -10,7 +10,7 @@
 <meta property='og:description' content="日常">
 <meta property='og:url' content='https://cancanneed64.github.io/p/%E6%B3%A8%E5%86%8C%E8%A1%A8%E7%9B%B8%E5%85%B3%E5%BD%92%E6%A1%A3/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-03T05:41:55&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T09:44:58&#43;00:00'/>
 <meta name="twitter:title" content="注册表相关归档">
 <meta name="twitter:description" content="日常">
     <link rel="shortcut icon" href="/favicon.svg" />
@@ -362,7 +362,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -451,16 +451,18 @@
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
+</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$keys</span> <span class="p">=</span> <span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="s2">&#34;HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\&#34;</span> <span class="n">-Recurse</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="py">GetValue</span><span class="p">(</span><span class="s1">&#39;ProfileImagePath&#39;</span><span class="p">)</span> <span class="o">-like</span> <span class="s1">&#39;*.INTERNATIONAL*&#39;</span> <span class="p">}</span>
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># 找出 ProfileImagePath 带 .INTERNATIONAL 后缀的用户配置项</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$keys</span> <span class="p">=</span> <span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="s2">&#34;HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\&#34;</span> <span class="n">-Recurse</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="py">GetValue</span><span class="p">(</span><span class="s1">&#39;ProfileImagePath&#39;</span><span class="p">)</span> <span class="o">-like</span> <span class="s1">&#39;*.INTERNATIONAL*&#39;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$keys</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$key</span> <span class="k">in</span> <span class="nv">$keys</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">   <span class="nv">$value</span> <span class="p">=</span> <span class="nv">$key</span><span class="p">.</span><span class="py">GetValue</span><span class="p">(</span><span class="s1">&#39;ProfileImagePath&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">   <span class="nv">$newValue</span> <span class="p">=</span> <span class="nv">$value</span> <span class="o">-replace</span> <span class="s1">&#39;\.INTERNATIONAL&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">   <span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$key</span><span class="p">.</span><span class="py">PSPath</span> <span class="n">-Name</span> <span class="n">ProfileImagePath</span> <span class="n">-Value</span> <span class="nv">$newValue</span>
+</span></span><span class="line"><span class="cl">   <span class="nv">$value</span> <span class="p">=</span> <span class="nv">$key</span><span class="p">.</span><span class="py">GetValue</span><span class="p">(</span><span class="s1">&#39;ProfileImagePath&#39;</span><span class="p">)</span>        <span class="c"># 取出当前的配置文件路径</span>
+</span></span><span class="line"><span class="cl">   <span class="nv">$newValue</span> <span class="p">=</span> <span class="nv">$value</span> <span class="o">-replace</span> <span class="s1">&#39;\.INTERNATIONAL&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span>  <span class="c"># 去掉 .INTERNATIONAL 后缀</span>
+</span></span><span class="line"><span class="cl">   <span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$key</span><span class="p">.</span><span class="py">PSPath</span> <span class="n">-Name</span> <span class="n">ProfileImagePath</span> <span class="n">-Value</span> <span class="nv">$newValue</span>   <span class="c"># 写回注册表</span>
 </span></span><span class="line"><span class="cl"> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -474,13 +476,15 @@
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">(</span>reg query HKLM\SOFTWARE\WOW6432Node\Policies\Google\Chrome\ExtensionInstallForcelist<span class="p">|</span>find /i <span class="s2">&#34;Walkme&#34;</span><span class="p">)&amp;&amp;(</span><span class="k">echo</span> <span class="nv">%computername%</span><span class="p">&gt;&gt;</span><span class="s2">&#34;\\10.185.75.19\software$\temps\PCchecking\WalkMeEnabled.txt&#34;</span><span class="p">)||(</span><span class="k">echo</span> <span class="nv">%computername%</span><span class="p">&gt;&gt;</span><span class="s2">&#34;\\10.185.75.19\software$\temps\PCchecking\WalkMeDisabled.txt&#34;</span><span class="p">)</span>//查询整个ExtensionInstallForcelist， 找到Walkme 放WalkeEnable.txt
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 查询 ExtensionInstallForcelist，命中 Walkme 记入 Enabled 名单，否则记入 Disabled 名单</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span>reg query HKLM\SOFTWARE\WOW6432Node\Policies\Google\Chrome\ExtensionInstallForcelist<span class="p">|</span>find /i <span class="s2">&#34;Walkme&#34;</span><span class="p">)&amp;&amp;(</span><span class="k">echo</span> <span class="nv">%computername%</span><span class="p">&gt;&gt;</span><span class="s2">&#34;\\10.185.75.19\software$\temps\PCchecking\WalkMeEnabled.txt&#34;</span><span class="p">)||(</span><span class="k">echo</span> <span class="nv">%computername%</span><span class="p">&gt;&gt;</span><span class="s2">&#34;\\10.185.75.19\software$\temps\PCchecking\WalkMeDisabled.txt&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">`HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Policies\Google\Chrome\ExtensionlnstallForcelist`
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;1&#34;</span>=<span class="s2">&#34;iffnipbkkgbgeffippbaldmgdpealpdd;https://cdn.walkme.com/extension/walkme_extension_update.xml&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 对应注册表位置与强制安装项的值格式：</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Policies\Google\Chrome\ExtensionInstallForcelist</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem &#34;1&#34;=&#34;iffnipbkkgbgeffippbaldmgdpealpdd;https://cdn.walkme.com/extension/walkme_extension_update.xml&#34;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="edge浏览器f12被组策略限制">Edge浏览器F12被组策略限制
@@ -493,31 +497,39 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">CMD</span><span class="err">:</span>
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># CMD 写法：DeveloperToolsAvailability 置 1 表示允许开发者工具</span>
 </span></span><span class="line"><span class="cl"><span class="n">reg</span> <span class="n">add</span> <span class="s2">&#34;HKLM\SOFTWARE\Policies\Microsoft\Edge&#34;</span> <span class="p">/</span><span class="n">v</span> <span class="n">DeveloperToolsAvailability</span> <span class="p">/</span><span class="n">t</span> <span class="n">REG_DWORD</span> <span class="p">/</span><span class="n">d</span> <span class="mf">1</span> <span class="p">/</span><span class="n">f</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">POWERSHELL</span><span class="err">:</span>
+</span></span><span class="line"><span class="cl"><span class="c"># PowerShell 写法：等价操作</span>
 </span></span><span class="line"><span class="cl"><span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="s2">&#34;HKLM:\SOFTWARE\Policies\Microsoft\Edge&#34;</span> <span class="n">-Name</span> <span class="n">DeveloperToolsAvailability</span> <span class="n">-Value</span> <span class="mf">1</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="重启更新服务">重启更新服务
 </h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">@</span><span class="k">echo</span> off
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 停掉 BigFix 客户端服务</span>
 </span></span><span class="line"><span class="cl">sc stop besclient
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 借 ping 延时约 30 秒，等服务完全退出</span>
 </span></span><span class="line"><span class="cl">ping localhost -n 30
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 关闭自动选择 Relay，改为手动指定两台 Relay 服务器（/reg:32 操作 32 位注册表视图）</span>
 </span></span><span class="line"><span class="cl">REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\Settings\Client\__RelaySelect_Automatic /v value /t REG_SZ /d 0 /F /reg:32
 </span></span><span class="line"><span class="cl">REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\Settings\Client\__RelayServer1 /v value /t REG_SZ /d http:// /F /reg:32
 </span></span><span class="line"><span class="cl">REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\Settings\Client\__RelayServer2 /v value /t REG_SZ /d http:// /F /reg:32
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 重新启动服务使配置生效</span>
 </span></span><span class="line"><span class="cl">sc start besclient
 </span></span></code></pre></td></tr></table>
 </div>
@@ -538,19 +550,31 @@
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">@</span><span class="k">ECHO</span> off
 </span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">ECHO</span> <span class="s2">&#34;Please run as administrator&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">ECHO</span> <span class="s2">&#34;DNS ONLY!!!!!!!&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 停掉 BigFix 客户端</span>
 </span></span><span class="line"><span class="cl"><span class="p">@</span>sc stop besclient
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 备份 hosts 后再改，便于回滚</span>
 </span></span><span class="line"><span class="cl"><span class="p">@</span>xcopy C:\Windows\system32\drivers\etc\hosts C:\Windows\system32\drivers\etc\hosts.bak\ /d /c /i /y
 </span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">ECHO</span> <span class="s2">&#34;Copy hosts compelete, start modifying the hosts file&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 追加解析记录</span>
 </span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">ECHO</span> 10.212.164.11 10.185.75.25 <span class="p">&gt;&gt;</span> <span class="nv">%systemroot%</span>\system32\drivers\etc\hosts
 </span></span><span class="line"><span class="cl"><span class="k">ECHO</span> <span class="s2">&#34;Hosts file modification complete&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 刷新 DNS 缓存使新记录立即生效</span>
 </span></span><span class="line"><span class="cl"><span class="p">@</span>ipconfig /flushdns
 </span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">ECHO</span> <span class="s2">&#34;Refresh DNS Complete&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 等待约 10 秒</span>
 </span></span><span class="line"><span class="cl"><span class="p">@</span>ping   -n 10
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="c1">rem 重启客户端</span>
 </span></span><span class="line"><span class="cl"><span class="p">@</span>sc start besclient
 </span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">ECHO</span> <span class="s2">&#34;Press any key to exit and check bigfix log&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">pause</span> <span class="p">&gt;</span> nul
@@ -601,7 +625,7 @@
 
 
         <span>
-            最后更新于 08月03日 05点41分, 2026年
+            最后更新于 08月30日 09点44分, 2026年
         </span>
     </section></footer>
 
