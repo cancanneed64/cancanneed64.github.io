@@ -8,7 +8,7 @@
 <title>Chinese Test</title>
 
 <link rel='canonical' href='https://cancanneed64.github.io/p/test-chinese/'> 
-<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css" />
+<link rel="stylesheet" href="/scss/style.min.68c87fc4d030ffaf816336163bc6fdb23f5866a13951d5ba93b0c21498437def.css" />
 <meta property='og:title' content="Chinese Test">
 <meta property='og:description' content="这是一个副标题">
 <meta property='og:url' content='https://cancanneed64.github.io/p/test-chinese/'>
@@ -364,7 +364,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -646,6 +646,27 @@
     }());
 </script>
 
+<div id="reading-progress" aria-hidden="true"></div>
+<script>
+  (function () {
+    const bar = document.getElementById("reading-progress");
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduceMotion) {
+      bar.style.transition = "none";
+    }
+    function update() {
+      const el = document.documentElement;
+      const max = el.scrollHeight - el.clientHeight;
+      bar.style.width = (max > 0 ? (el.scrollTop / max) * 100 : 0) + "%";
+    }
+    document.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  })();
+</script>
+
 <style>
   @font-face {
     font-family: "nano";
@@ -660,9 +681,15 @@
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"
+></script>
 
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"
+></script>
 
 <meting-js server="netease" type="playlist" id="3050508794" fixed="True">
 </meting-js>

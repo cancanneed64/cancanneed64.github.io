@@ -8,12 +8,12 @@
 <title>运维问题归档</title>
 
 <link rel='canonical' href='https://cancanneed64.github.io/p/%E8%BF%90%E7%BB%B4%E9%97%AE%E9%A2%98%E5%BD%92%E6%A1%A3/'> 
-<link rel="stylesheet" href="/scss/style.min.01ea4f5160fffb744444d67cd8add73a72970c6fd71cc4a2117d4daf37fc4940.css" />
+<link rel="stylesheet" href="/scss/style.min.68c87fc4d030ffaf816336163bc6fdb23f5866a13951d5ba93b0c21498437def.css" />
 <meta property='og:title' content="运维问题归档">
 <meta property='og:description' content="日常">
 <meta property='og:url' content='https://cancanneed64.github.io/p/%E8%BF%90%E7%BB%B4%E9%97%AE%E9%A2%98%E5%BD%92%E6%A1%A3/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-30T11:27:02&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-09-01T07:39:17&#43;00:00'/>
 <meta name="twitter:title" content="运维问题归档">
 <meta name="twitter:description" content="日常">
     <link rel="shortcut icon" href="/favicon.svg" />
@@ -365,7 +365,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 5 分钟
+                    阅读时长: 4 分钟
                 </time>
             </div>
         
@@ -883,7 +883,7 @@
 
 
         <span>
-            最后更新于 08月30日 11点27分, 2026年
+            最后更新于 09月01日 07点39分, 2026年
         </span>
     </section></footer>
 
@@ -1100,6 +1100,27 @@
     }());
 </script>
 
+<div id="reading-progress" aria-hidden="true"></div>
+<script>
+  (function () {
+    const bar = document.getElementById("reading-progress");
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduceMotion) {
+      bar.style.transition = "none";
+    }
+    function update() {
+      const el = document.documentElement;
+      const max = el.scrollHeight - el.clientHeight;
+      bar.style.width = (max > 0 ? (el.scrollTop / max) * 100 : 0) + "%";
+    }
+    document.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  })();
+</script>
+
 <style>
   @font-face {
     font-family: "nano";
@@ -1114,9 +1135,15 @@
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"
+></script>
 
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"
+></script>
 
 <meting-js server="netease" type="playlist" id="3050508794" fixed="True">
 </meting-js>
