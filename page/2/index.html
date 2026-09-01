@@ -14,7 +14,7 @@
 <meta property='og:description' content="演示说明">
 <meta property='og:url' content='https://cancanneed64.github.io/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-09-01T10:31:05&#43;00:00 '/><meta property='og:image' content='https://cancanneed64.github.io/img/og-cover.jpg' />
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-09-01T13:29:51&#43;00:00 '/><meta property='og:image' content='https://cancanneed64.github.io/img/og-cover.jpg' />
 <meta name="twitter:title" content="江清映明月">
 <meta name="twitter:description" content="演示说明"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://cancanneed64.github.io/img/og-cover.jpg' /><link rel="alternate" type="application/rss&#43;xml" href="https://cancanneed64.github.io/index.xml">
@@ -47,6 +47,7 @@
   }
 </style>
 
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <link rel="stylesheet" href="/css/style.css" />
   </head>
@@ -1420,6 +1421,16 @@
              isDown = false;
          }
      }
+</script>
+
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("/sw.js").catch(function (err) {
+        console.warn("Service Worker 注册失败：", err);
+      });
+    });
+  }
 </script>
 
 

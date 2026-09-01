@@ -1,0 +1,24 @@
+{
+  "name": "江清映明月",
+  "short_name": "江清映明月",
+  "description": "记录折腾与学习的技术博客：Go、Python、PowerShell 与运维笔记",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f0f8ff",
+  "theme_color": "#f0f8ff",
+  "icons": [
+    {
+      "src": "/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
