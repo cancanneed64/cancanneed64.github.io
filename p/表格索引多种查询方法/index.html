@@ -13,7 +13,7 @@
 <meta property='og:description' content="方法">
 <meta property='og:url' content='https://cancanneed64.github.io/p/%E8%A1%A8%E6%A0%BC%E7%B4%A2%E5%BC%95%E5%A4%9A%E7%A7%8D%E6%9F%A5%E8%AF%A2%E6%96%B9%E6%B3%95/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-09-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-09-27T14:58:35&#43;00:00'/><meta property='og:image' content='https://cancanneed64.github.io/img/og-cover.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-09-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-09-28T07:52:14&#43;00:00'/><meta property='og:image' content='https://cancanneed64.github.io/img/og-cover.jpg' />
 <meta name="twitter:title" content="表格索引多种查询方法">
 <meta name="twitter:description" content="方法"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://cancanneed64.github.io/img/og-cover.jpg' />
@@ -1281,7 +1281,7 @@ Python 图形化界面模板
 
 
         <span>
-            最后更新于 09月27日 14点58分, 2026年
+            最后更新于 09月28日 07点52分, 2026年
         </span>
     </section></footer>
 
@@ -1602,6 +1602,9 @@ Python 图形化界面模板
            script.textContent = source;
            document.head.appendChild(script);
          }
+        
+
+         localStorage.setItem("waifu-display", Date.now());
 
          initWidget({
            waifuPath: tipsJsonPath,
@@ -1611,8 +1614,11 @@ Python 图形化界面模板
              "photo", "info", "quit",
            ],
          });
+         const toggle = document.getElementById("waifu-toggle");
+         toggle?.addEventListener("click", () => {
          initWaifuMouseEvent();
-       })
+        });
+        })
        .catch((error) => {
          console.error("Live2D 资源两端均加载失败：", error);
        });
@@ -1620,6 +1626,7 @@ Python 图形化界面模板
 
    function initWaifuMouseEvent() {
           const waifu = document.getElementById("waifu");
+          if (!waifu) return;
           let isDown = false;
           let waifuLeft;
           let mouseLeft;

@@ -13,7 +13,7 @@
 <meta property='og:description' content="This is an example category">
 <meta property='og:url' content='https://cancanneed64.github.io/categories/test/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-09-27T14:58:35&#43;00:00 '/><meta property='og:image' content='https://cancanneed64.github.io/categories/test/hutomo-abrianto-l2jk-uxb1BY-unsplash.jpg' />
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-09-28T07:52:14&#43;00:00 '/><meta property='og:image' content='https://cancanneed64.github.io/categories/test/hutomo-abrianto-l2jk-uxb1BY-unsplash.jpg' />
 <meta name="twitter:title" content="Category: Test - 江清映明月">
 <meta name="twitter:description" content="This is an example category"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://cancanneed64.github.io/categories/test/hutomo-abrianto-l2jk-uxb1BY-unsplash.jpg' /><link rel="alternate" type="application/rss&#43;xml" href="https://cancanneed64.github.io/categories/test/index.xml">
@@ -665,6 +665,9 @@
            script.textContent = source;
            document.head.appendChild(script);
          }
+        
+
+         localStorage.setItem("waifu-display", Date.now());
 
          initWidget({
            waifuPath: tipsJsonPath,
@@ -674,8 +677,11 @@
              "photo", "info", "quit",
            ],
          });
+         const toggle = document.getElementById("waifu-toggle");
+         toggle?.addEventListener("click", () => {
          initWaifuMouseEvent();
-       })
+        });
+        })
        .catch((error) => {
          console.error("Live2D 资源两端均加载失败：", error);
        });
@@ -683,6 +689,7 @@
 
    function initWaifuMouseEvent() {
           const waifu = document.getElementById("waifu");
+          if (!waifu) return;
           let isDown = false;
           let waifuLeft;
           let mouseLeft;

@@ -605,6 +605,9 @@
            script.textContent = source;
            document.head.appendChild(script);
          }
+        
+
+         localStorage.setItem("waifu-display", Date.now());
 
          initWidget({
            waifuPath: tipsJsonPath,
@@ -614,8 +617,11 @@
              "photo", "info", "quit",
            ],
          });
+         const toggle = document.getElementById("waifu-toggle");
+         toggle?.addEventListener("click", () => {
          initWaifuMouseEvent();
-       })
+        });
+        })
        .catch((error) => {
          console.error("Live2D 资源两端均加载失败：", error);
        });
@@ -623,6 +629,7 @@
 
    function initWaifuMouseEvent() {
           const waifu = document.getElementById("waifu");
+          if (!waifu) return;
           let isDown = false;
           let waifuLeft;
           let mouseLeft;
