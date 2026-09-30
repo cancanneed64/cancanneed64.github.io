@@ -13,8 +13,7 @@
         <pubDate>Wed, 08 Jan 2025 22:10:45 +0800</pubDate>
         
         <guid>https://cancanneed64.github.io/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/</guid>
-        <description>&lt;h1 id=&#34;go-语言实战&#34;&gt;go 语言实战
-&lt;/h1&gt;&lt;h2 id=&#34;1-介绍&#34;&gt;1. 介绍
+        <description>&lt;h2 id=&#34;1-介绍&#34;&gt;1. 介绍
 &lt;/h2&gt;&lt;hr&gt;
 &lt;h2 id=&#34;2-go-包执行顺序&#34;&gt;2. Go 包执行顺序
 &lt;/h2&gt;&lt;ul&gt;
@@ -286,8 +285,7 @@ b.ResetTimer()初始化计时器
         <pubDate>Mon, 06 Jan 2025 21:35:04 +0800</pubDate>
         
         <guid>https://cancanneed64.github.io/p/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/</guid>
-        <description>&lt;h1 id=&#34;go-语言入门&#34;&gt;Go 语言入门
-&lt;/h1&gt;&lt;h2 id=&#34;1-运行环境安装&#34;&gt;1. 运行环境安装
+        <description>&lt;h2 id=&#34;1-运行环境安装&#34;&gt;1. 运行环境安装
 &lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://studygolang.com/topics/4092&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;中文网&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://goproxy.io/zh/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -1405,8 +1403,7 @@ b.ResetTimer()初始化计时器
         <pubDate>Thu, 19 Sep 2024 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/%E8%A1%A8%E6%A0%BC%E7%B4%A2%E5%BC%95%E5%A4%9A%E7%A7%8D%E6%9F%A5%E8%AF%A2%E6%96%B9%E6%B3%95/</guid>
-        <description>&lt;h1 id=&#34;表格索引多种查询方法&#34;&gt;表格索引多种查询方法
-&lt;/h1&gt;&lt;p&gt;需求: 有时候会遇到在固定表格里面索引的需求，然而这些表格的格式并不统一，需要进行处理后再索引，因此有了这些方案&lt;/p&gt;
+        <description>&lt;p&gt;需求: 有时候会遇到在固定表格里面索引的需求，然而这些表格的格式并不统一，需要进行处理后再索引，因此有了这些方案&lt;/p&gt;
 &lt;h2 id=&#34;转换表格为数据&#34;&gt;转换表格为数据
 &lt;/h2&gt;&lt;p&gt;思路一，py 转 pdf 为 excel
 &lt;details&gt;
@@ -2268,12 +2265,11 @@ Python 图形化界面模板
         </item>
         <item>
         <title>7days gee记录</title>
-        <link>https://cancanneed64.github.io/p/7days-gee-record/</link>
+        <link>https://cancanneed64.github.io/p/7days-gee%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://cancanneed64.github.io/p/7days-gee-record/</guid>
-        <description>&lt;h1 id=&#34;geektutu&#34;&gt;geektutu
-&lt;/h1&gt;&lt;h2 id=&#34;gee-框架&#34;&gt;gee 框架
+        <guid>https://cancanneed64.github.io/p/7days-gee%E8%AE%B0%E5%BD%95/</guid>
+        <description>&lt;h2 id=&#34;gee-框架&#34;&gt;gee 框架
 &lt;/h2&gt;&lt;h3 id=&#34;http-基础&#34;&gt;HTTP 基础
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;核心&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -2542,8 +2538,7 @@ handlers 存储每种请求方式，getroute 解析*和:，返回一个 map&lt;/
         <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/goroutine-%E5%85%A5%E9%97%A8/</guid>
-        <description>&lt;h1 id=&#34;goroutine-入门&#34;&gt;Goroutine 入门
-&lt;/h1&gt;&lt;h2 id=&#34;1-并发&#34;&gt;1. 并发
+        <description>&lt;h2 id=&#34;1-并发&#34;&gt;1. 并发
 &lt;/h2&gt;&lt;p&gt;默认给整个应用程序只分配一个逻辑处理器，用于执行所有被创建的 goroutine
 如果创建一个 goroutine 并准备运行，就会被放到调度器的全局运行队列中，之后，调度器就将这些队列中的 goroutine 分配给一个逻辑处理器，并放到这个逻辑处理器对应的本地运行队列，本地运行队列的 goroutine 会一直等到自己被分配的逻辑处理器执行&lt;/p&gt;
 &lt;h2 id=&#34;2-运行机制&#34;&gt;2. 运行机制
@@ -2695,8 +2690,7 @@ counter 是所有 goroutine 都要增加其值的变量&lt;br&gt;
         <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/goroutine%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/</guid>
-        <description>&lt;h1 id=&#34;goroutine-并发模式&#34;&gt;Goroutine 并发模式
-&lt;/h1&gt;&lt;h2 id=&#34;1-runner&#34;&gt;1. runner
+        <description>&lt;h2 id=&#34;1-runner&#34;&gt;1. runner
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;简介，使用通道监视程序执行时间，当开发需要调度后台处理任务的程序的时候，这个程序可能会座位 cron 作业执行，或者基于定时任务的云环境执行&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;调度运行无人值守的面向任务程序，支持以下：&lt;/p&gt;
@@ -3421,8 +3415,7 @@ Run 方法向池里提交工作，调用者必须等待工作池某个 goroutine
         <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/goweb%E5%85%A5%E9%97%A8/</guid>
-        <description>&lt;h1 id=&#34;goweb-入门&#34;&gt;goweb 入门
-&lt;/h1&gt;&lt;h2 id=&#34;工具&#34;&gt;工具
+        <description>&lt;h2 id=&#34;工具&#34;&gt;工具
 &lt;/h2&gt;&lt;h3 id=&#34;nc-命令&#34;&gt;nc 命令
 &lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/nmap/p/6148306.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;nc 用法&lt;/a&gt;&lt;/p&gt;
@@ -4407,8 +4400,7 @@ main 函数尝试移除 w1 的值，但没有包含任何值因此阻塞&lt;/p&g
         <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/go%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</guid>
-        <description>&lt;h1 id=&#34;go-常见问题&#34;&gt;Go 常见问题
-&lt;/h1&gt;&lt;h2 id=&#34;module-设置&#34;&gt;module 设置
+        <description>&lt;h2 id=&#34;module-设置&#34;&gt;module 设置
 &lt;/h2&gt;&lt;p&gt;修改代理 GOPROXY&lt;br&gt;
 &lt;code&gt;go env -w GOPROXY=https://goproxy.cn,direct&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;修改模式 GO111MODULE&lt;br&gt;
@@ -4571,8 +4563,7 @@ win
         <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/go%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/</guid>
-        <description>&lt;h1 id=&#34;go-数据处理&#34;&gt;go 数据处理
-&lt;/h1&gt;&lt;h2 id=&#34;关于-map&#34;&gt;关于 map
+        <description>&lt;h2 id=&#34;关于-map&#34;&gt;关于 map
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;变量名以小写开头不公开，其他包可以间接调用，一个函数可以返回一个未公开类型的值
@@ -4872,58 +4863,6 @@ v1, _ := decimal.NewFromFloat(9.824).Round(2).Float64()&lt;/p&gt;
 &lt;p&gt;Strings 包
 func Repeat(s string, k int) string
 func Replace(s, old, new string, n int) string&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>vscode技巧</title>
-        <link>https://cancanneed64.github.io/p/vscode%E6%8A%80%E5%B7%A7/</link>
-        <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
-        
-        <guid>https://cancanneed64.github.io/p/vscode%E6%8A%80%E5%B7%A7/</guid>
-        <description>&lt;h2 id=&#34;vscode&#34;&gt;vscode
-&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/weixin_46655235/article/details/121788623&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;多行处理快捷键&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/weixin_43314519/article/details/107572206&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;使用 git&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;工作区对比
-&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/xsq123/article/details/126948730&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;连接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;markdown-插件&#34;&gt;markdown 插件
-&lt;/h2&gt;&lt;h3 id=&#34;安装&#34;&gt;安装
-&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://markdown-all-in-one.github.io/docs/guide/#features&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Markdown All in One&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;ul&gt;
-&lt;li&gt;实时预览&lt;/li&gt;
-&lt;li&gt;创建 TOC
-&lt;ul&gt;
-&lt;li&gt;&amp;gt; Create Table of Contents&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;快捷键
-&lt;ul&gt;
-&lt;li&gt;ctrl+b/i&lt;/li&gt;
-&lt;li&gt;alt+s&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ol start=&#34;2&#34;&gt;
-&lt;li&gt;Markdown PDF&lt;/li&gt;
-&lt;/ol&gt;
-&lt;ul&gt;
-&lt;li&gt;导出为 PDF
-&lt;ul&gt;
-&lt;li&gt;&amp;gt; export pdf&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;markdownlint&lt;/li&gt;
-&lt;/ol&gt;
-&lt;ul&gt;
-&lt;li&gt;规范书写格式&lt;/li&gt;
-&lt;/ul&gt;
 </description>
         </item>
         

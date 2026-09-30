@@ -13,8 +13,7 @@
         <pubDate>Thu, 19 Sep 2024 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/%E8%A1%A8%E6%A0%BC%E7%B4%A2%E5%BC%95%E5%A4%9A%E7%A7%8D%E6%9F%A5%E8%AF%A2%E6%96%B9%E6%B3%95/</guid>
-        <description>&lt;h1 id=&#34;表格索引多种查询方法&#34;&gt;表格索引多种查询方法
-&lt;/h1&gt;&lt;p&gt;需求: 有时候会遇到在固定表格里面索引的需求，然而这些表格的格式并不统一，需要进行处理后再索引，因此有了这些方案&lt;/p&gt;
+        <description>&lt;p&gt;需求: 有时候会遇到在固定表格里面索引的需求，然而这些表格的格式并不统一，需要进行处理后再索引，因此有了这些方案&lt;/p&gt;
 &lt;h2 id=&#34;转换表格为数据&#34;&gt;转换表格为数据
 &lt;/h2&gt;&lt;p&gt;思路一，py 转 pdf 为 excel
 &lt;details&gt;
@@ -880,8 +879,7 @@ Python 图形化界面模板
         <pubDate>Wed, 12 Jul 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/vba%E7%BB%9F%E8%AE%A1%E5%BA%A7%E4%BD%8D%E5%85%B3%E8%81%94%E8%AE%A1%E6%95%B0/</guid>
-        <description>&lt;h1 id=&#34;vba-统计座位关联计数&#34;&gt;vba 统计座位关联计数
-&lt;/h1&gt;&lt;h2 id=&#34;需求一-检查所有单元格是否为合并单元格拆分&#34;&gt;需求一: 检查所有单元格是否为合并单元格，拆分
+        <description>&lt;h2 id=&#34;需求一-检查所有单元格是否为合并单元格拆分&#34;&gt;需求一: 检查所有单元格是否为合并单元格，拆分
 &lt;/h2&gt;&lt;p&gt;流程&lt;/p&gt;
 &lt;p&gt;1.合并单元格，循环无法遍历
 解决方法，检测拆分
@@ -2714,8 +2712,7 @@ Seat Ports
         <pubDate>Tue, 25 Apr 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/excel%E5%BC%BA%E5%88%B6xls%E4%BF%9D%E5%AD%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
-        <description>&lt;h1 id=&#34;excel-强制-xls-保存解决方法&#34;&gt;excel 强制 xls 保存解决方法
-&lt;/h1&gt;&lt;h2 id=&#34;原因&#34;&gt;原因
+        <description>&lt;h2 id=&#34;原因&#34;&gt;原因
 &lt;/h2&gt;&lt;p&gt;一些 excel 文件带着名为 Kangatang.bas 的恶意模块，用户只要同时打开其他 excel 文件便会&amp;quot;传染&amp;quot;上，同时在&lt;code&gt;C:\Users\id\AppData\Roaming\Microsoft\Excel&lt;/code&gt;路径 xlstart 留下一个 mypersonnel 文件，并且用户会发现再也无法保存文件为 xlsx，只能保存为 xls 格式&lt;/p&gt;
 &lt;details&gt;
   &lt;summary&gt;Kangatang.bas 展开代码&lt;/summary&gt;

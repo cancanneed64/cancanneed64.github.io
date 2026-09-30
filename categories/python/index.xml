@@ -13,8 +13,7 @@
         <pubDate>Fri, 10 Jul 2026 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/python-playwright%E6%8A%93%E5%8F%96%E7%BD%91%E9%A1%B5%E6%96%87%E6%A1%A3/</guid>
-        <description>&lt;h1 id=&#34;python-playwright抓取网页文档&#34;&gt;Python Playwright抓取网页文档
-&lt;/h1&gt;&lt;h2 id=&#34;初学playwright&#34;&gt;初学Playwright
+        <description>&lt;h2 id=&#34;初学playwright&#34;&gt;初学Playwright
 &lt;/h2&gt;&lt;p&gt;之前使用Selenium较多，对比之下selenium速度慢些
 Selenium 使用 WebDriver 协议，Playwright 直接控制浏览器协议，API 风格差异较大
 Playwright Inspector则可以直接将用户操作代码化，with会自动释放缓存，且需要带上page.pause()否则直接结束任务，使用过程中发现其实Inspector也可以直接获取元素文本
@@ -129,8 +128,7 @@ Playwright Inspector则可以直接将用户操作代码化，with会自动释�
         <pubDate>Tue, 14 Jan 2025 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/%E5%88%A9%E7%94%A8ocr%E6%95%B4%E7%90%86%E4%BB%93%E5%BA%93%E5%BA%93%E5%AD%98/</guid>
-        <description>&lt;h1 id=&#34;利用-ocr-整理仓库库存&#34;&gt;利用 ocr 整理仓库库存
-&lt;/h1&gt;&lt;p&gt;需求: 统计整理仓库里联想主机的序列号
+        <description>&lt;p&gt;需求: 统计整理仓库里联想主机的序列号
 思路:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -401,8 +399,7 @@ Playwright Inspector则可以直接将用户操作代码化，with会自动释�
         <pubDate>Thu, 19 Sep 2024 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/%E8%A1%A8%E6%A0%BC%E7%B4%A2%E5%BC%95%E5%A4%9A%E7%A7%8D%E6%9F%A5%E8%AF%A2%E6%96%B9%E6%B3%95/</guid>
-        <description>&lt;h1 id=&#34;表格索引多种查询方法&#34;&gt;表格索引多种查询方法
-&lt;/h1&gt;&lt;p&gt;需求: 有时候会遇到在固定表格里面索引的需求，然而这些表格的格式并不统一，需要进行处理后再索引，因此有了这些方案&lt;/p&gt;
+        <description>&lt;p&gt;需求: 有时候会遇到在固定表格里面索引的需求，然而这些表格的格式并不统一，需要进行处理后再索引，因此有了这些方案&lt;/p&gt;
 &lt;h2 id=&#34;转换表格为数据&#34;&gt;转换表格为数据
 &lt;/h2&gt;&lt;p&gt;思路一，py 转 pdf 为 excel
 &lt;details&gt;
@@ -1268,8 +1265,7 @@ Python 图形化界面模板
         <pubDate>Wed, 07 Feb 2024 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/python%E7%88%AC%E5%8F%96%E7%BB%9F%E8%AE%A1%E9%A1%B5%E9%9D%A2%E5%88%86%E6%9E%90/</guid>
-        <description>&lt;h1 id=&#34;python-爬取统计页面分析&#34;&gt;Python 爬取统计页面分析
-&lt;/h1&gt;&lt;p&gt;需求: 实现 selenium 登录爬取页面数据，找到音频下载请求&lt;/p&gt;
+        <description>&lt;p&gt;需求: 实现 selenium 登录爬取页面数据，找到音频下载请求&lt;/p&gt;
 &lt;p&gt;分析:
 实现登录-保持请求状态-保存返回内容-找到请求列表-找到视频链接-下载
 通过 selenium 登陆后返回 session，将其保存供发送请求使用，不需要重复登录，进而找到返回音频列表的 url，最后找到视频下载 url&lt;/p&gt;
@@ -1663,8 +1659,7 @@ Python 图形化界面模板
         <pubDate>Tue, 25 Apr 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/excel%E5%BC%BA%E5%88%B6xls%E4%BF%9D%E5%AD%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
-        <description>&lt;h1 id=&#34;excel-强制-xls-保存解决方法&#34;&gt;excel 强制 xls 保存解决方法
-&lt;/h1&gt;&lt;h2 id=&#34;原因&#34;&gt;原因
+        <description>&lt;h2 id=&#34;原因&#34;&gt;原因
 &lt;/h2&gt;&lt;p&gt;一些 excel 文件带着名为 Kangatang.bas 的恶意模块，用户只要同时打开其他 excel 文件便会&amp;quot;传染&amp;quot;上，同时在&lt;code&gt;C:\Users\id\AppData\Roaming\Microsoft\Excel&lt;/code&gt;路径 xlstart 留下一个 mypersonnel 文件，并且用户会发现再也无法保存文件为 xlsx，只能保存为 xls 格式&lt;/p&gt;
 &lt;details&gt;
   &lt;summary&gt;Kangatang.bas 展开代码&lt;/summary&gt;
@@ -1936,8 +1931,7 @@ Python 图形化界面模板
         <pubDate>Mon, 13 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/python%E7%88%AC%E5%8F%96%E7%BB%9F%E8%AE%A1%E9%A1%B5%E9%9D%A2%E5%88%86%E6%9E%90/</guid>
-        <description>&lt;h1 id=&#34;python-爬取统计页面分析&#34;&gt;Python 爬取统计页面分析
-&lt;/h1&gt;&lt;p&gt;需求: 实现 selenium 登录爬取页面数据，提取整合需要的内容&lt;/p&gt;
+        <description>&lt;p&gt;需求: 实现 selenium 登录爬取页面数据，提取整合需要的内容&lt;/p&gt;
 &lt;p&gt;分析:
 在手动实现登录页面后，通过 Network 查看返回数据，找到有可能获取的数据连接，发起构造 url 请求
 原本链接为&lt;code&gt;nav_to.do?uri=/home.do?&lt;/code&gt;，而筛选后发现 url 变化&lt;code&gt;sysparm_query%3Dactive%253Dtrue%255Eassignment_group%253Djavascript:getMyGroups()%255Estate%2521%253D6%255EEQ&lt;/code&gt;
@@ -2439,8 +2433,7 @@ Python 图形化界面模板
         <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/python%E5%8A%9E%E5%85%AC%E5%B0%8F%E5%B7%A5%E5%85%B7/</guid>
-        <description>&lt;h1 id=&#34;python-办公小工具&#34;&gt;Python 办公小工具
-&lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/cancanneed64/Python-automate-tools&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/cancanneed64/Python-automate-tools&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Github 下载地址&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;根据图片拖动目标&#34;&gt;根据图片拖动目标
 &lt;/h2&gt;&lt;p&gt;一天同事突然问到有没有办法在页面中一次性批量选中所有文件拖动进一个文件夹，碰巧页面没有开发这类全选的功能，只能一个个处理，于是尝试做了一下这个拖动小工具&lt;/p&gt;

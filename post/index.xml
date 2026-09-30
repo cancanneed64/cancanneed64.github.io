@@ -7,14 +7,321 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Cancanneed64</copyright>
-        <lastBuildDate>Fri, 10 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://cancanneed64.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 02 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://cancanneed64.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Kiro-Go 部署与 opencode 接入</title>
+        <link>https://cancanneed64.github.io/p/kiro-go-%E9%83%A8%E7%BD%B2%E4%B8%8E-opencode-%E6%8E%A5%E5%85%A5/</link>
+        <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://cancanneed64.github.io/p/kiro-go-%E9%83%A8%E7%BD%B2%E4%B8%8E-opencode-%E6%8E%A5%E5%85%A5/</guid>
+        <description>&lt;p&gt;用 Docker 跑一个协议转换网关，让 opencode 能用上 Kiro 的模型池。记录部署过程和踩到的几个坑。
+&lt;a class=&#34;link&#34; href=&#34;https://www.caritasem.com/2026/03/kiro-opus-to-claude-code-via-ccswitch/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;参考链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;1-它解决什么问题&#34;&gt;1. 它解决什么问题
+&lt;/h2&gt;&lt;p&gt;Kiro 官方 API 不是公开的 OpenAI 格式，opencode 没法直接连。Kiro-Go 充当中间层，把标准格式的请求翻译成 Kiro 后端的私有协议，响应再翻译回来。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[opencode / curl / 任意 OpenAI 客户端]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        |  标准 HTTP 请求（OpenAI / Anthropic 格式）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        v
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+------------------------------------------------+
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;|  Kiro-Go（Go 编写，宿主机 8081 端口）           |
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;|  |- 协议解析：区分 /v1/chat/completions        |
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;|  |             与 /v1/messages                 |
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;|  |- 账号池：多个 Kiro 账号凭证                  |
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;|  |- 路由：按剩余额度分配请求                    |
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;|  &amp;#39;- 凭证管理：OAuth token 自动刷新              |
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+------------------------------------------------+
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        |  转成 Kiro 内部协议（AWS 私有 API）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        v
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[Kiro 后端]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;几个关键机制：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;双向翻译&lt;/strong&gt;：收到 &lt;code&gt;{&amp;quot;model&amp;quot;:&amp;quot;gpt-5.6-sol&amp;quot;,&amp;quot;messages&amp;quot;:[...]}&lt;/code&gt;，重构成 Kiro 要的结构并补上私有签名头，拿到响应再打包回 OpenAI 格式。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多账号轮询&lt;/strong&gt;：每个账号一个额度池，按剩余额度和请求数选账号，避免单账号被限流。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Token 自动刷新&lt;/strong&gt;：检测到 OAuth token 快过期就用 refresh token 换新的，不用手动重登。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Web 管理面板&lt;/strong&gt;：加删账号、看额度、改密码，状态存在挂载出来的 data 目录里。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一句话：MCP 那种&amp;quot;能力&amp;quot;由后端提供，Kiro-Go 负责让任何 OpenAI 兼容客户端&lt;strong&gt;误以为&lt;/strong&gt;自己在跟 OpenAI 说话。&lt;/p&gt;
+&lt;h2 id=&#34;2-部署&#34;&gt;2. 部署
+&lt;/h2&gt;&lt;p&gt;镜像很小，32.6MB。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo docker run -d &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --name kiro-go &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --restart unless-stopped &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -p 8081:8080 &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -e &lt;span class=&#34;nv&#34;&gt;ADMIN_PASSWORD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;你的密码&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -v /home/bot/kiro-go/data:/app/data &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  ghcr.io/quorinex/kiro-go:latest
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;两个容易写错的地方：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;数据卷挂到 &lt;code&gt;/app/data&lt;/code&gt;&lt;/strong&gt;，不是 &lt;code&gt;/data&lt;/code&gt;。挂错了账号配置不会持久化，重建容器就全丢。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;端口是 &lt;code&gt;8081:8080&lt;/code&gt;&lt;/strong&gt;：容器内监听 8080，宿主机映射到 8081。我这里 8080 被另一个 Node 服务占了（后面第 5 节说这事）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;验证：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 模型列表&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -s http://127.0.0.1:8081/v1/models &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; jq -r &lt;span class=&#34;s1&#34;&gt;&amp;#39;.data[].id&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 健康检查，期望 200&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -s -o /dev/null -w &lt;span class=&#34;s2&#34;&gt;&amp;#34;%{http_code}&amp;#34;&lt;/span&gt; http://127.0.0.1:8081/v1/models
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;管理面板在 &lt;code&gt;http://127.0.0.1:8081/admin&lt;/code&gt;，密码就是启动时 &lt;code&gt;ADMIN_PASSWORD&lt;/code&gt; 那个值。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;密码想改的话，&lt;strong&gt;建议在面板里改&lt;/strong&gt;。直接改环境变量得删容器重建，已添加的 Kiro 账号会一起没。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;3-opencode-接入&#34;&gt;3. opencode 接入
+&lt;/h2&gt;&lt;p&gt;编辑 &lt;code&gt;~/.config/opencode/opencode.jsonc&lt;/code&gt;，加一个 provider：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;provider&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;kiro-go&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;npm&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;@ai-sdk/openai-compatible&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Kiro-Go&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;options&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;baseURL&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;http://127.0.0.1:8081/v1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;apiKey&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;any&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;models&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;auto&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;auto-thinking&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;claude-opus-5&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;claude-opus-5-thinking&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;claude-sonnet-5&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;claude-sonnet-5-thinking&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;claude-opus-4.8&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;claude-opus-4.8-thinking&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;gpt-5.6-sol&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;gpt-5.6-sol-thinking&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;gpt-5.6-terra&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;gpt-5.6-terra-thinking&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;gpt-5.6-luna&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;gpt-5.6-luna-thinking&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;deepseek-3.2&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;deepseek-3.2-thinking&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;glm-5&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;glm-5-thinking&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;qwen3-coder-next&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;qwen3-coder-next-thinking&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;minimax-m2.5&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;minimax-m2.5-thinking&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;gpt-4o&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;gpt-4&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;apiKey&lt;/code&gt; 随便填，本地网关不校验。&lt;/p&gt;
+&lt;p&gt;改完&lt;strong&gt;必须重启 opencode&lt;/strong&gt;，provider 和 model 只在配置加载时读一次，不会热更新。&lt;/p&gt;
+&lt;h2 id=&#34;4-模型名的点号&#34;&gt;4. 模型名的点号
+&lt;/h2&gt;&lt;p&gt;我最初手写了 13 个模型，结果 &lt;code&gt;gpt-5.6-sol&lt;/code&gt; 在列表里找不到。查了才发现两个问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;手写清单漏了一大半，网关实际提供 &lt;strong&gt;40 个&lt;/strong&gt;模型。&lt;/li&gt;
+&lt;li&gt;已经写进去的名字有的还是错的——我写的 &lt;code&gt;claude-opus-4-8&lt;/code&gt;，网关返回的是 &lt;code&gt;claude-opus-4.8&lt;/code&gt;。&lt;strong&gt;中间是点号不是连字符。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;模型 ID 必须和 &lt;code&gt;/v1/models&lt;/code&gt; 返回值&lt;strong&gt;逐字符一致&lt;/strong&gt;，包括点号和 &lt;code&gt;-thinking&lt;/code&gt; 后缀。&lt;/p&gt;
+&lt;p&gt;所以别手写，直接生成。这条命令输出的 JSON 可以整块粘进 &lt;code&gt;models&lt;/code&gt; 字段：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -s http://127.0.0.1:8081/v1/models &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; jq &lt;span class=&#34;s1&#34;&gt;&amp;#39;.data | map(.id) | unique | map({key: ., value: {}}) | from_entries&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;改完顺手验证一下语法。当前配置文件虽然叫 &lt;code&gt;.jsonc&lt;/code&gt;，但里面没有注释，所以可以直接用严格 JSON 校验（哪天加了注释这条就不适用了）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;python3 -m json.tool ~/.config/opencode/opencode.jsonc &amp;gt; /dev/null &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;配置有效&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;补齐后模型分几组：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;组&lt;/th&gt;
+          &lt;th&gt;模型&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Claude&lt;/td&gt;
+          &lt;td&gt;opus-5 / sonnet-5 / opus-4.8 / opus-4.7 / opus-4.6 / sonnet-4.6 / opus-4.5 / sonnet-4.5 / sonnet-4 / haiku-4.5&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;GPT-5.6&lt;/td&gt;
+          &lt;td&gt;sol / terra / luna&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;其他&lt;/td&gt;
+          &lt;td&gt;deepseek-3.2、glm-5、qwen3-coder-next、minimax-m2.5、minimax-m2.1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;旧版&lt;/td&gt;
+          &lt;td&gt;gpt-4o、gpt-4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;自动&lt;/td&gt;
+          &lt;td&gt;auto、auto-thinking&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;除 &lt;code&gt;gpt-4o&lt;/code&gt; / &lt;code&gt;gpt-4&lt;/code&gt; 外，每个都有对应的 &lt;code&gt;-thinking&lt;/code&gt; 版本。&lt;/p&gt;
+&lt;h2 id=&#34;5-开机自启&#34;&gt;5. 开机自启
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;--restart unless-stopped&lt;/code&gt; 会让 Docker 在宿主机重启后自动拉起容器。
+一堆手动跑的开发服务重启后都得重新起，kiro-go 是少数配了自启的。&lt;/p&gt;
+&lt;h2 id=&#34;8-安全注意&#34;&gt;8. 安全注意
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;面板密码别用默认值&lt;/strong&gt;，&lt;code&gt;/admin&lt;/code&gt; 拿到就等于能操作你所有 Kiro 账号。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;8081 默认监听 &lt;code&gt;0.0.0.0&lt;/code&gt;&lt;/strong&gt;，同网段任何设备都能直连。只在本机用的话应该绑到 &lt;code&gt;127.0.0.1&lt;/code&gt;：&lt;code&gt;-p 127.0.0.1:8081:8080&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三方中转站的 API key 如果明文写在 &lt;code&gt;opencode.jsonc&lt;/code&gt; 里，注意文件权限。默认 644 是所有人可读，改成 600 更合适：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chmod &lt;span class=&#34;m&#34;&gt;600&lt;/span&gt; ~/.config/opencode/opencode.jsonc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;中转站声称的后端&lt;strong&gt;无法从客户端验证&lt;/strong&gt;。响应里的 &lt;code&gt;usage_source&lt;/code&gt; 之类的字段是它自己填的，理论上可以写任何值。要确认只能对用量账单。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;小结&#34;&gt;小结
+&lt;/h2&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;项&lt;/th&gt;
+          &lt;th&gt;值&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;镜像&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;ghcr.io/quorinex/kiro-go:latest&lt;/code&gt;（32.6MB）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;端口&lt;/td&gt;
+          &lt;td&gt;宿主 8081 → 容器 8080&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;数据卷&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/app/data&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;面板&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/admin&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;模型数&lt;/td&gt;
+          &lt;td&gt;40&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;自启&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;--restart unless-stopped&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+        </item>
+        <item>
         <title>Python Playwright抓取网页文档</title>
         <link>https://cancanneed64.github.io/p/python-playwright%E6%8A%93%E5%8F%96%E7%BD%91%E9%A1%B5%E6%96%87%E6%A1%A3/</link>
         <pubDate>Fri, 10 Jul 2026 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/python-playwright%E6%8A%93%E5%8F%96%E7%BD%91%E9%A1%B5%E6%96%87%E6%A1%A3/</guid>
-        <description>&lt;h1 id=&#34;python-playwright抓取网页文档&#34;&gt;Python Playwright抓取网页文档
-&lt;/h1&gt;&lt;h2 id=&#34;初学playwright&#34;&gt;初学Playwright
+        <description>&lt;h2 id=&#34;初学playwright&#34;&gt;初学Playwright
 &lt;/h2&gt;&lt;p&gt;之前使用Selenium较多，对比之下selenium速度慢些
 Selenium 使用 WebDriver 协议，Playwright 直接控制浏览器协议，API 风格差异较大
 Playwright Inspector则可以直接将用户操作代码化，with会自动释放缓存，且需要带上page.pause()否则直接结束任务，使用过程中发现其实Inspector也可以直接获取元素文本
@@ -129,8 +436,7 @@ Playwright Inspector则可以直接将用户操作代码化，with会自动释�
         <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/powershell-ad%E5%9F%9F%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</guid>
-        <description>&lt;h1 id=&#34;powershell-ad域命令汇总&#34;&gt;Powershell AD域命令汇总
-&lt;/h1&gt;&lt;h2 id=&#34;ad域相关&#34;&gt;AD域相关
+        <description>&lt;h2 id=&#34;ad域相关&#34;&gt;AD域相关
 &lt;/h2&gt;&lt;h3 id=&#34;查看用户上次登录时间&#34;&gt;查看用户上次登录时间
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -423,8 +729,7 @@ Playwright Inspector则可以直接将用户操作代码化，with会自动释�
         <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/%E8%BF%90%E7%BB%B4%E9%97%AE%E9%A2%98%E5%BD%92%E6%A1%A3/</guid>
-        <description>&lt;h1 id=&#34;运维问题归档&#34;&gt;运维问题归档
-&lt;/h1&gt;&lt;h2 id=&#34;日常使用&#34;&gt;日常使用
+        <description>&lt;h2 id=&#34;日常使用&#34;&gt;日常使用
 &lt;/h2&gt;&lt;h3 id=&#34;清除谷歌浏览器记录&#34;&gt;清除谷歌浏览器记录
 &lt;/h3&gt;&lt;p&gt;流程: 直接删除目录下的缓存文件&lt;/p&gt;
 &lt;p&gt;直接清理 Cache 文件&lt;/p&gt;
@@ -916,8 +1221,7 @@ Playwright Inspector则可以直接将用户操作代码化，with会自动释�
         <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/%E6%B3%A8%E5%86%8C%E8%A1%A8%E7%9B%B8%E5%85%B3%E5%BD%92%E6%A1%A3/</guid>
-        <description>&lt;h1 id=&#34;注册表相关归档&#34;&gt;注册表相关归档
-&lt;/h1&gt;&lt;h2 id=&#34;查找每台机注册表中规定字段&#34;&gt;查找每台机注册表中规定字段
+        <description>&lt;h2 id=&#34;查找每台机注册表中规定字段&#34;&gt;查找每台机注册表中规定字段
 &lt;/h2&gt;&lt;p&gt;流程:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;问题一如何将结果进行匹配获取目录名称&lt;/li&gt;
@@ -1154,8 +1458,7 @@ Playwright Inspector则可以直接将用户操作代码化，with会自动释�
         <pubDate>Tue, 14 Jan 2025 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/%E5%88%A9%E7%94%A8ocr%E6%95%B4%E7%90%86%E4%BB%93%E5%BA%93%E5%BA%93%E5%AD%98/</guid>
-        <description>&lt;h1 id=&#34;利用-ocr-整理仓库库存&#34;&gt;利用 ocr 整理仓库库存
-&lt;/h1&gt;&lt;p&gt;需求: 统计整理仓库里联想主机的序列号
+        <description>&lt;p&gt;需求: 统计整理仓库里联想主机的序列号
 思路:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -1426,8 +1729,7 @@ Playwright Inspector则可以直接将用户操作代码化，with会自动释�
         <pubDate>Wed, 08 Jan 2025 22:10:45 +0800</pubDate>
         
         <guid>https://cancanneed64.github.io/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/</guid>
-        <description>&lt;h1 id=&#34;go-语言实战&#34;&gt;go 语言实战
-&lt;/h1&gt;&lt;h2 id=&#34;1-介绍&#34;&gt;1. 介绍
+        <description>&lt;h2 id=&#34;1-介绍&#34;&gt;1. 介绍
 &lt;/h2&gt;&lt;hr&gt;
 &lt;h2 id=&#34;2-go-包执行顺序&#34;&gt;2. Go 包执行顺序
 &lt;/h2&gt;&lt;ul&gt;
@@ -1699,8 +2001,7 @@ b.ResetTimer()初始化计时器
         <pubDate>Mon, 06 Jan 2025 21:35:04 +0800</pubDate>
         
         <guid>https://cancanneed64.github.io/p/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/</guid>
-        <description>&lt;h1 id=&#34;go-语言入门&#34;&gt;Go 语言入门
-&lt;/h1&gt;&lt;h2 id=&#34;1-运行环境安装&#34;&gt;1. 运行环境安装
+        <description>&lt;h2 id=&#34;1-运行环境安装&#34;&gt;1. 运行环境安装
 &lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://studygolang.com/topics/4092&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;中文网&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://goproxy.io/zh/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -2818,8 +3119,7 @@ b.ResetTimer()初始化计时器
         <pubDate>Tue, 19 Nov 2024 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/shredos-powershell%E5%A4%84%E7%90%86%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%A5%E5%BF%97/</guid>
-        <description>&lt;h1 id=&#34;shredospowershell-处理格式化日志&#34;&gt;ShredOS+Powershell 处理格式化日志
-&lt;/h1&gt;&lt;h2 id=&#34;shredos&#34;&gt;ShredOS
+        <description>&lt;h2 id=&#34;shredos&#34;&gt;ShredOS
 &lt;/h2&gt;&lt;p&gt;需求: 格式化旧硬盘并整理文件统计数量
 &lt;a class=&#34;link&#34; href=&#34;https://github.com/PartialVolume/shredos.x86_64&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Github link&lt;/a&gt;&lt;/p&gt;
@@ -3228,8 +3528,7 @@ b.ResetTimer()初始化计时器
         <pubDate>Thu, 03 Oct 2024 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
-        <description>&lt;h1 id=&#34;git&#34;&gt;git
-&lt;/h1&gt;&lt;h2 id=&#34;1-安装&#34;&gt;1. 安装
+        <description>&lt;h2 id=&#34;1-安装&#34;&gt;1. 安装
 &lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/mukes/article/details/115693833&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;参考链接&lt;/a&gt;
 关闭SSL认证
@@ -3443,7 +3742,7 @@ remote: error: GH007: Your push would publish a private email address.&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;strong&gt;! [rejected]        main -&amp;gt; main (fetch first)
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;! [rejected] main -&amp;gt; main (fetch first)
 error: failed to push some refs to&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;9-其他操作&#34;&gt;9. 其他操作
 &lt;/h2&gt;&lt;p&gt;撤回未推送最新一次提交
@@ -3476,8 +3775,7 @@ error: failed to push some refs to&lt;/strong&gt;&lt;/p&gt;
         <pubDate>Thu, 19 Sep 2024 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/%E8%A1%A8%E6%A0%BC%E7%B4%A2%E5%BC%95%E5%A4%9A%E7%A7%8D%E6%9F%A5%E8%AF%A2%E6%96%B9%E6%B3%95/</guid>
-        <description>&lt;h1 id=&#34;表格索引多种查询方法&#34;&gt;表格索引多种查询方法
-&lt;/h1&gt;&lt;p&gt;需求: 有时候会遇到在固定表格里面索引的需求，然而这些表格的格式并不统一，需要进行处理后再索引，因此有了这些方案&lt;/p&gt;
+        <description>&lt;p&gt;需求: 有时候会遇到在固定表格里面索引的需求，然而这些表格的格式并不统一，需要进行处理后再索引，因此有了这些方案&lt;/p&gt;
 &lt;h2 id=&#34;转换表格为数据&#34;&gt;转换表格为数据
 &lt;/h2&gt;&lt;p&gt;思路一，py 转 pdf 为 excel
 &lt;details&gt;
@@ -4343,8 +4641,7 @@ Python 图形化界面模板
         <pubDate>Wed, 07 Feb 2024 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/python%E7%88%AC%E5%8F%96%E7%BB%9F%E8%AE%A1%E9%A1%B5%E9%9D%A2%E5%88%86%E6%9E%90/</guid>
-        <description>&lt;h1 id=&#34;python-爬取统计页面分析&#34;&gt;Python 爬取统计页面分析
-&lt;/h1&gt;&lt;p&gt;需求: 实现 selenium 登录爬取页面数据，找到音频下载请求&lt;/p&gt;
+        <description>&lt;p&gt;需求: 实现 selenium 登录爬取页面数据，找到音频下载请求&lt;/p&gt;
 &lt;p&gt;分析:
 实现登录-保持请求状态-保存返回内容-找到请求列表-找到视频链接-下载
 通过 selenium 登陆后返回 session，将其保存供发送请求使用，不需要重复登录，进而找到返回音频列表的 url，最后找到视频下载 url&lt;/p&gt;
@@ -4738,8 +5035,7 @@ Python 图形化界面模板
         <pubDate>Wed, 12 Jul 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/vba%E7%BB%9F%E8%AE%A1%E5%BA%A7%E4%BD%8D%E5%85%B3%E8%81%94%E8%AE%A1%E6%95%B0/</guid>
-        <description>&lt;h1 id=&#34;vba-统计座位关联计数&#34;&gt;vba 统计座位关联计数
-&lt;/h1&gt;&lt;h2 id=&#34;需求一-检查所有单元格是否为合并单元格拆分&#34;&gt;需求一: 检查所有单元格是否为合并单元格，拆分
+        <description>&lt;h2 id=&#34;需求一-检查所有单元格是否为合并单元格拆分&#34;&gt;需求一: 检查所有单元格是否为合并单元格，拆分
 &lt;/h2&gt;&lt;p&gt;流程&lt;/p&gt;
 &lt;p&gt;1.合并单元格，循环无法遍历
 解决方法，检测拆分
@@ -6568,12 +6864,11 @@ Seat Ports
         </item>
         <item>
         <title>7days gee记录</title>
-        <link>https://cancanneed64.github.io/p/7days-gee-record/</link>
+        <link>https://cancanneed64.github.io/p/7days-gee%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://cancanneed64.github.io/p/7days-gee-record/</guid>
-        <description>&lt;h1 id=&#34;geektutu&#34;&gt;geektutu
-&lt;/h1&gt;&lt;h2 id=&#34;gee-框架&#34;&gt;gee 框架
+        <guid>https://cancanneed64.github.io/p/7days-gee%E8%AE%B0%E5%BD%95/</guid>
+        <description>&lt;h2 id=&#34;gee-框架&#34;&gt;gee 框架
 &lt;/h2&gt;&lt;h3 id=&#34;http-基础&#34;&gt;HTTP 基础
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;核心&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -6842,8 +7137,7 @@ handlers 存储每种请求方式，getroute 解析*和:，返回一个 map&lt;/
         <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/goroutine-%E5%85%A5%E9%97%A8/</guid>
-        <description>&lt;h1 id=&#34;goroutine-入门&#34;&gt;Goroutine 入门
-&lt;/h1&gt;&lt;h2 id=&#34;1-并发&#34;&gt;1. 并发
+        <description>&lt;h2 id=&#34;1-并发&#34;&gt;1. 并发
 &lt;/h2&gt;&lt;p&gt;默认给整个应用程序只分配一个逻辑处理器，用于执行所有被创建的 goroutine
 如果创建一个 goroutine 并准备运行，就会被放到调度器的全局运行队列中，之后，调度器就将这些队列中的 goroutine 分配给一个逻辑处理器，并放到这个逻辑处理器对应的本地运行队列，本地运行队列的 goroutine 会一直等到自己被分配的逻辑处理器执行&lt;/p&gt;
 &lt;h2 id=&#34;2-运行机制&#34;&gt;2. 运行机制
@@ -6995,8 +7289,7 @@ counter 是所有 goroutine 都要增加其值的变量&lt;br&gt;
         <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/goroutine%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/</guid>
-        <description>&lt;h1 id=&#34;goroutine-并发模式&#34;&gt;Goroutine 并发模式
-&lt;/h1&gt;&lt;h2 id=&#34;1-runner&#34;&gt;1. runner
+        <description>&lt;h2 id=&#34;1-runner&#34;&gt;1. runner
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;简介，使用通道监视程序执行时间，当开发需要调度后台处理任务的程序的时候，这个程序可能会座位 cron 作业执行，或者基于定时任务的云环境执行&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;调度运行无人值守的面向任务程序，支持以下：&lt;/p&gt;
@@ -7721,8 +8014,7 @@ Run 方法向池里提交工作，调用者必须等待工作池某个 goroutine
         <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/goweb%E5%85%A5%E9%97%A8/</guid>
-        <description>&lt;h1 id=&#34;goweb-入门&#34;&gt;goweb 入门
-&lt;/h1&gt;&lt;h2 id=&#34;工具&#34;&gt;工具
+        <description>&lt;h2 id=&#34;工具&#34;&gt;工具
 &lt;/h2&gt;&lt;h3 id=&#34;nc-命令&#34;&gt;nc 命令
 &lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/nmap/p/6148306.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;nc 用法&lt;/a&gt;&lt;/p&gt;
@@ -8707,8 +8999,7 @@ main 函数尝试移除 w1 的值，但没有包含任何值因此阻塞&lt;/p&g
         <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/go%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</guid>
-        <description>&lt;h1 id=&#34;go-常见问题&#34;&gt;Go 常见问题
-&lt;/h1&gt;&lt;h2 id=&#34;module-设置&#34;&gt;module 设置
+        <description>&lt;h2 id=&#34;module-设置&#34;&gt;module 设置
 &lt;/h2&gt;&lt;p&gt;修改代理 GOPROXY&lt;br&gt;
 &lt;code&gt;go env -w GOPROXY=https://goproxy.cn,direct&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;修改模式 GO111MODULE&lt;br&gt;
@@ -8871,8 +9162,7 @@ win
         <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/go%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/</guid>
-        <description>&lt;h1 id=&#34;go-数据处理&#34;&gt;go 数据处理
-&lt;/h1&gt;&lt;h2 id=&#34;关于-map&#34;&gt;关于 map
+        <description>&lt;h2 id=&#34;关于-map&#34;&gt;关于 map
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;变量名以小写开头不公开，其他包可以间接调用，一个函数可以返回一个未公开类型的值
@@ -9180,7 +9470,7 @@ func Replace(s, old, new string, n int) string&lt;/p&gt;
         <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/vscode%E6%8A%80%E5%B7%A7/</guid>
-        <description>&lt;h2 id=&#34;vscode&#34;&gt;vscode
+        <description>&lt;h2 id=&#34;vscode技巧&#34;&gt;vscode技巧
 &lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/weixin_46655235/article/details/121788623&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;多行处理快捷键&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/weixin_43314519/article/details/107572206&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -9232,8 +9522,7 @@ func Replace(s, old, new string, n int) string&lt;/p&gt;
         <pubDate>Tue, 25 Apr 2023 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/excel%E5%BC%BA%E5%88%B6xls%E4%BF%9D%E5%AD%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
-        <description>&lt;h1 id=&#34;excel-强制-xls-保存解决方法&#34;&gt;excel 强制 xls 保存解决方法
-&lt;/h1&gt;&lt;h2 id=&#34;原因&#34;&gt;原因
+        <description>&lt;h2 id=&#34;原因&#34;&gt;原因
 &lt;/h2&gt;&lt;p&gt;一些 excel 文件带着名为 Kangatang.bas 的恶意模块，用户只要同时打开其他 excel 文件便会&amp;quot;传染&amp;quot;上，同时在&lt;code&gt;C:\Users\id\AppData\Roaming\Microsoft\Excel&lt;/code&gt;路径 xlstart 留下一个 mypersonnel 文件，并且用户会发现再也无法保存文件为 xlsx，只能保存为 xls 格式&lt;/p&gt;
 &lt;details&gt;
   &lt;summary&gt;Kangatang.bas 展开代码&lt;/summary&gt;
@@ -9505,8 +9794,7 @@ func Replace(s, old, new string, n int) string&lt;/p&gt;
         <pubDate>Mon, 13 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/python%E7%88%AC%E5%8F%96%E7%BB%9F%E8%AE%A1%E9%A1%B5%E9%9D%A2%E5%88%86%E6%9E%90/</guid>
-        <description>&lt;h1 id=&#34;python-爬取统计页面分析&#34;&gt;Python 爬取统计页面分析
-&lt;/h1&gt;&lt;p&gt;需求: 实现 selenium 登录爬取页面数据，提取整合需要的内容&lt;/p&gt;
+        <description>&lt;p&gt;需求: 实现 selenium 登录爬取页面数据，提取整合需要的内容&lt;/p&gt;
 &lt;p&gt;分析:
 在手动实现登录页面后，通过 Network 查看返回数据，找到有可能获取的数据连接，发起构造 url 请求
 原本链接为&lt;code&gt;nav_to.do?uri=/home.do?&lt;/code&gt;，而筛选后发现 url 变化&lt;code&gt;sysparm_query%3Dactive%253Dtrue%255Eassignment_group%253Djavascript:getMyGroups()%255Estate%2521%253D6%255EEQ&lt;/code&gt;
@@ -10008,8 +10296,7 @@ func Replace(s, old, new string, n int) string&lt;/p&gt;
         <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/python%E5%8A%9E%E5%85%AC%E5%B0%8F%E5%B7%A5%E5%85%B7/</guid>
-        <description>&lt;h1 id=&#34;python-办公小工具&#34;&gt;Python 办公小工具
-&lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/cancanneed64/Python-automate-tools&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/cancanneed64/Python-automate-tools&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Github 下载地址&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;根据图片拖动目标&#34;&gt;根据图片拖动目标
 &lt;/h2&gt;&lt;p&gt;一天同事突然问到有没有办法在页面中一次性批量选中所有文件拖动进一个文件夹，碰巧页面没有开发这类全选的功能，只能一个个处理，于是尝试做了一下这个拖动小工具&lt;/p&gt;
@@ -11525,13 +11812,12 @@ func Replace(s, old, new string, n int) string&lt;/p&gt;
 </description>
         </item>
         <item>
-        <title>Markdown</title>
-        <link>https://cancanneed64.github.io/p/markdown/</link>
+        <title>Markdown简单笔记</title>
+        <link>https://cancanneed64.github.io/p/markdown%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/</link>
         <pubDate>Tue, 07 Jun 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://cancanneed64.github.io/p/markdown/</guid>
-        <description>&lt;h1 id=&#34;simple-markdown&#34;&gt;simple markdown
-&lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://support.typoraio.cn/zh/Markdown-Reference/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>https://cancanneed64.github.io/p/markdown%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/</guid>
+        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://support.typoraio.cn/zh/Markdown-Reference/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Typora 官方介绍&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;目录&amp;quot;[TOC]&amp;quot;
 [TOC]&lt;/p&gt;

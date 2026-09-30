@@ -7,14 +7,65 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Cancanneed64</copyright>
-        <lastBuildDate>Tue, 07 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://cancanneed64.github.io/categories/markdown/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Markdown</title>
-        <link>https://cancanneed64.github.io/p/markdown/</link>
+        <lastBuildDate>Sun, 07 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cancanneed64.github.io/categories/markdown/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>vscode技巧</title>
+        <link>https://cancanneed64.github.io/p/vscode%E6%8A%80%E5%B7%A7/</link>
+        <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://cancanneed64.github.io/p/vscode%E6%8A%80%E5%B7%A7/</guid>
+        <description>&lt;h2 id=&#34;vscode技巧&#34;&gt;vscode技巧
+&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/weixin_46655235/article/details/121788623&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;多行处理快捷键&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/weixin_43314519/article/details/107572206&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;使用 git&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;工作区对比
+&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/xsq123/article/details/126948730&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;连接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;markdown-插件&#34;&gt;markdown 插件
+&lt;/h2&gt;&lt;h3 id=&#34;安装&#34;&gt;安装
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://markdown-all-in-one.github.io/docs/guide/#features&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Markdown All in One&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;实时预览&lt;/li&gt;
+&lt;li&gt;创建 TOC
+&lt;ul&gt;
+&lt;li&gt;&amp;gt; Create Table of Contents&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;快捷键
+&lt;ul&gt;
+&lt;li&gt;ctrl+b/i&lt;/li&gt;
+&lt;li&gt;alt+s&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Markdown PDF&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;导出为 PDF
+&lt;ul&gt;
+&lt;li&gt;&amp;gt; export pdf&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;markdownlint&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;规范书写格式&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Markdown简单笔记</title>
+        <link>https://cancanneed64.github.io/p/markdown%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/</link>
         <pubDate>Tue, 07 Jun 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://cancanneed64.github.io/p/markdown/</guid>
-        <description>&lt;h1 id=&#34;simple-markdown&#34;&gt;simple markdown
-&lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://support.typoraio.cn/zh/Markdown-Reference/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>https://cancanneed64.github.io/p/markdown%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/</guid>
+        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://support.typoraio.cn/zh/Markdown-Reference/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Typora 官方介绍&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;目录&amp;quot;[TOC]&amp;quot;
 [TOC]&lt;/p&gt;

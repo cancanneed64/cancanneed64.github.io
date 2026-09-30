@@ -13,8 +13,7 @@
         <pubDate>Thu, 03 Oct 2024 00:00:00 +0000</pubDate>
         
         <guid>https://cancanneed64.github.io/p/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
-        <description>&lt;h1 id=&#34;git&#34;&gt;git
-&lt;/h1&gt;&lt;h2 id=&#34;1-安装&#34;&gt;1. 安装
+        <description>&lt;h2 id=&#34;1-安装&#34;&gt;1. 安装
 &lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/mukes/article/details/115693833&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;参考链接&lt;/a&gt;
 关闭SSL认证
@@ -228,7 +227,7 @@ remote: error: GH007: Your push would publish a private email address.&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;strong&gt;! [rejected]        main -&amp;gt; main (fetch first)
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;! [rejected] main -&amp;gt; main (fetch first)
 error: failed to push some refs to&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;9-其他操作&#34;&gt;9. 其他操作
 &lt;/h2&gt;&lt;p&gt;撤回未推送最新一次提交
