@@ -4,18 +4,18 @@
   dir="ltr"
 >
   <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="用 Docker 跑一个协议转换网关，让 opencode 能用上 Kiro 的模型池。记录部署过程和踩到的几个坑。 参考链接\n1. 它解决什么问题 Kiro 官方 API 不是公开的 OpenAI 格式，opencode 没法直接连。Kiro-Go 充当中间层，把标准格式的请求翻译成 Kiro 后端的私有协议，响应再翻译回来。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="用 Docker 跑一个协议转换网关，让 opencode 能用上 Kiro 的模型池。记录部署过程和踩到的几个坑。 参考链接 项目地址\n1. 它解决什么问题 Kiro 官方 API 不是公开的 OpenAI 格式，opencode 没法直接连。Kiro-Go 充当中间层，把标准格式的请求翻译成 Kiro 后端的私有协议，响应再翻译回来。\n">
 <title>Kiro-Go 部署与 opencode 接入</title>
 
 <link rel='canonical' href='https://cancanneed64.github.io/p/kiro-go-%E9%83%A8%E7%BD%B2%E4%B8%8E-opencode-%E6%8E%A5%E5%85%A5/'> 
 <link rel="stylesheet" href="/scss/style.min.70d9a2c8c13658776c5dc76968e7631c0d4c26abe3484815ec40073f95bdcf82.css" />
 <meta property='og:title' content="Kiro-Go 部署与 opencode 接入">
-<meta property='og:description' content="用 Docker 跑一个协议转换网关，让 opencode 能用上 Kiro 的模型池。记录部署过程和踩到的几个坑。 参考链接\n1. 它解决什么问题 Kiro 官方 API 不是公开的 OpenAI 格式，opencode 没法直接连。Kiro-Go 充当中间层，把标准格式的请求翻译成 Kiro 后端的私有协议，响应再翻译回来。\n">
+<meta property='og:description' content="用 Docker 跑一个协议转换网关，让 opencode 能用上 Kiro 的模型池。记录部署过程和踩到的几个坑。 参考链接 项目地址\n1. 它解决什么问题 Kiro 官方 API 不是公开的 OpenAI 格式，opencode 没法直接连。Kiro-Go 充当中间层，把标准格式的请求翻译成 Kiro 后端的私有协议，响应再翻译回来。\n">
 <meta property='og:url' content='https://cancanneed64.github.io/p/kiro-go-%E9%83%A8%E7%BD%B2%E4%B8%8E-opencode-%E6%8E%A5%E5%85%A5/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Opencode' /><meta property='article:tag' content='AI' /><meta property='article:published_time' content='2026-09-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-09-30T03:10:15&#43;00:00'/><meta property='og:image' content='https://cancanneed64.github.io/img/og-cover.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Opencode' /><meta property='article:tag' content='AI' /><meta property='article:published_time' content='2026-09-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-09-30T08:41:43&#43;00:00'/><meta property='og:image' content='https://cancanneed64.github.io/img/og-cover.jpg' />
 <meta name="twitter:title" content="Kiro-Go 部署与 opencode 接入">
-<meta name="twitter:description" content="用 Docker 跑一个协议转换网关，让 opencode 能用上 Kiro 的模型池。记录部署过程和踩到的几个坑。 参考链接\n1. 它解决什么问题 Kiro 官方 API 不是公开的 OpenAI 格式，opencode 没法直接连。Kiro-Go 充当中间层，把标准格式的请求翻译成 Kiro 后端的私有协议，响应再翻译回来。\n"><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="用 Docker 跑一个协议转换网关，让 opencode 能用上 Kiro 的模型池。记录部署过程和踩到的几个坑。 参考链接 项目地址\n1. 它解决什么问题 Kiro 官方 API 不是公开的 OpenAI 格式，opencode 没法直接连。Kiro-Go 充当中间层，把标准格式的请求翻译成 Kiro 后端的私有协议，响应再翻译回来。\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://cancanneed64.github.io/img/og-cover.jpg' />
     <link rel="shortcut icon" href="/favicon.svg" />
 
@@ -398,7 +398,9 @@
 
     <p>用 Docker 跑一个协议转换网关，让 opencode 能用上 Kiro 的模型池。记录部署过程和踩到的几个坑。
 <a class="link" href="https://www.caritasem.com/2026/03/kiro-opus-to-claude-code-via-ccswitch/"  target="_blank" rel="noopener"
-    >参考链接</a></p>
+    >参考链接</a>
+<a class="link" href="https://github.com/Quorinex/Kiro-Go/blob/main/README_CN.md"  target="_blank" rel="noopener"
+    >项目地址</a></p>
 <h2 id="1-它解决什么问题">1. 它解决什么问题
 </h2><p>Kiro 官方 API 不是公开的 OpenAI 格式，opencode 没法直接连。Kiro-Go 充当中间层，把标准格式的请求翻译成 Kiro 后端的私有协议，响应再翻译回来。</p>
 <div class="highlight"><div class="chroma">
@@ -721,7 +723,7 @@
 
 
         <span>
-            最后更新于 09月30日 03点10分, 2026年
+            最后更新于 09月30日 08点41分, 2026年
         </span>
     </section></footer>
 

@@ -14,7 +14,9 @@
         <guid>https://cancanneed64.github.io/p/kiro-go-%E9%83%A8%E7%BD%B2%E4%B8%8E-opencode-%E6%8E%A5%E5%85%A5/</guid>
         <description>&lt;p&gt;用 Docker 跑一个协议转换网关，让 opencode 能用上 Kiro 的模型池。记录部署过程和踩到的几个坑。
 &lt;a class=&#34;link&#34; href=&#34;https://www.caritasem.com/2026/03/kiro-opus-to-claude-code-via-ccswitch/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;参考链接&lt;/a&gt;&lt;/p&gt;
+    &gt;参考链接&lt;/a&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/Quorinex/Kiro-Go/blob/main/README_CN.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;项目地址&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-它解决什么问题&#34;&gt;1. 它解决什么问题
 &lt;/h2&gt;&lt;p&gt;Kiro 官方 API 不是公开的 OpenAI 格式，opencode 没法直接连。Kiro-Go 充当中间层，把标准格式的请求翻译成 Kiro 后端的私有协议，响应再翻译回来。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
