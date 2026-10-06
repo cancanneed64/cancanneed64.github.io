@@ -13,7 +13,7 @@
 <meta property='og:description' content="发现问题 VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n">
 <meta property='og:url' content='https://cancanneed64.github.io/p/cloud-init%E9%87%8D%E5%90%AF%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Opencode' /><meta property='article:tag' content='AI' /><meta property='article:published_time' content='2026-09-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-06T08:42:01&#43;00:00'/><meta property='og:image' content='https://cancanneed64.github.io/img/og-cover.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Opencode' /><meta property='article:tag' content='AI' /><meta property='article:published_time' content='2026-09-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-06T08:52:54&#43;00:00'/><meta property='og:image' content='https://cancanneed64.github.io/img/og-cover.jpg' />
 <meta name="twitter:title" content="cloud-init重启覆盖问题">
 <meta name="twitter:description" content="发现问题 VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://cancanneed64.github.io/img/og-cover.jpg' />
@@ -413,16 +413,18 @@
 </span></span><span class="line"><span class="cl">- rm -f /root/.ssh/authorized_keys #删除 /root/.ssh/authorized_keys；
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>2.cpa-vps-tunnel.service的保活配置每 30 秒发送保活包，连续 3 次没有响应就断开, 断开后每 5 秒自动重连导致死循环，一直发起ssh连接请求</p>
+</div><p>2.cpa-vps-tunnel.service的保活配置每 30 秒发送保活包，连续 3 次没有响应就断开, 断开后每 5 秒自动重连, 当远端 SSH 主机密钥改变时，SSH 会因为严格校验失败退出, systemd 随后每 5 秒重新启动 SSH，导致失败进入启动死循环</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ServerAliveInterval=30
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">StartLimitIntervalSec=0
+</span></span><span class="line"><span class="cl">ServerAliveInterval=30
 </span></span><span class="line"><span class="cl">ServerAliveCountMax=3
 </span></span><span class="line"><span class="cl">Restart=always
 </span></span><span class="line"><span class="cl">RestartSec=5
@@ -450,7 +452,29 @@
 </div><p>/etc/ssh/sshd_config会优先加载 sshd_config.d/*.conf
 公钥改放为/etc/ssh/authorized_keys/root，原先/root/.ssh/authorized_keys被删除也不影响</p>
 <p>2.取消cpa-vps-tunnel.service的Restart=always配置，或改用socat转发</p>
-
+<p>修改cpa-vps-tunnel.service 10 分钟内最多失败 5 次，避免在永久配置错误时无限快速重试</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Restart=on-failure
+</span></span><span class="line"><span class="cl">RestartSec=30
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>超过失败限制后，手动恢复：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl --user reset-failed cpa-vps-tunnel.service
+</span></span><span class="line"><span class="cl">systemctl --user start cpa-vps-tunnel.service
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 	
@@ -475,7 +499,7 @@
 
 
         <span>
-            最后更新于 10月06日 08点42分, 2026年
+            最后更新于 10月06日 08点52分, 2026年
         </span>
     </section></footer>
 
