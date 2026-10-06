@@ -4,18 +4,18 @@
   dir="ltr"
 >
   <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="发现问题 VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面 排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="发现问题 VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n">
 <title>cloud-init重启覆盖问题</title>
 
 <link rel='canonical' href='https://cancanneed64.github.io/p/cloud-init%E9%87%8D%E5%90%AF%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/'> 
 <link rel="stylesheet" href="/scss/style.min.70d9a2c8c13658776c5dc76968e7631c0d4c26abe3484815ec40073f95bdcf82.css" />
 <meta property='og:title' content="cloud-init重启覆盖问题">
-<meta property='og:description' content="发现问题 VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面 排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n">
+<meta property='og:description' content="发现问题 VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n">
 <meta property='og:url' content='https://cancanneed64.github.io/p/cloud-init%E9%87%8D%E5%90%AF%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Opencode' /><meta property='article:tag' content='AI' /><meta property='article:published_time' content='2026-09-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-06T08:19:45&#43;00:00'/><meta property='og:image' content='https://cancanneed64.github.io/img/og-cover.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Opencode' /><meta property='article:tag' content='AI' /><meta property='article:published_time' content='2026-09-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-06T08:42:01&#43;00:00'/><meta property='og:image' content='https://cancanneed64.github.io/img/og-cover.jpg' />
 <meta name="twitter:title" content="cloud-init重启覆盖问题">
-<meta name="twitter:description" content="发现问题 VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面 排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n"><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="发现问题 VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://cancanneed64.github.io/img/og-cover.jpg' />
     <link rel="shortcut icon" href="/favicon.svg" />
 
@@ -375,7 +375,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -392,8 +392,7 @@
     
 
     <h2 id="发现问题">发现问题
-</h2><p>VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面
-排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置</p>
+</h2><p>VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -414,7 +413,7 @@
 </span></span><span class="line"><span class="cl">- rm -f /root/.ssh/authorized_keys #删除 /root/.ssh/authorized_keys；
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>其中cpa-vps-tunnel.service的保活配置每 30 秒发送保活包，连续 3 次没有响应就断开, 断开后每 5 秒自动重连导致死循环，一直发起ssh连接请求</p>
+</div><p>2.cpa-vps-tunnel.service的保活配置每 30 秒发送保活包，连续 3 次没有响应就断开, 断开后每 5 秒自动重连导致死循环，一直发起ssh连接请求</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -430,7 +429,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="解决方法">解决方法
-</h2><p>使用一个优先级更高的 SSH drop-in，把公钥放到 cloud-init 不会删除的位置，保留 /root/.ssh/authorized_keys 作为兼容路径
+</h2><p>1.使用一个优先级更高的 SSH drop-in，把公钥放到 cloud-init 不会删除的位置，保留 /root/.ssh/authorized_keys 作为兼容路径
 <code>/etc/ssh/sshd_config.d/00-local-hardening.conf</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -450,6 +449,7 @@
 </div>
 </div><p>/etc/ssh/sshd_config会优先加载 sshd_config.d/*.conf
 公钥改放为/etc/ssh/authorized_keys/root，原先/root/.ssh/authorized_keys被删除也不影响</p>
+<p>2.取消cpa-vps-tunnel.service的Restart=always配置，或改用socat转发</p>
 
 </section>
 
@@ -475,7 +475,7 @@
 
 
         <span>
-            最后更新于 10月06日 08点19分, 2026年
+            最后更新于 10月06日 08点42分, 2026年
         </span>
     </section></footer>
 
