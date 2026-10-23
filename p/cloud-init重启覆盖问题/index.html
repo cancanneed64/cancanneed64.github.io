@@ -4,18 +4,18 @@
   dir="ltr"
 >
   <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="发现问题 VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="发现问题 1.VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n">
 <title>cloud-init重启覆盖问题</title>
 
 <link rel='canonical' href='https://cancanneed64.github.io/p/cloud-init%E9%87%8D%E5%90%AF%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/'> 
 <link rel="stylesheet" href="/scss/style.min.70d9a2c8c13658776c5dc76968e7631c0d4c26abe3484815ec40073f95bdcf82.css" />
 <meta property='og:title' content="cloud-init重启覆盖问题">
-<meta property='og:description' content="发现问题 VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n">
+<meta property='og:description' content="发现问题 1.VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n">
 <meta property='og:url' content='https://cancanneed64.github.io/p/cloud-init%E9%87%8D%E5%90%AF%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Opencode' /><meta property='article:tag' content='AI' /><meta property='article:published_time' content='2026-09-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-23T09:42:25&#43;00:00'/><meta property='og:image' content='https://cancanneed64.github.io/img/og-cover.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Opencode' /><meta property='article:tag' content='AI' /><meta property='article:published_time' content='2026-09-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-23T10:22:38&#43;00:00'/><meta property='og:image' content='https://cancanneed64.github.io/img/og-cover.jpg' />
 <meta name="twitter:title" content="cloud-init重启覆盖问题">
-<meta name="twitter:description" content="发现问题 VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n"><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="发现问题 1.VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://cancanneed64.github.io/img/og-cover.jpg' />
     <link rel="shortcut icon" href="/favicon.svg" />
 
@@ -392,7 +392,7 @@
     
 
     <h2 id="发现问题">发现问题
-</h2><p>VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置</p>
+</h2><p>1.VPS维护后发现cpa-vps-tunnel.service用来转发CPA本地端口的ssh服务没有正常运行，访问不到CPA管理界面1.排查后发现VPS重启后自动运行了cloud-init，覆盖掉了原先的ssh配置</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -428,6 +428,43 @@
 </span></span><span class="line"><span class="cl">ServerAliveCountMax=3
 </span></span><span class="line"><span class="cl">Restart=always
 </span></span><span class="line"><span class="cl">RestartSec=5
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3.tailscale启动着但是失效，TCP SYN到达了tailscale0，但没有回SYN-ACK，RTNETLINK answers: Network is unreachable</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">echo &#39;=== addresses ===&#39;
+</span></span><span class="line"><span class="cl">ip -brief address
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">echo &#39;=== routes and rules ===&#39;
+</span></span><span class="line"><span class="cl">ip route
+</span></span><span class="line"><span class="cl">ip rule
+</span></span><span class="line"><span class="cl">ip route show table 52
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">echo &#39;=== Tailscale local address ===&#39;
+</span></span><span class="line"><span class="cl">tailscale ip -4
+</span></span><span class="line"><span class="cl">ip -4 route get (ip) from (ip)
+</span></span><span class="line"><span class="cl">ip -4 route get (ip)  from (ip)  mark 0x80000
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">echo &#39;=== cloud-init ===&#39;
+</span></span><span class="line"><span class="cl">systemctl status cloud-init-local cloud-init cloud-config cloud-final --no-pager -l
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="解决方法">解决方法
@@ -474,6 +511,34 @@
 </span></span><span class="line"><span class="cl">systemctl --user start cpa-vps-tunnel.service
 </span></span></code></pre></td></tr></table>
 </div>
+</div><p>3.原因是升级完成后公网IP会直接配置在虚拟机内部网卡上，重启tailscale并进行iproute，查看tailscale0是否有地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo systemctl restart tailscaled
+</span></span><span class="line"><span class="cl">sleep 5
+</span></span><span class="line"><span class="cl">ip -brief address show tailscale0
+</span></span><span class="line"><span class="cl">tailscale ip -4
+</span></span><span class="line"><span class="cl">ip route get (ip)  from (ip)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果重启后 tailscale0 仍没有地址，再判断是否是供应商 cloud-init 网络脚本清理了 Tailscale 接口</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">journalctl -u tailscaled -b --no-pager -n 100
+</span></span><span class="line"><span class="cl">sudo sed -n &#39;185,210p&#39; /tmp/network_script
+</span></span></code></pre></td></tr></table>
+</div>
 </div>
 </section>
 
@@ -499,7 +564,7 @@
 
 
         <span>
-            最后更新于 10月23日 09点42分, 2026年
+            最后更新于 10月23日 10点22分, 2026年
         </span>
     </section></footer>
 
