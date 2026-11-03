@@ -13,10 +13,9 @@
 <meta property='og:description' content="1. 介绍 2. Go 包执行顺序 获取数据 -&gt; 一组等待搜索的数据源 执行搜索 -&gt; 使用接口进行匹配-发送结果-报告任务完成 跟踪结果 -&gt; 停止结果 显示结果 main search feed match RSS 匹配器\n">
 <meta property='og:url' content='https://cancanneed64.github.io/p/go-%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98/'>
 <meta property='og:site_name' content='江清映明月'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='学习' /><meta property='article:published_time' content='2025-01-08T22:10:45&#43;08:00'/><meta property='article:modified_time' content='2026-11-03T08:20:31&#43;00:00'/><meta property='og:image' content='https://cancanneed64.github.io/img/og-cover.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='学习' /><meta property='article:published_time' content='2025-01-08T22:10:45&#43;08:00'/><meta property='article:modified_time' content='2026-11-03T09:06:56&#43;00:00'/>
 <meta name="twitter:title" content="Go 语言实战">
-<meta name="twitter:description" content="1. 介绍 2. Go 包执行顺序 获取数据 -&gt; 一组等待搜索的数据源 执行搜索 -&gt; 使用接口进行匹配-发送结果-报告任务完成 跟踪结果 -&gt; 停止结果 显示结果 main search feed match RSS 匹配器\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://cancanneed64.github.io/img/og-cover.jpg' />
+<meta name="twitter:description" content="1. 介绍 2. Go 包执行顺序 获取数据 -&gt; 一组等待搜索的数据源 执行搜索 -&gt; 使用接口进行匹配-发送结果-报告任务完成 跟踪结果 -&gt; 停止结果 显示结果 main search feed match RSS 匹配器\n">
     <link rel="shortcut icon" href="/favicon.svg" />
 
 <span id="top"></span>
@@ -44,7 +43,7 @@
         (function() {
             const colorSchemeKey = 'StackColorScheme';
             if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
+                localStorage.setItem(colorSchemeKey, "light");
             }
         })();
     </script><script>
@@ -111,26 +110,6 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
   <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-                <li>
-                    <a 
-                        href='https://twitter.com'
-                        target="_blank"
-                        title="Twitter"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
 </svg>
 
 
@@ -698,7 +677,7 @@ b.ResetTimer()初始化计时器
 
 
         <span>
-            最后更新于 11月03日 08点20分, 2026年
+            最后更新于 11月03日 09点06分, 2026年
         </span>
     </section></footer>
 
@@ -817,30 +796,6 @@ b.ResetTimer()初始化计时器
     <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener"
       ><strong>粤ICP备2022142391号-1 </strong></a
     >
-  </section>
-
-  <section class="powerby">
-    使用 <a
-      href="https://gohugo.io/"
-      target="_blank"
-      rel="noopener"
-      >Hugo</a
-    > 构建
-    <br />
-    主题 <b
-      ><a
-        href="https://github.com/CaiJimmy/hugo-theme-stack"
-        target="_blank"
-        rel="noopener"
-        data-version="3.26.0"
-        >Stack</a
-      ></b
-    > 由 <a
-      href="https://jimmycai.com"
-      target="_blank"
-      rel="noopener"
-      >Jimmy</a
-    > 设计
   </section>
 </footer>
 
